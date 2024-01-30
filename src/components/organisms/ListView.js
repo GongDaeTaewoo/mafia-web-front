@@ -13,7 +13,7 @@ function ListView({ children, className, css }) {
 }
 
 ListView.defaultProps = {
-  className: '',
+  className: 'border border-primary',
   css: emotionCss({}),
 };
 
