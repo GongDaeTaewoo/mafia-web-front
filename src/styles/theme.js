@@ -37,7 +37,7 @@ const fontWeight = {
 
 const rankVariant = {
   FIRST: '1st',
-  SECOND: '2se',
+  SECOND: '2nd',
   THIRD: '3th',
   DEFAULT: 'default',
 };

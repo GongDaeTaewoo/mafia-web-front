@@ -16,19 +16,25 @@ function Rank({ children, variant, className, css }) {
     case '1st':
       return (
         <Text variant={theme.fontVariant.SPAN} css={cssObject}>
-          <i className={`${className} text-danger`} />
+          <i
+            className={`${className} fa-lg fas fa-star`}
+            css={{ color: theme.color.MAFIA_GOLD }}
+          />
           <Text variant={theme.fontVariant.SMALL} css={css}>
             {children}
           </Text>
         </Text>
       );
-    case '2se':
+    case '2nd':
       return (
         <Text variant={theme.fontVariant.SPAN} css={cssObject}>
           <Text variant={theme.fontVariant.SMALL} css={css}>
             {children}
           </Text>
-          <i className={`${className} text-primary`} />
+          <i
+            className={`${className} fa-lg fas fa-star`}
+            css={{ color: theme.color.MAFIA_SILVER }}
+          />
         </Text>
       );
     case '3th':
@@ -37,7 +43,10 @@ function Rank({ children, variant, className, css }) {
           <Text variant={theme.fontVariant.SMALL} css={css}>
             {children}
           </Text>
-          <i className={`${className} text-success`} />
+          <i
+            className={`${className} fa-lg fas fa-star`}
+            css={{ color: theme.color.MAFIA_BRONZE }}
+          />
         </Text>
       );
     default:
@@ -46,15 +55,19 @@ function Rank({ children, variant, className, css }) {
           <Text variant={theme.fontVariant.SMALL} css={css}>
             {children}
           </Text>
-          <i className={`${className} text-secondary`} />
+          <i
+            className={`${className} fa-lg fas fa-certificate`}
+            css={{ color: theme.color.MAFIA_LIGHT_GRAY }}
+          />
         </Text>
       );
   }
 }
 
 Rank.defaultProps = {
-  className: 'fas fa-star',
+  className: '',
   css: emotionCss({
+    color: theme.color.MAFIA_WHITE,
     fontSize: '2.5rem',
     position: 'absolute',
     top: '50%',
