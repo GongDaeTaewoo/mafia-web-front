@@ -5,10 +5,11 @@ import theme from '../../styles/theme';
 
 /** @jsxImportSource @emotion/react */
 
-function Icon({ className, variant, css }) {
+function Icon({ className, variant, color, css }) {
   const cssObject = emotionCss(
     {
       fontSize: variant,
+      color,
     },
     css,
   );
@@ -31,15 +32,17 @@ function Icon({ className, variant, css }) {
 }
 
 Icon.defaultProps = {
-  className: '',
+  className: 'far fa-user-circle fa-lg',
   variant: theme.iconVariant.ME,
   css: emotionCss({}),
+  color: theme.color.MAFIA_WHITE,
 };
 
 Icon.propTypes = {
   className: PropTypes.string,
   variant: PropTypes.oneOf(Object.keys(theme.iconVariant)),
   css: PropTypes.objectOf(emotionCss),
+  color: PropTypes.oneOf(Object.keys(theme.color)),
 };
 
 export default Icon;
