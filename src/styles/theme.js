@@ -51,12 +51,19 @@ const rankVariant = {
   DEFAULT: 'default',
 };
 
+const donutBarUnit = {
+  NONE: 'none',
+  PERCENTAGE: 'percentage',
+  FRACTION: 'fraction',
+};
+
 const theme = {
   color,
   fontVariant,
   fontWeight,
   iconVariant,
   rankVariant,
+  donutBarUnit,
 };
 
 export default theme;
