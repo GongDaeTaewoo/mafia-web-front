@@ -35,10 +35,28 @@ const fontWeight = {
   INHERIT: 'inherit',
 };
 
+const iconVariant = {
+  XS: '1rem',
+  SM: '2rem',
+  ME: '3rem',
+  LG: '4rem',
+  XL: '5rem',
+  XXL: '6rem',
+};
+
+const rankVariant = {
+  FIRST: '1st',
+  SECOND: '2nd',
+  THIRD: '3th',
+  DEFAULT: 'default',
+};
+
 const theme = {
   color,
   fontVariant,
   fontWeight,
+  iconVariant,
+  rankVariant,
 };
 
 export default theme;
