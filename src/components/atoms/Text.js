@@ -91,9 +91,9 @@ Text.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   css: PropTypes.objectOf(emotionCss),
-  variant: PropTypes.oneOf(Object.keys(theme.fontVariant)),
-  fontWeight: PropTypes.oneOf(Object.keys(theme.fontWeight)),
-  color: PropTypes.oneOf(Object.keys(theme.color)),
+  variant: PropTypes.oneOf(Object.values(theme.fontVariant)),
+  fontWeight: PropTypes.oneOf(Object.values(theme.fontWeight)),
+  color: PropTypes.oneOf(Object.values(theme.color)),
 };
 
 export default Text;
