@@ -35,10 +35,18 @@ const fontWeight = {
   INHERIT: 'inherit',
 };
 
+const rankVariant = {
+  FIRST: '1st',
+  SECOND: '2nd',
+  THIRD: '3th',
+  DEFAULT: 'default',
+};
+
 const theme = {
   color,
   fontVariant,
   fontWeight,
+  rankVariant,
 };
 
 export default theme;
