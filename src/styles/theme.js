@@ -44,11 +44,19 @@ const iconVariant = {
   XXL: '6rem',
 };
 
+const rankVariant = {
+  FIRST: '1st',
+  SECOND: '2nd',
+  THIRD: '3th',
+  DEFAULT: 'default',
+};
+
 const theme = {
   color,
   fontVariant,
   fontWeight,
   iconVariant,
+  rankVariant,
 };
 
 export default theme;
