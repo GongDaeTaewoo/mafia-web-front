@@ -1,8 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { css as emotionCss } from '@emotion/react';
-import Text from 'Text';
+import logoImg from '../../assets/images/MAFIA.GG.svg';
+import ImageView from '../atoms/ImageView';
 
-function MainTitle(prop){
-    
-}
+function MainTitle(){
+    return(
+        <ImageView>
+            src = {logoImg},
+            className={MainTitle},
+            css;
+
+        </ImageView>
+    );
+ }
+
+ export default MainTitle;
