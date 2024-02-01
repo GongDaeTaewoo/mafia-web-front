@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
-import ListItem from '../molecules/ListItem';
+import ListItem from './ListItem';
 import ListView from './ListView';
 
 /** @jsxImportSource @emotion/react */
