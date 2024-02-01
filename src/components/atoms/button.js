@@ -15,6 +15,12 @@ function Button({ variant }) {
           회원가입
         </button>
       );
+    case 'login':
+      return (
+        <button type="submit" className="btn btn-secondary">
+          로그인
+        </button>
+      );
     default:
       return (
         <button type="submit" className="btn btn-secondary">
