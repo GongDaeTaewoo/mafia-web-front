@@ -1,7 +1,7 @@
 import React from 'react';
 import Text from '../components/atoms/Text';
 import Button from '../components/atoms/button';
-import Pagination from '../components/organisms/Pagination';
+import Pagination from '../components/molecules/Pagination';
 
 function MainPage() {
   return (
