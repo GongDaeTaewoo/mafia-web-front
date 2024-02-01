@@ -5,6 +5,8 @@ import Input from '../atoms/Input';
 import Text from '../atoms/Text';
 import theme from '../../styles/theme';
 import Button from '../atoms/button';
+import ImageView from '../atoms/ImageView';
+import loginImage from '../../assets/images/login.svg';
 
 /** @jsxImportSource @emotion/react */
 
@@ -17,16 +19,17 @@ function LoginInput() {
     width: 520px; 
   `}
     >
+      <ImageView src={loginImage} alt="login" />
       <div>
-        <Text variant="small" color={theme.color.MAFIA_WHITE}>
+        <Text variant="h5" color={theme.color.MAFIA_WHITE}>
           아이디
         </Text>
 
         <Input variant="short" />
       </div>
 
-      <div>
-        <Text variant="small" color={theme.color.MAFIA_WHITE}>
+      <div css={emotionCss`margin-top: 20px;`}>
+        <Text variant="h5" color={theme.color.MAFIA_WHITE}>
           비밀번호
         </Text>
         <Input variant="short" />
