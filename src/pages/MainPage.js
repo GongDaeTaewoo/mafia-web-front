@@ -1,6 +1,6 @@
 import React from 'react';
 import Text from '../components/atoms/Text';
-import Pagination from '../components/organisms/Pagination';
+import Pagination from '../components/molecules/Pagination';
 
 function MainPage() {
   return (
