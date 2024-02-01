@@ -65,6 +65,7 @@ const donutBarUnit = {
 const buttonVariant = {
   NORMAL: 'normal',
   REGIS: 'register',
+  PAGE: 'page',
 };
 
 const theme = {
