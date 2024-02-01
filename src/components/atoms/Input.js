@@ -20,12 +20,7 @@ function Input({ variant }) {
     case 'forMyPage':
       return <input className="form-control" style={{ width: '300px' }} />;
     default:
-      return (
-        <input
-          className="form-control bg-dark-subtle"
-          style={{ width: '500px' }}
-        />
-      );
+      return <input className="form-control" style={{ width: '500px' }} />;
   }
 }
 
