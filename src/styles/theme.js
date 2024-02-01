@@ -14,4 +14,62 @@ const color = {
   MAFIA_CORAL_PINK: '#FF9473',
 };
 
-export default color;
+const fontVariant = {
+  H1: 'h1',
+  H2: 'h2',
+  H3: 'h3',
+  H4: 'h4',
+  H5: 'h5',
+  H6: 'h6',
+  SPAN: 'span',
+  SMALL: 'small',
+  STRONG: 'strong',
+};
+
+const fontWeight = {
+  NORMAL: 'normal',
+  BOLD: 'bold',
+  BOLDER: 'bolder',
+  LIGHTER: 'lighter',
+  INITIAL: 'initial',
+  INHERIT: 'inherit',
+};
+
+const iconVariant = {
+  XS: '1rem',
+  SM: '2rem',
+  ME: '3rem',
+  LG: '4rem',
+  XL: '5rem',
+  XXL: '6rem',
+};
+
+const rankVariant = {
+  FIRST: '1st',
+  SECOND: '2nd',
+  THIRD: '3th',
+  DEFAULT: 'default',
+};
+
+const listViewVariant = {
+  OL: 'ol',
+  UL: 'ul',
+};
+
+const donutBarUnit = {
+  NONE: 'none',
+  PERCENTAGE: 'percentage',
+  FRACTION: 'fraction',
+};
+
+const theme = {
+  color,
+  fontVariant,
+  fontWeight,
+  iconVariant,
+  rankVariant,
+  listViewVariant,
+  donutBarUnit,
+};
+
+export default theme;
