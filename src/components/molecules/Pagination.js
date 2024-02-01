@@ -1,15 +1,34 @@
-/* eslint-disable eqeqeq */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
 import ListItem from '../atoms/ListItem';
 import ListView from '../atoms/ListView';
+import theme from '../../styles/theme';
+import Button from '../atoms/Button';
 
 /** @jsxImportSource @emotion/react */
 
-function Pagination({ current, total, className, css }) {
-  const cssObject = emotionCss({}, css);
-  function test(currentPage, totalPages, itemsPerPage) {
+function Pagination({ current, total, className, css, paginationItemOnClick }) {
+  const cssObject = emotionCss(
+    {
+      margin: '0 auto',
+      color: theme.color.MAFIA_WHITE,
+      fontWeight: theme.fontWeight.BOLD,
+      backgroundColor: theme.color.MAFIA_BACKGROUND,
+    },
+    css,
+  );
+
+  const selectColorObject = emotionCss({
+    color: theme.color.MAFIA_RED,
+    fontWeight: theme.fontWeight.BOLDER,
+  });
+
+  const disableColorObject = emotionCss({
+    color: theme.color.MAFIA_LIGHT_GRAY,
+  });
+
+  const getPagination = (currentPage, totalPages, itemsPerPage) => {
     // 현재 페이지가 총 페이지 수보다 크면 마지막 페이지로 설정
     // let currentPage = Math.min(currentPage, totalPages);
 
@@ -41,27 +60,39 @@ function Pagination({ current, total, className, css }) {
       nGroupLink: nextGroupLink,
       pageList,
     };
-  }
-  const result = test(current, total, 5);
-  console.log(result);
+  };
+  const result = getPagination(current, total, 5);
+
   return (
-    <ListView className={className} css={cssObject}>
+    <ListView className={`${className} list-unstyled`} css={cssObject}>
       {result.cPage === '1' ? (
-        <ListItem className="bg-secondary">&laquo;</ListItem>
+        <ListItem className="p-2" css={disableColorObject}>
+          <Button>&laquo;</Button>
+        </ListItem>
       ) : (
-        <ListItem>&laquo;</ListItem>
+        <ListItem className="p-2">
+          <Button>&laquo;</Button>
+        </ListItem>
       )}
-      {result.pageList.map((e) =>
-        e == result.cPage ? (
-          <ListItem className="bg-light text-dark">{e}</ListItem>
+      {result.pageList.map((item) =>
+        String(item) === result.cPage ? (
+          <ListItem className="p-2" css={selectColorObject}>
+            <Button onClick={paginationItemOnClick}>{item}</Button>
+          </ListItem>
         ) : (
-          <ListItem>{e}</ListItem>
+          <ListItem className="p-2">
+            <Button>{item}</Button>
+          </ListItem>
         ),
       )}
       {result.cPage === result.tPages ? (
-        <ListItem className="bg-secondary">&raquo;</ListItem>
+        <ListItem className="p-2" css={disableColorObject}>
+          <Button>&raquo;</Button>
+        </ListItem>
       ) : (
-        <ListItem>&raquo;</ListItem>
+        <ListItem className="p-2">
+          <Button>&raquo;</Button>
+        </ListItem>
       )}
     </ListView>
   );
@@ -72,6 +103,7 @@ Pagination.defaultProps = {
   total: '14',
   className: '',
   css: emotionCss({}),
+  paginationItemOnClick: {},
 };
 
 Pagination.propTypes = {
@@ -80,6 +112,8 @@ Pagination.propTypes = {
   //   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   css: PropTypes.objectOf(emotionCss),
+  // eslint-disable-next-line react/forbid-prop-types
+  paginationItemOnClick: PropTypes.object,
 };
 
 export default Pagination;
