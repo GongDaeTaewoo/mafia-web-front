@@ -31,7 +31,7 @@ function Button({
           type="button"
           className={className}
           css={cssObject}
-          onClick={onClick()}
+          onClick={onClick}
         >
           GG
         </button>
@@ -42,7 +42,7 @@ function Button({
           type="button"
           className={className}
           css={cssObject}
-          onClick={onClick()}
+          onClick={onClick}
         >
           회원가입
         </button>
@@ -53,7 +53,7 @@ function Button({
           type="button"
           className={className}
           css={cssObject}
-          onClick={onClick()}
+          onClick={onClick}
         >
           {children}
         </button>
