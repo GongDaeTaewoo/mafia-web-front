@@ -43,7 +43,7 @@ function Pagination({ current, total, className, css }) {
     };
   }
   const result = test(current, total, 5);
-  console.log(result);
+
   return (
     <ListView className={className} css={cssObject}>
       {result.cPage === '1' ? (
