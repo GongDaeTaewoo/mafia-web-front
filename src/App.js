@@ -7,13 +7,15 @@ import OAuthSignupPage from './pages/signup/OAuthSignupPage';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="/signup" element={<Outlet />}>
-        <Route path="" element={<SignupPage />} />
-        <Route path="oauth" element={<OAuthSignupPage />} />
-      </Route>
-    </Routes>
+    <div>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/signup" element={<Outlet />}>
+          <Route path="" element={<SignupPage />} />
+          <Route path="oauth" element={<OAuthSignupPage />} />
+        </Route>
+      </Routes>
+    </div>
   );
 }
 

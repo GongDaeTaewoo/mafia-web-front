@@ -62,6 +62,12 @@ const donutBarUnit = {
   FRACTION: 'fraction',
 };
 
+const buttonVariant = {
+  NORMAL: 'normal',
+  REGIS: 'register',
+  PAGE: 'page',
+};
+
 const theme = {
   color,
   fontVariant,
@@ -70,6 +76,7 @@ const theme = {
   rankVariant,
   listViewVariant,
   donutBarUnit,
+  buttonVariant,
 };
 
 export default theme;
