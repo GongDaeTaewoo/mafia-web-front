@@ -10,6 +10,7 @@ function Button({
   className,
   variant,
   css,
+  fontWeight,
   color,
   backgroundColor,
   iconVariant,
@@ -20,6 +21,7 @@ function Button({
       color,
       backgroundColor,
       fontSize: iconVariant,
+      fontWeight,
     },
     css,
   );
@@ -65,10 +67,11 @@ Button.defaultProps = {
   children: 'Default',
   className: 'btn-group with radio border-0',
   css: emotionCss({}),
-  variant: theme.buttonVariant.NORMAL,
+  variant: '',
   color: theme.color.MAFIA_RED,
   backgroundColor: theme.color.MAFIA_LIGHT_GRAY,
   iconVariant: theme.iconVariant.SM,
+  fontWeight: theme.fontWeight.NORMAL,
   onClick: () => {},
 };
 
@@ -80,6 +83,7 @@ Button.propTypes = {
   color: PropTypes.oneOf(Object.values(theme.color)),
   backgroundColor: PropTypes.oneOf(Object.values(theme.color)),
   iconVariant: PropTypes.oneOf(Object.values(theme.iconVariant)),
+  fontWeight: PropTypes.oneOf(Object.values(theme.fontWeight)),
   onClick: PropTypes.func,
 };
 
