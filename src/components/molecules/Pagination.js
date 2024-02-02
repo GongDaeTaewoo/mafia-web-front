@@ -70,7 +70,6 @@ function Pagination({
     };
   };
   const result = getPagination(current, total, 5);
-  console.log(result);
   return (
     <ListView className={`${className} list-unstyled`} css={cssObject}>
       <ListItem css={disableColorObject} key="left">
