@@ -12,14 +12,14 @@ function Button({
   css,
   color,
   backgroundColor,
-  iconVariant,
+  fontSize,
   onClick,
 }) {
   const cssObject = emotionCss(
     {
       color,
       backgroundColor,
-      fontSize: iconVariant,
+      fontSize,
     },
     css,
   );
@@ -63,12 +63,12 @@ function Button({
 
 Button.defaultProps = {
   children: 'Default',
-  className: 'btn-group with radio border-0',
+  className: 'btn-group with radio border-0 px-3 py-1',
   css: emotionCss({}),
   variant: theme.buttonVariant.NORMAL,
-  color: theme.color.MAFIA_RED,
+  color: theme.color.MAFIA_WHITE,
   backgroundColor: theme.color.MAFIA_LIGHT_GRAY,
-  iconVariant: theme.iconVariant.SM,
+  fontSize: theme.fontSize.SM,
   onClick: () => {},
 };
 
@@ -79,7 +79,7 @@ Button.propTypes = {
   variant: PropTypes.oneOf(Object.values(theme.buttonVariant)),
   color: PropTypes.oneOf(Object.values(theme.color)),
   backgroundColor: PropTypes.oneOf(Object.values(theme.color)),
-  iconVariant: PropTypes.oneOf(Object.values(theme.iconVariant)),
+  fontSize: PropTypes.oneOf(Object.values(theme.fontSize)),
   onClick: PropTypes.func,
 };
 

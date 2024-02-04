@@ -10,12 +10,12 @@ function MainPage() {
       <Text>aaa</Text>
       <Button
         variant={theme.buttonVariant.NORMAL}
-        iconVariant={theme.iconVariant.XS}
+        fontSize={theme.fontSize.XS}
         onClick={() => console.log('테스트')}
       />
       <Button
         variant={theme.buttonVariant.REGIS}
-        iconVariant={theme.iconVariant.SM}
+        fontSize={theme.fontSize.SM}
       />
       <Button
         color={theme.color.MAFIA_BLUE}
