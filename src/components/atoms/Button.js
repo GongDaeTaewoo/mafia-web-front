@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
 import theme from '../../styles/theme';
+import img from '../../assets/images/mafia_icon.svg';
 
 /** @jsxImportSource @emotion/react */
 
@@ -14,6 +15,8 @@ function Button({
   backgroundColor,
   fontSize,
   onClick,
+  width,
+  height,
 }) {
   const cssObject = emotionCss(
     {
@@ -47,6 +50,17 @@ function Button({
           회원가입
         </button>
       );
+    case theme.buttonVariant.IMG:
+      return (
+        <button
+          type="button"
+          className={className}
+          onClick={onClick}
+          css={cssObject}
+        >
+          <img src={img} alt="asd" width={width} height={height} />
+        </button>
+      );
     default:
       return (
         <button
@@ -70,6 +84,8 @@ Button.defaultProps = {
   backgroundColor: theme.color.MAFIA_LIGHT_GRAY,
   fontSize: theme.fontSize.SM,
   onClick: () => {},
+  width: '100',
+  height: '100',
 };
 
 Button.propTypes = {
@@ -81,6 +97,8 @@ Button.propTypes = {
   backgroundColor: PropTypes.oneOf(Object.values(theme.color)),
   fontSize: PropTypes.oneOf(Object.values(theme.fontSize)),
   onClick: PropTypes.func,
+  width: PropTypes.string,
+  height: PropTypes.string,
 };
 
 export default Button;

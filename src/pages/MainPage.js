@@ -18,6 +18,11 @@ function MainPage() {
         fontSize={theme.fontSize.SM}
       />
       <Button
+        variant={theme.buttonVariant.IMG}
+        fontSize={theme.fontSize.SM}
+        onClick={() => console.log('테스트')}
+      />
+      <Button
         color={theme.color.MAFIA_BLUE}
         backgroundColor={theme.color.MAFIA_GOLD}
       >
