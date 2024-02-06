@@ -9,56 +9,76 @@ import Text from '../atoms/Text';
 function Rank({ children, variant, className, css }) {
   const cssObject = emotionCss({
     position: 'relative',
-    fontSize: '5rem',
+    fontSize: '4rem',
   });
 
   switch (variant) {
     case '1st':
       return (
-        <Text variant={theme.fontVariant.SPAN} css={cssObject}>
+        <Text
+          className="d-flex align-items-center"
+          variant={theme.fontVariant.SPAN}
+          css={cssObject}
+        >
           <i
             className={`${className} fa-lg fas fa-star`}
             css={{ color: theme.color.MAFIA_GOLD }}
-          />
-          <Text variant={theme.fontVariant.SMALL} css={css}>
-            {children}
-          </Text>
+          >
+            <Text variant={theme.fontVariant.SMALL} css={css}>
+              {children}
+            </Text>
+          </i>
         </Text>
       );
     case '2nd':
       return (
-        <Text variant={theme.fontVariant.SPAN} css={cssObject}>
-          <Text variant={theme.fontVariant.SMALL} css={css}>
-            {children}
-          </Text>
+        <Text
+          className="d-flex align-items-center"
+          variant={theme.fontVariant.SPAN}
+          css={cssObject}
+        >
           <i
             className={`${className} fa-lg fas fa-star`}
             css={{ color: theme.color.MAFIA_SILVER }}
-          />
+          >
+            <Text variant={theme.fontVariant.SMALL} css={css}>
+              {children}
+            </Text>
+          </i>
         </Text>
       );
     case '3th':
       return (
-        <Text variant={theme.fontVariant.SPAN} css={cssObject}>
-          <Text variant={theme.fontVariant.SMALL} css={css}>
-            {children}
-          </Text>
+        <Text
+          className="d-flex align-items-center"
+          variant={theme.fontVariant.SPAN}
+          css={cssObject}
+        >
           <i
             className={`${className} fa-lg fas fa-star`}
             css={{ color: theme.color.MAFIA_BRONZE }}
-          />
+          >
+            <Text variant={theme.fontVariant.SMALL} css={css}>
+              {children}
+            </Text>
+          </i>
         </Text>
       );
     default:
       return (
-        <Text variant={theme.fontVariant.SPAN} css={cssObject}>
-          <Text variant={theme.fontVariant.SMALL} css={css}>
-            {children}
-          </Text>
+        <Text
+          className="d-flex align-items-center"
+          variant={theme.fontVariant.SPAN}
+          css={cssObject}
+        >
           <i
             className={`${className} fa-lg fas fa-certificate`}
             css={{ color: theme.color.MAFIA_LIGHT_GRAY }}
-          />
+          >
+            <Text variant={theme.fontVariant.SMALL} css={css}>
+              {children}
+            </Text>
+          </i>
         </Text>
       );
   }
