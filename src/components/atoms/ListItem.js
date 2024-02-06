@@ -6,9 +6,9 @@ import { css as emotionCss } from '@emotion/react';
 
 function ListItem({ children, className, css }) {
   return (
-    <span className={className} css={css}>
+    <li className={className} css={css}>
       {children}
-    </span>
+    </li>
   );
 }
 

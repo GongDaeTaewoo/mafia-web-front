@@ -51,12 +51,32 @@ const rankVariant = {
   DEFAULT: 'default',
 };
 
+const listViewVariant = {
+  OL: 'ol',
+  UL: 'ul',
+};
+
+const donutBarUnit = {
+  NONE: 'none',
+  PERCENTAGE: 'percentage',
+  FRACTION: 'fraction',
+};
+
+const buttonVariant = {
+  NORMAL: 'normal',
+  REGIS: 'register',
+  PAGE: 'page',
+};
+
 const theme = {
   color,
   fontVariant,
   fontWeight,
   iconVariant,
   rankVariant,
+  listViewVariant,
+  donutBarUnit,
+  buttonVariant,
 };
 
 export default theme;

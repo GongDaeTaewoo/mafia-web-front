@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
 import theme from '../../styles/theme';
-import Text from './Text';
+import Text from '../atoms/Text';
 
 /** @jsxImportSource @emotion/react */
 
