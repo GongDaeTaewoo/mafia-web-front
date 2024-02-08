@@ -5,6 +5,7 @@ import ListItem from '../atoms/ListItem';
 import ListView from '../atoms/ListView';
 import theme from '../../styles/theme';
 import Button from '../atoms/Button';
+import Text from '../atoms/Text';
 
 /** @jsxImportSource @emotion/react */
 
@@ -22,18 +23,23 @@ function Pagination({
       margin: '0 auto',
       color: theme.color.MAFIA_WHITE,
       fontWeight: theme.fontWeight.BOLD,
-      backgroundColor: theme.color.MAFIA_BACKGROUND,
     },
     css,
   );
 
-  const selectColorObject = emotionCss({
-    color: theme.color.MAFIA_RED,
-    fontWeight: theme.fontWeight.BOLDER,
+  const textCssObject = emotionCss({
+    color: theme.color.MAFIA_WHITE,
+    fontWeight: theme.fontWeight.NORMAL,
   });
 
-  const disableColorObject = emotionCss({
+  const selectedTextCssObject = emotionCss({
+    color: theme.color.MAFIA_RED,
+    fontWeight: theme.fontWeight.BOLD,
+  });
+
+  const disabledTextCssObject = emotionCss({
     color: theme.color.MAFIA_LIGHT_GRAY,
+    fontWeight: theme.fontWeight.NORMAL,
   });
 
   const getPagination = (currentPage, totalPages, itemsPerPage) => {
@@ -69,80 +75,88 @@ function Pagination({
       pageList,
     };
   };
+
   const result = getPagination(current, total, 5);
+
   return (
-    <ListView className={`${className} list-unstyled`} css={cssObject}>
-      <ListItem css={disableColorObject} key="left">
+    <ListView
+      className={`list-unstyled row d-flex justify-content-center align-items-center ${className}`}
+      css={cssObject}
+    >
+      <ListItem
+        className="col d-flex justify-content-center align-items-center"
+        key="left"
+      >
         <Button
-          variant={theme.buttonVariant.PAGE}
           onClick={
             result.pGroupLink === undefined
               ? () => {
+                  // eslint-disable-next-line no-alert
                   alert('이전으로 이동할 페이지가 없습니다.');
                 }
               : () => {
                   prevItemClick(result.pGroupLink);
                 }
           }
-          color={
-            result.cPage === '1'
-              ? theme.color.MAFIA_LIGHT_GRAY
-              : theme.color.MAFIA_WHITE
-          }
-          backgroundColor={theme.color.MAFIA_BACKGROUND}
         >
-          &laquo;
+          <Text
+            css={
+              result.pGroupLink === undefined
+                ? disabledTextCssObject
+                : textCssObject
+            }
+          >
+            &laquo;
+          </Text>
         </Button>
       </ListItem>
-      {result.pageList.map((item) =>
-        String(item) === result.cPage ? (
-          <ListItem key={item} css={selectColorObject}>
-            <Button
-              variant={theme.buttonVariant.PAGE}
-              onClick={() => {
-                paginationItemOnClick(item);
-              }}
-              backgroundColor={theme.color.MAFIA_BACKGROUND}
-              fontWeight={theme.fontWeight.BOLDER}
+      {result.pageList.map((item) => (
+        <ListItem
+          className="col d-flex justify-content-center align-items-center"
+          key={item}
+        >
+          <Button
+            variant={theme.buttonVariant.PAGE}
+            onClick={() => {
+              paginationItemOnClick(item);
+            }}
+          >
+            <Text
+              css={
+                item === result.cPage ? selectedTextCssObject : textCssObject
+              }
             >
               {item}
-            </Button>
-          </ListItem>
-        ) : (
-          <ListItem key={item}>
-            <Button
-              variant={theme.buttonVariant.PAGE}
-              onClick={() => {
-                paginationItemOnClick(item);
-              }}
-              color={theme.color.MAFIA_WHITE}
-              backgroundColor={theme.color.MAFIA_BACKGROUND}
-            >
-              {item}
-            </Button>
-          </ListItem>
-        ),
-      )}
-      <ListItem css={disableColorObject} key="right">
+            </Text>
+          </Button>
+        </ListItem>
+      ))}
+      <ListItem
+        className="col d-flex justify-content-center align-items-center"
+        key="right"
+      >
         <Button
           variant={theme.buttonVariant.PAGE}
           onClick={
-            result.nGroupLink !== undefined
+            result.nGroupLink === undefined
               ? () => {
-                  nextItemClick(String(result.nGroupLink));
-                }
-              : () => {
+                  // eslint-disable-next-line no-alert
                   alert('다음으로 이동할 페이지가 없습니다.');
                 }
+              : () => {
+                  nextItemClick(result.nGroupLink);
+                }
           }
-          color={
-            result.cPage === result.tPages
-              ? theme.color.MAFIA_LIGHT_GRAY
-              : theme.color.MAFIA_WHITE
-          }
-          backgroundColor={theme.color.MAFIA_BACKGROUND}
         >
-          &raquo;
+          <Text
+            css={
+              result.nGroupLink === undefined
+                ? disabledTextCssObject
+                : textCssObject
+            }
+          >
+            &raquo;
+          </Text>
         </Button>
       </ListItem>
     </ListView>
@@ -150,8 +164,8 @@ function Pagination({
 }
 
 Pagination.defaultProps = {
-  current: '14',
-  total: '14',
+  current: 14,
+  total: 14,
   className: '',
   css: emotionCss({}),
   prevItemClick: () => {},
@@ -160,9 +174,8 @@ Pagination.defaultProps = {
 };
 
 Pagination.propTypes = {
-  current: PropTypes.string,
-  total: PropTypes.string,
-  //   children: PropTypes.node.isRequired,
+  current: PropTypes.number,
+  total: PropTypes.number,
   className: PropTypes.string,
   css: PropTypes.objectOf(emotionCss),
   prevItemClick: PropTypes.func,
