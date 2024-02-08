@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
 import theme from '../../styles/theme';
+import Text from './Text';
 
 /** @jsxImportSource @emotion/react */
 
@@ -10,20 +11,31 @@ function Button({
   className,
   variant,
   css,
-  fontWeight,
-  color,
   backgroundColor,
-  iconVariant,
   onClick,
 }) {
   const cssObject = emotionCss(
     {
-      color,
       backgroundColor,
-      fontSize: iconVariant,
-      fontWeight,
     },
     css,
+  );
+
+  const grayButtonCss = emotionCss(
+    {
+      backgroundColor: theme.color.MAFIA_LIGHT_GRAY,
+      border: 'none',
+    },
+    cssObject,
+  );
+
+  const plainButtonCss = emotionCss(
+    {
+      backgroundColor: 'transparent',
+      border: 'none',
+      padding: '0',
+    },
+    cssObject,
   );
 
   switch (variant) {
@@ -31,22 +43,22 @@ function Button({
       return (
         <button
           type="button"
-          className={className}
-          css={cssObject}
+          className={`btn-group ${className}`}
+          css={grayButtonCss}
           onClick={onClick}
         >
-          GG
+          <Text color={theme.color.MAFIA_WHITE}>GG</Text>
         </button>
       );
     case theme.buttonVariant.REGIS:
       return (
         <button
           type="button"
-          className={className}
-          css={cssObject}
+          className={`btn-group ${className}`}
+          css={grayButtonCss}
           onClick={onClick}
         >
-          회원가입
+          <Text color={theme.color.MAFIA_WHITE}>회원가입</Text>
         </button>
       );
     default:
@@ -54,7 +66,7 @@ function Button({
         <button
           type="button"
           className={className}
-          css={cssObject}
+          css={plainButtonCss}
           onClick={onClick}
         >
           {children}
@@ -65,13 +77,10 @@ function Button({
 
 Button.defaultProps = {
   children: 'Default',
-  className: 'btn-group with radio border-0',
+  className: '',
   css: emotionCss({}),
-  variant: '',
-  color: theme.color.MAFIA_RED,
-  backgroundColor: theme.color.MAFIA_LIGHT_GRAY,
-  iconVariant: theme.iconVariant.SM,
-  fontWeight: theme.fontWeight.NORMAL,
+  variant: undefined,
+  backgroundColor: undefined,
   onClick: () => {},
 };
 
@@ -80,10 +89,7 @@ Button.propTypes = {
   className: PropTypes.string,
   css: PropTypes.objectOf(emotionCss),
   variant: PropTypes.oneOf(Object.values(theme.buttonVariant)),
-  color: PropTypes.oneOf(Object.values(theme.color)),
   backgroundColor: PropTypes.oneOf(Object.values(theme.color)),
-  iconVariant: PropTypes.oneOf(Object.values(theme.iconVariant)),
-  fontWeight: PropTypes.oneOf(Object.values(theme.fontWeight)),
   onClick: PropTypes.func,
 };
 
