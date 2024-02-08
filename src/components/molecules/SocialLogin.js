@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
-import ImageView from '../atoms/ImageView';
 import kakaoImage from '../../assets/images/kakao_icon.svg';
 import naverImage from '../../assets/images/naver_icon.svg';
 import googleImage from '../../assets/images/google_icon.svg';
+import Button from '../atoms/Button';
+import theme from '../../styles/theme';
 
 /** @jsxImportSource @emotion/react */
 
@@ -18,7 +19,7 @@ function SocialLogin({ css }) {
     css,
   );
   
-  const imageCss = emotionCss(
+  const btnCss = emotionCss(
     {
         marginRight: '5rem',
     }
@@ -27,9 +28,9 @@ function SocialLogin({ css }) {
 
   return (
     <div css= {containerCss}>
-      <ImageView src={kakaoImage} alt="kakao" css={imageCss} />
-      <ImageView src={naverImage} alt="naver" css={imageCss} />
-      <ImageView src={googleImage} alt="google"/>
+      <Button variant={theme.buttonVariant.IMG} img={kakaoImage} alt="kakao" css={btnCss} width="70" height="70"/>
+      <Button variant={theme.buttonVariant.IMG} img={naverImage} alt="naver" css={btnCss} width="70" height="70"/>
+      <Button variant={theme.buttonVariant.IMG} img={googleImage} alt="google" width="70" height="70"/>
     </div>
   );
 }
