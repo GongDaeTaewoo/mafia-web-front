@@ -35,7 +35,7 @@ const fontWeight = {
   INHERIT: 'inherit',
 };
 
-const iconVariant = {
+const fontSize = {
   XS: '1rem',
   SM: '2rem',
   ME: '3rem',
@@ -65,6 +65,7 @@ const donutBarUnit = {
 const buttonVariant = {
   NORMAL: 'normal',
   REGIS: 'register',
+  IMG: 'img',
   PAGE: 'page',
 };
 
@@ -72,7 +73,7 @@ const theme = {
   color,
   fontVariant,
   fontWeight,
-  iconVariant,
+  fontSize,
   rankVariant,
   listViewVariant,
   donutBarUnit,
