@@ -66,6 +66,7 @@ const buttonVariant = {
   NORMAL: 'normal',
   REGIS: 'register',
   IMG: 'img',
+  PAGE: 'page',
 };
 
 const theme = {
