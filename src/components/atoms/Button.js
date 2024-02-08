@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
 import theme from '../../styles/theme';
+import Text from './Text';
 import img from '../../assets/images/mafia_icon.svg';
 
 /** @jsxImportSource @emotion/react */
@@ -11,20 +12,33 @@ function Button({
   className,
   variant,
   css,
-  color,
   backgroundColor,
-  fontSize,
   onClick,
   width,
   height,
 }) {
   const cssObject = emotionCss(
     {
-      color,
       backgroundColor,
-      fontSize,
     },
     css,
+  );
+
+  const grayButtonCss = emotionCss(
+    {
+      backgroundColor: theme.color.MAFIA_LIGHT_GRAY,
+      border: 'none',
+    },
+    cssObject,
+  );
+
+  const plainButtonCss = emotionCss(
+    {
+      backgroundColor: 'transparent',
+      border: 'none',
+      padding: '0',
+    },
+    cssObject,
   );
 
   switch (variant) {
@@ -32,22 +46,22 @@ function Button({
       return (
         <button
           type="button"
-          className={className}
-          css={cssObject}
+          className={`btn-group ${className}`}
+          css={grayButtonCss}
           onClick={onClick}
         >
-          GG
+          <Text color={theme.color.MAFIA_WHITE}>GG</Text>
         </button>
       );
     case theme.buttonVariant.REGIS:
       return (
         <button
           type="button"
-          className={className}
-          css={cssObject}
+          className={`btn-group ${className}`}
+          css={grayButtonCss}
           onClick={onClick}
         >
-          회원가입
+          <Text color={theme.color.MAFIA_WHITE}>회원가입</Text>
         </button>
       );
     case theme.buttonVariant.IMG:
@@ -56,7 +70,7 @@ function Button({
           type="button"
           className={className}
           onClick={onClick}
-          css={cssObject}
+          css={plainButtonCss}
         >
           <img src={img} alt="asd" width={width} height={height} />
         </button>
@@ -66,7 +80,7 @@ function Button({
         <button
           type="button"
           className={className}
-          css={cssObject}
+          css={plainButtonCss}
           onClick={onClick}
         >
           {children}
@@ -77,12 +91,10 @@ function Button({
 
 Button.defaultProps = {
   children: 'Default',
-  className: 'btn-group with radio border-0 px-3 py-1',
+  className: '',
   css: emotionCss({}),
-  variant: theme.buttonVariant.NORMAL,
-  color: theme.color.MAFIA_WHITE,
-  backgroundColor: theme.color.MAFIA_LIGHT_GRAY,
-  fontSize: theme.fontSize.SM,
+  variant: undefined,
+  backgroundColor: undefined,
   onClick: () => {},
   width: '100',
   height: '100',
@@ -93,9 +105,7 @@ Button.propTypes = {
   className: PropTypes.string,
   css: PropTypes.objectOf(emotionCss),
   variant: PropTypes.oneOf(Object.values(theme.buttonVariant)),
-  color: PropTypes.oneOf(Object.values(theme.color)),
   backgroundColor: PropTypes.oneOf(Object.values(theme.color)),
-  fontSize: PropTypes.oneOf(Object.values(theme.fontSize)),
   onClick: PropTypes.func,
   width: PropTypes.string,
   height: PropTypes.string,
