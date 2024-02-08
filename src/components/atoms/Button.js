@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
 import theme from '../../styles/theme';
+import img from '../../assets/images/mafia_icon.svg';
 
 /** @jsxImportSource @emotion/react */
 
@@ -10,18 +11,18 @@ function Button({
   className,
   variant,
   css,
-  fontWeight,
   color,
   backgroundColor,
-  iconVariant,
+  fontSize,
   onClick,
+  width,
+  height,
 }) {
   const cssObject = emotionCss(
     {
       color,
       backgroundColor,
-      fontSize: iconVariant,
-      fontWeight,
+      fontSize,
     },
     css,
   );
@@ -49,6 +50,17 @@ function Button({
           회원가입
         </button>
       );
+    case theme.buttonVariant.IMG:
+      return (
+        <button
+          type="button"
+          className={className}
+          onClick={onClick}
+          css={cssObject}
+        >
+          <img src={img} alt="asd" width={width} height={height} />
+        </button>
+      );
     default:
       return (
         <button
@@ -65,14 +77,15 @@ function Button({
 
 Button.defaultProps = {
   children: 'Default',
-  className: 'btn-group with radio border-0',
+  className: 'btn-group with radio border-0 px-3 py-1',
   css: emotionCss({}),
-  variant: '',
-  color: theme.color.MAFIA_RED,
+  variant: theme.buttonVariant.NORMAL,
+  color: theme.color.MAFIA_WHITE,
   backgroundColor: theme.color.MAFIA_LIGHT_GRAY,
-  iconVariant: theme.iconVariant.SM,
-  fontWeight: theme.fontWeight.NORMAL,
+  fontSize: theme.fontSize.SM,
   onClick: () => {},
+  width: '100',
+  height: '100',
 };
 
 Button.propTypes = {
@@ -82,9 +95,10 @@ Button.propTypes = {
   variant: PropTypes.oneOf(Object.values(theme.buttonVariant)),
   color: PropTypes.oneOf(Object.values(theme.color)),
   backgroundColor: PropTypes.oneOf(Object.values(theme.color)),
-  iconVariant: PropTypes.oneOf(Object.values(theme.iconVariant)),
-  fontWeight: PropTypes.oneOf(Object.values(theme.fontWeight)),
+  fontSize: PropTypes.oneOf(Object.values(theme.fontSize)),
   onClick: PropTypes.func,
+  width: PropTypes.string,
+  height: PropTypes.string,
 };
 
 export default Button;
