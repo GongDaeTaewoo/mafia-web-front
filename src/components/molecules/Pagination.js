@@ -78,7 +78,6 @@ function Pagination({
           onClick={
             result.pGroupLink === undefined
               ? () => {
-                  // eslint-disable-next-line no-alert
                   alert('이전으로 이동할 페이지가 없습니다.');
                 }
               : () => {
@@ -133,7 +132,6 @@ function Pagination({
                   nextItemClick(String(result.nGroupLink));
                 }
               : () => {
-                  // eslint-disable-next-line no-alert
                   alert('다음으로 이동할 페이지가 없습니다.');
                 }
           }
