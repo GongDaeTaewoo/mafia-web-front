@@ -13,8 +13,7 @@ function RankDetail({ className, css }) {
     {
       imageSrc: image,
       rank: 1,
-      title: 'title',
-      content: 'content',
+      cards: [{ id: 1, title: 'title', content: 'content' }],
       total: 100,
       value: 50,
       unit: theme.donutBarUnit.PERCENTAGE,
@@ -22,8 +21,7 @@ function RankDetail({ className, css }) {
     {
       imageSrc: image,
       rank: 2,
-      title: 'title',
-      content: 'content',
+      cards: [{ id: 2, title: 'title', content: 'content' }],
       total: 100,
       value: 50,
       unit: theme.donutBarUnit.PERCENTAGE,
@@ -31,8 +29,7 @@ function RankDetail({ className, css }) {
     {
       imageSrc: image,
       rank: 3,
-      title: 'title',
-      content: 'content',
+      cards: [{ id: 3, title: 'title', content: 'content' }],
       total: 100,
       value: 50,
       unit: theme.donutBarUnit.PERCENTAGE,
@@ -40,8 +37,7 @@ function RankDetail({ className, css }) {
     {
       imageSrc: image,
       rank: 4,
-      title: 'title',
-      content: 'content',
+      cards: [{ id: 4, title: 'title', content: 'content' }],
       total: 100,
       value: 50,
       unit: theme.donutBarUnit.PERCENTAGE,
@@ -49,8 +45,7 @@ function RankDetail({ className, css }) {
     {
       imageSrc: image,
       rank: 5,
-      title: 'title',
-      content: 'content',
+      cards: [{ id: 5, title: 'title', content: 'content' }],
       total: 100,
       value: 50,
       unit: theme.donutBarUnit.PERCENTAGE,
@@ -58,8 +53,7 @@ function RankDetail({ className, css }) {
     {
       imageSrc: image,
       rank: 6,
-      title: 'title',
-      content: 'content',
+      cards: [{ id: 6, title: 'title', content: 'content' }],
       total: 100,
       value: 50,
       unit: theme.donutBarUnit.PERCENTAGE,
@@ -67,8 +61,7 @@ function RankDetail({ className, css }) {
     {
       imageSrc: image,
       rank: 7,
-      title: 'title',
-      content: 'content',
+      cards: [{ id: 7, title: 'title', content: 'content' }],
       total: 100,
       value: 50,
       unit: theme.donutBarUnit.PERCENTAGE,
@@ -76,8 +69,7 @@ function RankDetail({ className, css }) {
     {
       imageSrc: image,
       rank: 8,
-      title: 'title',
-      content: 'content',
+      cards: [{ id: 8, title: 'title', content: 'content' }],
       total: 100,
       value: 50,
       unit: theme.donutBarUnit.PERCENTAGE,
@@ -85,8 +77,7 @@ function RankDetail({ className, css }) {
     {
       imageSrc: image,
       rank: 9,
-      title: 'title',
-      content: 'content',
+      cards: [{ id: 9, title: 'title', content: 'content' }],
       total: 100,
       value: 50,
       unit: theme.donutBarUnit.PERCENTAGE,
@@ -94,8 +85,7 @@ function RankDetail({ className, css }) {
     {
       imageSrc: image,
       rank: 10,
-      title: 'title',
-      content: 'content',
+      cards: [{ id: 10, title: 'title', content: 'content' }],
       total: 100,
       value: 50,
       unit: theme.donutBarUnit.PERCENTAGE,

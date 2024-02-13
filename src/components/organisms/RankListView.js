@@ -56,8 +56,7 @@ function RankListView({
           </Rank>
           <ContentListItem
             imageSrc={listItem.imageSrc}
-            title={listItem.title}
-            content={listItem.content}
+            cards={listItem.cards}
             key={listItem.id}
             className="border-0"
           >
