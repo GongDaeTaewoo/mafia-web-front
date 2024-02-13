@@ -6,77 +6,108 @@ import ContentListItem from './ContentListItem';
 import DonutBar from '../atoms/DonutBar';
 import theme from '../../styles/theme';
 import Rank from '../molecules/Rank';
+import Pagination from '../molecules/Pagination';
+import Button from '../atoms/Button';
+
 /** @jsxImportSource @emotion/react */
 
-function RankListView({ data, className, css }) {
-  const cssObject = emotionCss(css);
+function RankListView({
+  currentPage,
+  totalPage,
+  listItems,
+  onListItemClick,
+  onPaginationItemClick,
+  className,
+  css,
+}) {
+  const cssObject = emotionCss(
+    { backgroundColor: theme.color.MAFIA_CONTAINER },
+    css,
+  );
+
+  const getRankVariant = (variant) => {
+    switch (variant) {
+      case 1:
+        return theme.rankVariant.FIRST;
+      case 2:
+        return theme.rankVariant.SECOND;
+      case 3:
+        return theme.rankVariant.THIRD;
+      default:
+        return theme.rankVariant.DEFAULT;
+    }
+  };
   return (
-    <ListView className={`list-group ${className}`} css={cssObject}>
-      {data.map((item) => {
-        let rankComponent = '';
-        switch (item.rank) {
-          case 1:
-            rankComponent = (
-              <Rank variant={theme.rankVariant.FIRST}>{item.rank}</Rank>
-            );
-            break;
-          case 2:
-            rankComponent = (
-              <Rank variant={theme.rankVariant.SECOND}>{item.rank}</Rank>
-            );
-            break;
-          case 3:
-            rankComponent = (
-              <Rank variant={theme.rankVariant.SECOND}>{item.rank}</Rank>
-            );
-            break;
-          default:
-            rankComponent = (
-              <Rank variant={theme.rankVariant.DEFAULT}>{item.rank}</Rank>
-            );
-        }
-        return (
-          <div
-            className="d-flex"
-            css={{ backgroundColor: theme.color.MAFIA_ITEM }}
+    <ListView className={`list-group ${className} p-0`} css={cssObject}>
+      {listItems.map((listItem) => (
+        <Button
+          onClick={() => {
+            onListItemClick(listItem.id);
+          }}
+          css={emotionCss({
+            textAlign: 'start',
+            width: '100%',
+            display: 'flex',
+            backgroundColor: theme.color.MAFIA_ITEM,
+          })}
+        >
+          <Rank variant={getRankVariant(listItem.rank)} fontSize="3rem">
+            {listItem.rank}
+          </Rank>
+          <ContentListItem
+            imageSrc={listItem.imageSrc}
+            title={listItem.title}
+            content={listItem.content}
+            key={listItem.id}
+            className="border-0"
           >
-            {rankComponent}
-            <ContentListItem
-              imageSrc={item.imageSrc}
-              title={item.title}
-              content={item.content}
-            >
-              <DonutBar
-                value={item.value}
-                total={item.total}
-                unit={item.unit}
-                css={emotionCss({ minHeight: '3rem', minWidth: '3rem' })}
-              />
-            </ContentListItem>
-          </div>
-        );
-      })}
+            <DonutBar
+              value={listItem.value}
+              total={listItem.total}
+              unit={listItem.unit}
+              css={emotionCss({ minHeight: '3rem', minWidth: '3rem' })}
+            />
+          </ContentListItem>
+        </Button>
+      ))}
+      {totalPage !== 1 && (
+        <Pagination
+          current={currentPage}
+          total={totalPage}
+          paginationItemOnClick={onPaginationItemClick}
+          className="pb-1"
+        />
+      )}
     </ListView>
   );
 }
 
 RankListView.defaultProps = {
+  currentPage: 1,
+  totalPage: 1,
+  onListItemClick: () => {},
+  onPaginationItemClick: () => {},
   className: '',
   css: emotionCss({}),
 };
 
 RankListView.propTypes = {
-  data: PropTypes.arrayOf(
+  currentPage: PropTypes.number,
+  totalPage: PropTypes.number,
+  listItems: PropTypes.arrayOf(
     PropTypes.shape({
-      rank: PropTypes.number,
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
       title: PropTypes.string,
       content: PropTypes.string,
       imageSrc: PropTypes.string,
       value: PropTypes.number,
       total: PropTypes.number,
       unit: PropTypes.oneOf(Object.values(theme.donutBarUnit)),
+      rank: PropTypes.number,
     }),
   ).isRequired,
+  onListItemClick: PropTypes.func,
+  onPaginationItemClick: PropTypes.func,
   className: PropTypes.string,
   css: PropTypes.objectOf(emotionCss),
 };
