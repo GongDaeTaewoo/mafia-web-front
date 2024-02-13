@@ -21,6 +21,7 @@ function MainPage() {
     <div>
       MainPage
       <Text>aaa</Text>
+      <Pagination current="11" total="14" className="bg-dark text-light" />
       <Pagination
         current={11}
         total={14}
