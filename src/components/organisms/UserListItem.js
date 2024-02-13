@@ -4,42 +4,45 @@ import PropTypes from 'prop-types';
 import ListView from '../atoms/ListView';
 import ListItem from '../atoms/ListItem';
 import theme from '../../styles/theme';
+import ImageView from '../atoms/ImageView';
+import searchPageImage from '../../assets/images/searchPageImage.svg';
 /** @jsxImportSource @emotion/react */
 
-function UserListItem({ c1, c2, c3, c4 }) {
+function UserListItem({ data }) {
   const ListViewCSS = css`
     background-color: ${theme.color.MAFIA_LIGHT_GRAY};
     height: 100px;
+    width: 1000px;
     display: flex;
     justify-content: space-evenly;
-    margin-top: 30px;
+    margin: 30px auto;
   `;
   const ListItemCSS = css`
     margin: 20px;
     list-style: none;
   `;
+  const ListImageCSS = css`
+    list-style: none;
+  `;
   return (
     <ListView className="" css={ListViewCSS}>
-      <ListItem className="" css={ListItemCSS}>
-        {c1}
+      <ListItem className="" css={ListImageCSS}>
+        <ImageView src={searchPageImage} />
       </ListItem>
       <ListItem className="" css={ListItemCSS}>
-        {c2}
+        {data.name}
       </ListItem>
       <ListItem className="" css={ListItemCSS}>
-        {c3}
+        {data.odds}
       </ListItem>
       <ListItem className="" css={ListItemCSS}>
-        {c4}
+        {data.title}
       </ListItem>
     </ListView>
   );
 }
 
 UserListItem.propTypes = {
-  c1: PropTypes.isRequired,
-  c2: PropTypes.isRequired,
-  c3: PropTypes.isRequired,
-  c4: PropTypes.isRequired,
+  data: PropTypes.isRequired,
 };
 export default UserListItem;

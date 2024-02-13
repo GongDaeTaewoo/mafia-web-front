@@ -1,26 +1,55 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { css as emotionCss } from '@emotion/react';
+import { css } from '@emotion/react';
+import theme from '../../styles/theme';
+import Search from '../molecules/Search';
+import UserListItem from '../organisms/UserListItem';
+import ListView from '../atoms/ListView';
+import ListItem from '../atoms/ListItem';
 
 /** @jsxImportSource @emotion/react */
 
-function SearchPageTemplate({ children, className, css }) {
+function SearchPageTemplate({ dataList, className }) {
+  const SearchPageCSS = css`
+    background-color: ${theme.color.MAFIA_BACKGROUND};
+    height: 10000px;
+  `;
+  const SearchCSS = css`
+    padding-top: 150px;
+  `;
+  const ListViewCSS = css`
+    background-color: ${theme.color.MAFIA_LIGHT_GRAY};
+    height: 30px;
+    width: 1000px;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 30px auto;
+    list-style: none;
+  `;
+
   return (
-    <div className={className} css={css}>
-      {children}
+    <div className={className} css={SearchPageCSS}>
+      <Search css={SearchCSS} className={className} variant="long" />
+      <ListView css={ListViewCSS}>
+        <ListItem>■</ListItem>
+        <ListItem> 아이디</ListItem>
+        <ListItem> 랭킹</ListItem>
+        <ListItem> 칭호</ListItem>
+      </ListView>
+      {dataList.map((data) => (
+        <UserListItem data={data} />
+      ))}
     </div>
   );
 }
 
 SearchPageTemplate.defaultProps = {
   className: '',
-  css: emotionCss({}),
 };
 
 SearchPageTemplate.propTypes = {
-  children: PropTypes.node.isRequired,
+  dataList: PropTypes.node.isRequired,
   className: PropTypes.string,
-  css: PropTypes.objectOf(emotionCss),
 };
 
 export default SearchPageTemplate;

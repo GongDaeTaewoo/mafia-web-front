@@ -3,6 +3,7 @@ import Text from '../components/atoms/Text';
 import theme from '../styles/theme';
 import Button from '../components/atoms/Button';
 import Pagination from '../components/molecules/Pagination';
+import Search from '../components/molecules/Search';
 
 function MainPage() {
   const onItemClick = (current) => {
@@ -21,6 +22,8 @@ function MainPage() {
     <div>
       MainPage
       <Text>aaa</Text>
+      <Search variant="long" />
+      <Search variant="forMyPage" />
       <Pagination current="11" total="14" className="bg-dark text-light" />
       <Pagination
         current="11"
