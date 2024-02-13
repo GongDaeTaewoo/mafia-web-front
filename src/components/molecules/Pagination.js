@@ -9,15 +9,7 @@ import Text from '../atoms/Text';
 
 /** @jsxImportSource @emotion/react */
 
-function Pagination({
-  current,
-  total,
-  className,
-  css,
-  prevItemClick,
-  paginationItemOnClick,
-  nextItemClick,
-}) {
+function Pagination({ current, total, className, css, paginationItemOnClick }) {
   const cssObject = emotionCss(
     {
       margin: '0 auto',
@@ -78,6 +70,25 @@ function Pagination({
 
   const result = getPagination(current, total, 5);
 
+  const onPrevClick =
+    result.pGroupLink === undefined
+      ? () => {
+          // eslint-disable-next-line no-alert
+          alert('이전으로 이동할 페이지가 없습니다.');
+        }
+      : () => {
+          paginationItemOnClick(result.pGroupLink);
+        };
+  const onNextClick =
+    result.nGroupLink === undefined
+      ? () => {
+          // eslint-disable-next-line no-alert
+          alert('다음으로 이동할 페이지가 없습니다.');
+        }
+      : () => {
+          paginationItemOnClick(result.nGroupLink);
+        };
+
   return (
     <ListView
       className={`list-unstyled row d-flex justify-content-center align-items-center ${className}`}
@@ -87,18 +98,7 @@ function Pagination({
         className="col d-flex justify-content-center align-items-center"
         key="left"
       >
-        <Button
-          onClick={
-            result.pGroupLink === undefined
-              ? () => {
-                  // eslint-disable-next-line no-alert
-                  alert('이전으로 이동할 페이지가 없습니다.');
-                }
-              : () => {
-                  prevItemClick(result.pGroupLink);
-                }
-          }
-        >
+        <Button onClick={onPrevClick}>
           <Text
             css={
               result.pGroupLink === undefined
@@ -135,19 +135,7 @@ function Pagination({
         className="col d-flex justify-content-center align-items-center"
         key="right"
       >
-        <Button
-          variant={theme.buttonVariant.PAGE}
-          onClick={
-            result.nGroupLink === undefined
-              ? () => {
-                  // eslint-disable-next-line no-alert
-                  alert('다음으로 이동할 페이지가 없습니다.');
-                }
-              : () => {
-                  nextItemClick(result.nGroupLink);
-                }
-          }
-        >
+        <Button variant={theme.buttonVariant.PAGE} onClick={onNextClick}>
           <Text
             css={
               result.nGroupLink === undefined
@@ -168,9 +156,7 @@ Pagination.defaultProps = {
   total: 14,
   className: '',
   css: emotionCss({}),
-  prevItemClick: () => {},
   paginationItemOnClick: () => {},
-  nextItemClick: () => {},
 };
 
 Pagination.propTypes = {
@@ -178,9 +164,7 @@ Pagination.propTypes = {
   total: PropTypes.number,
   className: PropTypes.string,
   css: PropTypes.objectOf(emotionCss),
-  prevItemClick: PropTypes.func,
   paginationItemOnClick: PropTypes.func,
-  nextItemClick: PropTypes.func,
 };
 
 export default Pagination;

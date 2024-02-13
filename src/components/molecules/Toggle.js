@@ -31,8 +31,8 @@ function Toggle({
     <Button
       className={className}
       css={cssObject}
-      onClick={() => {
-        onClick();
+      onClick={(e) => {
+        onClick(e);
         setToggleState(!toggleState);
       }}
     >
@@ -48,7 +48,7 @@ Toggle.defaultProps = {
   className: '',
   css: emotionCss({}),
   toggled: false,
-  iconSize: theme.iconVariant.SM,
+  iconSize: theme.fontSize.SM,
   onToggle: () => {},
   onUntoggle: () => {},
 };
@@ -59,7 +59,7 @@ Toggle.propTypes = {
   toggled: PropTypes.bool,
   toggledSrc: PropTypes.string.isRequired,
   untoggledSrc: PropTypes.string.isRequired,
-  iconSize: PropTypes.oneOf(Object.values(theme.iconVariant)),
+  iconSize: PropTypes.oneOf(Object.values(theme.fontSize)),
   onToggle: PropTypes.func,
   onUntoggle: PropTypes.func,
 };

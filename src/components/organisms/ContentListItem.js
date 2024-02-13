@@ -19,6 +19,7 @@ function ContentListItem({
     {
       backgroundColor: theme.color.MAFIA_ITEM,
       borderColor: theme.color.MAFIA_CONTAINER,
+      ':hover': { backgroundColor: theme.color.MAFIA_LIGHT_GRAY },
     },
     css,
   );

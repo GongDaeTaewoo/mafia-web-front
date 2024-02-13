@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
 import ListView from '../atoms/ListView';
 import ContentListItem from './ContentListItem';
-import DonutBar from '../atoms/DonutBar';
 import theme from '../../styles/theme';
 import Pagination from '../molecules/Pagination';
 import Text from '../atoms/Text';
@@ -11,7 +10,7 @@ import Button from '../atoms/Button';
 
 /** @jsxImportSource @emotion/react */
 
-function DonutListView({
+function ImageCardListView({
   title,
   currentPage,
   totalPage,
@@ -48,14 +47,7 @@ function DonutListView({
             title={listItem.title}
             content={listItem.content}
             key={listItem.id}
-          >
-            <DonutBar
-              value={listItem.value}
-              total={listItem.total}
-              unit={listItem.unit}
-              css={emotionCss({ minHeight: '3rem', minWidth: '3rem' })}
-            />
-          </ContentListItem>
+          />
         </Button>
       ))}
       {totalPage !== 1 && (
@@ -70,7 +62,7 @@ function DonutListView({
   );
 }
 
-DonutListView.defaultProps = {
+ImageCardListView.defaultProps = {
   title: undefined,
   currentPage: 1,
   totalPage: 1,
@@ -80,7 +72,7 @@ DonutListView.defaultProps = {
   css: emotionCss({}),
 };
 
-DonutListView.propTypes = {
+ImageCardListView.propTypes = {
   title: PropTypes.string,
   currentPage: PropTypes.number,
   totalPage: PropTypes.number,
@@ -90,9 +82,6 @@ DonutListView.propTypes = {
       title: PropTypes.string,
       content: PropTypes.string,
       imageSrc: PropTypes.string,
-      value: PropTypes.number,
-      total: PropTypes.number,
-      unit: PropTypes.oneOf(Object.values(theme.donutBarUnit)),
     }),
   ).isRequired,
   onListItemClick: PropTypes.func,
@@ -101,4 +90,4 @@ DonutListView.propTypes = {
   css: PropTypes.objectOf(emotionCss),
 };
 
-export default DonutListView;
+export default ImageCardListView;
