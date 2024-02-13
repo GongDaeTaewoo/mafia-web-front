@@ -31,8 +31,8 @@ function Toggle({
     <Button
       className={className}
       css={cssObject}
-      onClick={() => {
-        onClick();
+      onClick={(e) => {
+        onClick(e);
         setToggleState(!toggleState);
       }}
     >
