@@ -1,19 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { css as emotionCss } from '@emotion/react';
+import theme from '../../styles/theme';
+/** @jsxImportSource @emotion/react */
 
 function Input({ variant }) {
+  const inputColor = emotionCss({
+    backgroundColor: theme.color.MAFIA_LIGHT_GRAY,
+  });
   switch (variant) {
     case 'long':
       return (
         <input
-          className="form-control bg-dark-subtle"
+          css={inputColor}
+          className="form-control"
           style={{ width: '800px' }}
         />
       );
     case 'short':
       return (
         <input
-          className="form-control bg-dark-subtle"
+          css={inputColor}
+          className="form-control"
           style={{ width: '500px' }}
         />
       );
