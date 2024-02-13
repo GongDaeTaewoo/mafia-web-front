@@ -91,7 +91,7 @@ function Pagination({ current, total, className, css, paginationItemOnClick }) {
 
   return (
     <ListView
-      className={`list-unstyled row d-flex justify-content-center align-items-center ${className}`}
+      className={`list-unstyled row d-flex justify-content-center align-items-center ${className} g-2`}
       css={cssObject}
     >
       <ListItem
