@@ -6,24 +6,25 @@ import theme from '../../styles/theme';
 /** @jsxImportSource @emotion/react */
 
 function ListView({ children, variant, className, css }) {
+  const cssObject = emotionCss({ padding: 0 }, css);
   switch (variant) {
     case theme.listViewVariant.UL:
       return (
-        <ul className={className} css={css}>
+        <ul className={className} css={cssObject}>
           {children}
         </ul>
       );
 
     case theme.listViewVariant.OL:
       return (
-        <ol className={className} css={css}>
+        <ol className={className} css={cssObject}>
           {children}
         </ol>
       );
 
     default:
       return (
-        <ul className={className} css={css}>
+        <ul className={className} css={cssObject}>
           {children}
         </ul>
       );

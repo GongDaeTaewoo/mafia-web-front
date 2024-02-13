@@ -69,6 +69,19 @@ const buttonVariant = {
   PAGE: 'page',
 };
 
+const buttonType = {
+  BUTTON: 'button',
+  SUBMIT: 'submit',
+};
+
+const breakPoint = {
+  SM: 'sm',
+  MD: 'md',
+  LG: 'lg',
+  XL: 'xl',
+  XXL: 'xxl',
+};
+
 const theme = {
   color,
   fontVariant,
@@ -78,6 +91,8 @@ const theme = {
   listViewVariant,
   donutBarUnit,
   buttonVariant,
+  buttonType,
+  breakPoint,
 };
 
 export default theme;

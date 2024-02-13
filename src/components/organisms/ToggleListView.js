@@ -42,31 +42,36 @@ function ToggleListView({
       )}
       {listItems.map((listItem) => (
         <Button
+          key={listItem.id}
           onClick={() => {
             onListItemClick(listItem.id);
           }}
           css={emotionCss({ textAlign: 'start', width: '100%' })}
         >
-          <ContentListItem
-            imageSrc={listItem.imageSrc}
-            title={listItem.title}
-            content={listItem.content}
-            key={listItem.id}
-          >
-            <Toggle
-              toggled={listItem.toggled}
-              toggledSrc={toggledSrc}
-              untoggledSrc={untoggledSrc}
-              onToggle={(e) => {
-                e.stopPropagation();
-                onToggle(listItem.id);
-              }}
-              onUntoggle={(e) => {
-                e.stopPropagation();
-                onUntoggle(listItem.id);
-              }}
-              css={emotionCss({ width: '100%', height: '100%' })}
-            />
+          <ContentListItem imageSrc={listItem.imageSrc} cards={listItem.cards}>
+            <div
+              css={emotionCss({
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              })}
+            >
+              <Toggle
+                toggled={listItem.toggled}
+                toggledSrc={toggledSrc}
+                untoggledSrc={untoggledSrc}
+                onToggle={(e) => {
+                  e.stopPropagation();
+                  onToggle(listItem.id);
+                }}
+                onUntoggle={(e) => {
+                  e.stopPropagation();
+                  onUntoggle(listItem.id);
+                }}
+              />
+            </div>
           </ContentListItem>
         </Button>
       ))}
@@ -101,9 +106,15 @@ ToggleListView.propTypes = {
   listItems: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-      title: PropTypes.string,
-      content: PropTypes.string,
       imageSrc: PropTypes.string,
+      cards: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+          title: PropTypes.string,
+          content: PropTypes.string,
+          imageSrc: PropTypes.string,
+        }),
+      ),
       toggled: PropTypes.bool,
     }),
   ).isRequired,

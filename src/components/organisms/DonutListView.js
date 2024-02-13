@@ -38,17 +38,13 @@ function DonutListView({
       )}
       {listItems.map((listItem) => (
         <Button
+          key={listItem.id}
           onClick={() => {
             onListItemClick(listItem.id);
           }}
           css={emotionCss({ textAlign: 'start', width: '100%' })}
         >
-          <ContentListItem
-            imageSrc={listItem.imageSrc}
-            title={listItem.title}
-            content={listItem.content}
-            key={listItem.id}
-          >
+          <ContentListItem imageSrc={listItem.imageSrc} cards={listItem.cards}>
             <DonutBar
               value={listItem.value}
               total={listItem.total}
@@ -87,9 +83,15 @@ DonutListView.propTypes = {
   listItems: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-      title: PropTypes.string,
-      content: PropTypes.string,
       imageSrc: PropTypes.string,
+      cards: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+          title: PropTypes.string,
+          content: PropTypes.string,
+          imageSrc: PropTypes.string,
+        }),
+      ),
       value: PropTypes.number,
       total: PropTypes.number,
       unit: PropTypes.oneOf(Object.values(theme.donutBarUnit)),

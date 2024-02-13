@@ -6,6 +6,7 @@ import SignupPage from './pages/signup/SignupPage';
 import OAuthSignupPage from './pages/signup/OAuthSignupPage';
 import RankDetailPage from './pages/RankDetailPage';
 import LoginPage from './pages/LoginPage';
+import MyPage from './pages/MyPage';
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
           <Route path="oauth" element={<OAuthSignupPage />} />
         </Route>
         <Route path="/rank" element={<RankDetailPage />} />
+        <Route path="/mypage" element={<Outlet />}>
+          <Route path="pages/:id" element={<MyPage />} />
+        </Route>
       </Routes>
     </div>
   );
