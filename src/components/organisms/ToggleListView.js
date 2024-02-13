@@ -3,21 +3,25 @@ import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
 import ListView from '../atoms/ListView';
 import ContentListItem from './ContentListItem';
-import DonutBar from '../atoms/DonutBar';
 import theme from '../../styles/theme';
 import Pagination from '../molecules/Pagination';
 import Text from '../atoms/Text';
 import Button from '../atoms/Button';
+import Toggle from '../molecules/Toggle';
 
 /** @jsxImportSource @emotion/react */
 
-function DonutListView({
+function ToggleListView({
   title,
   currentPage,
   totalPage,
   listItems,
+  toggledSrc,
+  untoggledSrc,
   onListItemClick,
   onPaginationItemClick,
+  onToggle,
+  onUntoggle,
   className,
   css,
 }) {
@@ -49,11 +53,19 @@ function DonutListView({
             content={listItem.content}
             key={listItem.id}
           >
-            <DonutBar
-              value={listItem.value}
-              total={listItem.total}
-              unit={listItem.unit}
-              css={emotionCss({ minHeight: '3rem', minWidth: '3rem' })}
+            <Toggle
+              toggled={listItem.toggled}
+              toggledSrc={toggledSrc}
+              untoggledSrc={untoggledSrc}
+              onToggle={(e) => {
+                e.stopPropagation();
+                onToggle(listItem.id);
+              }}
+              onUntoggle={(e) => {
+                e.stopPropagation();
+                onUntoggle(listItem.id);
+              }}
+              css={emotionCss({ width: '100%', height: '100%' })}
             />
           </ContentListItem>
         </Button>
@@ -70,17 +82,19 @@ function DonutListView({
   );
 }
 
-DonutListView.defaultProps = {
+ToggleListView.defaultProps = {
   title: undefined,
   currentPage: 1,
   totalPage: 1,
   onListItemClick: () => {},
+  onToggle: () => {},
+  onUntoggle: () => {},
   onPaginationItemClick: () => {},
   className: '',
   css: emotionCss({}),
 };
 
-DonutListView.propTypes = {
+ToggleListView.propTypes = {
   title: PropTypes.string,
   currentPage: PropTypes.number,
   totalPage: PropTypes.number,
@@ -90,15 +104,17 @@ DonutListView.propTypes = {
       title: PropTypes.string,
       content: PropTypes.string,
       imageSrc: PropTypes.string,
-      value: PropTypes.number,
-      total: PropTypes.number,
-      unit: PropTypes.oneOf(Object.values(theme.donutBarUnit)),
+      toggled: PropTypes.bool,
     }),
   ).isRequired,
+  toggledSrc: PropTypes.string.isRequired,
+  untoggledSrc: PropTypes.string.isRequired,
   onListItemClick: PropTypes.func,
+  onToggle: PropTypes.func,
+  onUntoggle: PropTypes.func,
   onPaginationItemClick: PropTypes.func,
   className: PropTypes.string,
   css: PropTypes.objectOf(emotionCss),
 };
 
-export default DonutListView;
+export default ToggleListView;

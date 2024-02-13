@@ -83,7 +83,6 @@ function DonutBar({ value, total, unit, className, css }) {
   return (
     <svg
       viewBox="0 0 100 100"
-      preserveAspectRatio="xMinYmin meet"
       ref={svgRef}
       className={className}
       css={cssObject}

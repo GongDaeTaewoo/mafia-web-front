@@ -33,14 +33,14 @@ function Icon({ className, variant, color, css }) {
 
 Icon.defaultProps = {
   className: 'far fa-user-circle fa-lg',
-  variant: theme.iconVariant.ME,
+  variant: theme.fontSize.ME,
   css: emotionCss({}),
   color: theme.color.MAFIA_WHITE,
 };
 
 Icon.propTypes = {
   className: PropTypes.string,
-  variant: PropTypes.oneOf(Object.keys(theme.iconVariant)),
+  variant: PropTypes.oneOf(Object.keys(theme.fontSize)),
   css: PropTypes.objectOf(emotionCss),
   color: PropTypes.oneOf(Object.keys(theme.color)),
 };
