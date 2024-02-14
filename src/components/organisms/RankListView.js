@@ -58,7 +58,7 @@ function RankListView({
             imageSrc={listItem.imageSrc}
             cards={listItem.cards}
             key={listItem.id}
-            className="border-0"
+            className="border-0 w-100"
           >
             <DonutBar
               value={listItem.value}

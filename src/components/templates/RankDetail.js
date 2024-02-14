@@ -13,7 +13,10 @@ function RankDetail({ className, css }) {
     {
       imageSrc: image,
       rank: 1,
-      cards: [{ id: 1, title: 'title', content: 'content' }],
+      cards: [
+        { id: 1, title: 'title', content: 'content' },
+        { id: 2, title: 'title', content: 'content' },
+      ],
       total: 100,
       value: 50,
       unit: theme.donutBarUnit.PERCENTAGE,
