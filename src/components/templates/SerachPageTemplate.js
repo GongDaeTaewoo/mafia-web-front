@@ -23,7 +23,8 @@ function SearchPageTemplate({ dataList, className }) {
     width: 1000px;
     display: flex;
     justify-content: space-evenly;
-    margin: 30px auto;
+    margin: 10px auto;
+    margin-top: 50px;
     list-style: none;
   `;
 
@@ -31,10 +32,10 @@ function SearchPageTemplate({ dataList, className }) {
     <div className={className} css={SearchPageCSS}>
       <Search css={SearchCSS} className={className} variant="long" />
       <ListView css={ListViewCSS}>
-        <ListItem>■</ListItem>
-        <ListItem> 아이디</ListItem>
-        <ListItem> 랭킹</ListItem>
-        <ListItem> 칭호</ListItem>
+        <ListItem> </ListItem>
+        <ListItem> </ListItem>
+        <ListItem> </ListItem>
+        <ListItem> </ListItem>
       </ListView>
       {dataList.map((data) => (
         <UserListItem data={data} />

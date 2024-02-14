@@ -6,24 +6,24 @@ import SearchPageTemplate from '../components/templates/SerachPageTemplate';
 function SearchPage() {
   const dataList = [
     {
-      name: 'aa',
-      odds: 'bb',
-      title: 'cc',
+      name: '김태우',
+      odds: 99,
+      title: '마피아의 신',
     },
     {
-      name: 'aa',
-      odds: 'bb',
-      title: 'cc',
+      name: '정우용',
+      odds: 40,
+      title: '정치경찰',
     },
     {
-      name: 'aa',
-      odds: 'bb',
-      title: 'cc',
+      name: '임주현',
+      odds: 88,
+      title: '살아있는 동의보감',
     },
     {
-      name: 'aa',
-      odds: 'bb',
-      title: 'cc',
+      name: '강지훈',
+      odds: 10,
+      title: '바보',
     },
   ];
 

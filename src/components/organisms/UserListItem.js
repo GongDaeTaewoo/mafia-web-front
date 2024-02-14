@@ -11,32 +11,41 @@ import searchPageImage from '../../assets/images/searchPageImage.svg';
 function UserListItem({ data }) {
   const ListViewCSS = css`
     background-color: ${theme.color.MAFIA_LIGHT_GRAY};
-    height: 100px;
+    height: 65px;
     width: 1000px;
     display: flex;
-    justify-content: space-evenly;
-    margin: 30px auto;
+    margin: 2px auto;
   `;
   const ListItemCSS = css`
     margin: 20px;
+    margin-right: 50px;
     list-style: none;
+    color: ${theme.color.MAFIA_WHITE};
+  `;
+  const ListItemNameCSS = css`
+    margin: 20px;
+    margin-right: 100px;
+    list-style: none;
+    width: 500px;
+    color: ${theme.color.MAFIA_WHITE};
   `;
   const ListImageCSS = css`
     list-style: none;
   `;
+  const ImageCSS = css`
+    width: 65px;
+    height: 65px;
+  `;
   return (
     <ListView className="" css={ListViewCSS}>
       <ListItem className="" css={ListImageCSS}>
-        <ImageView src={searchPageImage} />
+        <ImageView src={searchPageImage} css={ImageCSS} />
+      </ListItem>
+      <ListItem className="" css={ListItemNameCSS}>
+        {data.name} (★{data.title})
       </ListItem>
       <ListItem className="" css={ListItemCSS}>
-        {data.name}
-      </ListItem>
-      <ListItem className="" css={ListItemCSS}>
-        {data.odds}
-      </ListItem>
-      <ListItem className="" css={ListItemCSS}>
-        {data.title}
+        승률:{data.odds}%
       </ListItem>
     </ListView>
   );
