@@ -51,7 +51,7 @@ function RankListView({
             backgroundColor: theme.color.MAFIA_ITEM,
           })}
         >
-          <Rank variant={getRankVariant(listItem.rank)} fontSize="3rem">
+          <Rank variant={getRankVariant(listItem.rank)} fontSize="4rem">
             {listItem.rank}
           </Rank>
           <ContentListItem
