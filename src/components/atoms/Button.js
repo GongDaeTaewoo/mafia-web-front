@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
 import theme from '../../styles/theme';
 import Text from './Text';
-import img from '../../assets/images/mafia_icon.svg';
 
 /** @jsxImportSource @emotion/react */
 
@@ -15,6 +14,7 @@ function Button({
   backgroundColor,
   buttonType,
   name,
+  imageSrc,
   onClick,
   width,
   height,
@@ -80,7 +80,7 @@ function Button({
           onClick={onClick}
           css={plainButtonCss}
         >
-          <img src={img} alt="asd" width={width} height={height} />
+          <img src={imageSrc} alt="asd" width={width} height={height} />
         </button>
       );
     default:
@@ -107,6 +107,7 @@ Button.defaultProps = {
   backgroundColor: undefined,
   buttonType: theme.buttonType.BUTTON,
   name: undefined,
+  imageSrc: undefined,
   onClick: () => {},
   width: '100',
   height: '100',
@@ -120,6 +121,7 @@ Button.propTypes = {
   backgroundColor: PropTypes.oneOf(Object.values(theme.color)),
   buttonType: PropTypes.oneOf(Object.values(theme.buttonType)),
   name: PropTypes.string,
+  imageSrc: PropTypes.string,
   onClick: PropTypes.func,
   width: PropTypes.string,
   height: PropTypes.string,

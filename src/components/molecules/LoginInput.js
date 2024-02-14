@@ -37,7 +37,7 @@ function LoginInput({ css }) {
     <div css={containerCss}>
       <div>
         <Text variant="h5" color={theme.color.MAFIA_WHITE}>
-          아이디
+          이메일
         </Text>
 
         <Input variant="short" />
@@ -47,7 +47,7 @@ function LoginInput({ css }) {
         <Text variant="h5" color={theme.color.MAFIA_WHITE}>
           비밀번호
         </Text>
-        <Input variant="short" />
+        <Input variant="short" inputType="password" />
       </div>
 
       <div css={buttonCss}>

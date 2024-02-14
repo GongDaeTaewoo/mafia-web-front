@@ -22,13 +22,15 @@ function SignupInput({ css }) {
 
     const isVaildId = newId.length >= 4 && newId.length <= 12;
     setIdIsValid(isVaildId);
-  }
+  };
 
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
 
-    setPasswordsMatch(newPassword === confirmPassword || confirmPassword === '');
+    setPasswordsMatch(
+      newPassword === confirmPassword || confirmPassword === '',
+    );
 
     const isValidPassword = newPassword.length >= 4 && newPassword.length <= 12;
     setPasswordIsValid(isValidPassword);
@@ -43,10 +45,9 @@ function SignupInput({ css }) {
     setPasswordsMatch(password === newConfirmPassword);
   };
 
- 
-  const bootstrapPwClass = (passwordIsValid && passwordsMatch) ? 'is-valid' : 'is-invalid'
-  const bootstrapIdClass = idIsValid ? 'is-valid' : 'is-invalid'
-
+  const bootstrapPwClass =
+    passwordIsValid && passwordsMatch ? 'is-valid' : 'is-invalid';
+  const bootstrapIdClass = idIsValid ? 'is-valid' : 'is-invalid';
 
   const containerCss = emotionCss(
     {
@@ -57,82 +58,100 @@ function SignupInput({ css }) {
       zIndex: 1,
     },
     css,
-  );  
-
-  const partCss = emotionCss(
-    {
-        marginTop: "2rem",
-    }
-  )
-
-  const buttonCss = emotionCss(
-    {
-      display: "flex",
-      marginTop: "2rem",
-      marginLeft: 'auto',
-    }
-
   );
+
+  const partCss = emotionCss({
+    marginTop: '2rem',
+  });
+
+  const buttonCss = emotionCss({
+    display: 'flex',
+    marginTop: '2rem',
+    marginLeft: 'auto',
+  });
   return (
-    <div css= {containerCss}>
-        <div css={partCss}>
-            <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_BACKGROUND}>
-                아이디
-            </Text>
+    <div css={containerCss}>
+      <div css={partCss}>
+        <Text
+          variant={theme.fontVariant.SMALL}
+          color={theme.color.MAFIA_BACKGROUND}
+        >
+          이메일
+        </Text>
 
-            <input className={`form-control ${bootstrapIdClass} bg-dark-subtle`} value={id} onChange={handleConfirmIdChange} />
-        </div>
+        <input
+          className={`form-control ${bootstrapIdClass} bg-dark-subtle`}
+          value={id}
+          onChange={handleConfirmIdChange}
+        />
+      </div>
 
-        {!idIsValid && (
-          <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
-            올바른 아이디 형식이 아닙니다.
-          </Text>
-        )}
+      {!idIsValid && (
+        <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
+          올바른 이메일 형식이 아닙니다.
+        </Text>
+      )}
 
-        {idIsValid && (
-          <Text variant={theme.fontVariant.SMALL}>
-            <br/>
-          </Text>
-        )}
-        
-        <div css={partCss}>
-            <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_BACKGROUND}>
-                비밀번호
-            </Text>
+      {idIsValid && (
+        <Text variant={theme.fontVariant.SMALL}>
+          <br />
+        </Text>
+      )}
 
-            <input type="password" className={`form-control ${bootstrapPwClass} bg-dark-subtle`} value={password} onChange={handlePasswordChange} />
-        </div>
+      <div css={partCss}>
+        <Text
+          variant={theme.fontVariant.SMALL}
+          color={theme.color.MAFIA_BACKGROUND}
+        >
+          비밀번호
+        </Text>
 
-        {!passwordIsValid && (
-            <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
-                올바른 비밀번호 형식이 아닙니다.
-            </Text>
-        )}
+        <input
+          type="password"
+          className={`form-control ${bootstrapPwClass} bg-dark-subtle`}
+          value={password}
+          onChange={handlePasswordChange}
+        />
+      </div>
 
-        {passwordIsValid && (
-            <Text variant={theme.fontVariant.SMALL}>
-                <br/>
-            </Text>
-        )}
+      {!passwordIsValid && (
+        <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
+          올바른 비밀번호 형식이 아닙니다.
+        </Text>
+      )}
 
-        <div css={partCss}>
-            <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_BACKGROUND}>
-                비밀번호 확인
-            </Text>
-            <input type="password" className={`form-control ${bootstrapPwClass} bg-dark-subtle`} value={confirmPassword} onChange={handleConfirmPasswordChange} />
-        </div>
+      {passwordIsValid && (
+        <Text variant={theme.fontVariant.SMALL}>
+          <br />
+        </Text>
+      )}
 
-        {!passwordsMatch && (
-          <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
-            비밀번호가 일치하지 않습니다.
-          </Text>
-        )}
+      <div css={partCss}>
+        <Text
+          variant={theme.fontVariant.SMALL}
+          color={theme.color.MAFIA_BACKGROUND}
+        >
+          비밀번호 확인
+        </Text>
+        <input
+          type="password"
+          className={`form-control ${bootstrapPwClass} bg-dark-subtle`}
+          value={confirmPassword}
+          onChange={handleConfirmPasswordChange}
+        />
+      </div>
 
-        {passwordsMatch && (
-            <Text variant={theme.fontVariant.SMALL}>
-                <br/>
-            </Text>
-        )}
+      {!passwordsMatch && (
+        <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
+          비밀번호가 일치하지 않습니다.
+        </Text>
+      )}
+
+      {passwordsMatch && (
+        <Text variant={theme.fontVariant.SMALL}>
+          <br />
+        </Text>
+      )}
 
       <div css={buttonCss}>
         <Button variant={theme.buttonVariant.REGIS} />

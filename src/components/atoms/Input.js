@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Input({ variant }) {
+function Input({ variant, inputType }) {
   switch (variant) {
     case 'long':
       return (
         <input
           className="form-control bg-dark-subtle"
           style={{ width: '800px' }}
+          type={inputType}
         />
       );
     case 'short':
@@ -15,6 +16,7 @@ function Input({ variant }) {
         <input
           className="form-control bg-dark-subtle"
           style={{ width: '500px' }}
+          type={inputType}
         />
       );
     case 'forMyPage':
@@ -24,13 +26,19 @@ function Input({ variant }) {
         <input
           className="form-control bg-dark-subtle"
           style={{ width: '500px' }}
+          type={inputType}
         />
       );
   }
 }
 
+Input.defaultProps = {
+  inputType: 'text',
+};
+
 Input.propTypes = {
   variant: PropTypes.string.isRequired,
+  inputType: PropTypes.string,
 };
 
 export default Input;
