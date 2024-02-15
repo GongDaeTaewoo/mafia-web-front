@@ -4,7 +4,8 @@ import { css as emotionCss } from '@emotion/react';
 import theme from '../../styles/theme';
 import CardBody from '../molecules/CardBody';
 import ListItem from '../atoms/ListItem';
-import RankListItem from '../molecules/RankListItem';
+import Rank from '../molecules/Rank';
+import ImageView from '../atoms/ImageView';
 
 /** @jsxImportSource @emotion/react */
 
@@ -17,6 +18,20 @@ function RankCardListView({ children, imageSrc, cards, className, css, rank }) {
     },
     css,
   );
+
+  const getRankVariant = (variant) => {
+    switch (variant) {
+      case 1:
+        return theme.rankVariant.FIRST;
+      case 2:
+        return theme.rankVariant.SECOND;
+      case 3:
+        return theme.rankVariant.THIRD;
+      default:
+        return theme.rankVariant.DEFAULT;
+    }
+  };
+
   const content = (
     <div className="row h-100 p-0 m-0">
       {cards.map((card) => (
@@ -36,18 +51,33 @@ function RankCardListView({ children, imageSrc, cards, className, css, rank }) {
     </div>
   );
   return imageSrc ? (
-    <RankListItem
-      src={imageSrc}
-      className={className}
-      css={cssObject}
-      rank={rank}
-    >
-      {content}
-    </RankListItem>
-  ) : (
     <ListItem className={`${className} list-group-item`} css={cssObject}>
-      {content}
+      <div className="row p-0 w-100">
+        <Rank
+          variant={getRankVariant(rank)}
+          fontSize="4rem"
+          className="col-1 p-0 me-auto img-fluid ms-4"
+        >
+          {rank}
+        </Rank>
+        <ImageView
+          src={imageSrc}
+          className="col-2 p-0 me-auto img-fluid ms-2"
+          css={emotionCss({ maxWidth: '8rem' })}
+        />
+        <div className="col">{content}</div>
+      </div>
     </ListItem>
+  ) : (
+    // <RankListItem
+    //   src={imageSrc}
+    //   className={className}
+    //   css={cssObject}
+    //   rank={rank}
+    // >
+    //   {content}
+    // </RankListItem>
+    <div />
   );
 }
 
