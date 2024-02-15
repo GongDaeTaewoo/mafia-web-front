@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
 import ListView from '../atoms/ListView';
-import ContentListItem from './ContentListItem';
 import DonutBar from '../atoms/DonutBar';
 import theme from '../../styles/theme';
-import Rank from '../molecules/Rank';
 import Pagination from '../molecules/Pagination';
 import Button from '../atoms/Button';
+import RankCardListView from './RankCardListView';
 
 /** @jsxImportSource @emotion/react */
 
@@ -25,18 +24,6 @@ function RankListView({
     css,
   );
 
-  const getRankVariant = (variant) => {
-    switch (variant) {
-      case 1:
-        return theme.rankVariant.FIRST;
-      case 2:
-        return theme.rankVariant.SECOND;
-      case 3:
-        return theme.rankVariant.THIRD;
-      default:
-        return theme.rankVariant.DEFAULT;
-    }
-  };
   return (
     <ListView className={`list-group ${className} p-0`} css={cssObject}>
       {listItems.map((listItem) => (
@@ -51,14 +38,12 @@ function RankListView({
             backgroundColor: theme.color.MAFIA_ITEM,
           })}
         >
-          <Rank variant={getRankVariant(listItem.rank)} fontSize="4rem">
-            {listItem.rank}
-          </Rank>
-          <ContentListItem
+          <RankCardListView
             imageSrc={listItem.imageSrc}
             cards={listItem.cards}
             key={listItem.id}
-            className="border-0 w-100"
+            className="border-0 w-100 d-flex"
+            rank={listItem.rank}
           >
             <DonutBar
               value={listItem.value}
@@ -66,7 +51,7 @@ function RankListView({
               unit={listItem.unit}
               css={emotionCss({ minHeight: '3rem', minWidth: '3rem' })}
             />
-          </ContentListItem>
+          </RankCardListView>
         </Button>
       ))}
       {totalPage !== 1 && (

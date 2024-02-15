@@ -7,6 +7,7 @@ import firstImg from '../../assets/images/star_gold.svg';
 import secImg from '../../assets/images/star_silver.svg';
 import thirdImg from '../../assets/images/star_bronze.svg';
 import defaultImg from '../../assets/images/certificate.svg';
+import ImageView from '../atoms/ImageView';
 
 /** @jsxImportSource @emotion/react */
 
@@ -37,19 +38,20 @@ function Rank({ children, variant, className, css, fontSize }) {
   };
   return (
     <div
+      className={className}
       css={emotionCss({
         position: 'relative',
       })}
     >
-      <img
+      <ImageView
         src={getImg(variant)}
         alt="no img"
-        className={className}
         css={emotionCss(
           {
             height: fontSize,
             width: fontSize,
           },
+          cssObject,
           css,
         )}
       />
