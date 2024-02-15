@@ -35,7 +35,7 @@ function RankCardListView({ children, imageSrc, cards, className, css, rank }) {
   const content = (
     <div className="row h-100 p-0 m-0">
       {cards.map((card) => (
-        <div className="col" key={card.id}>
+        <div className="col d-flex align-items-center" key={card.id}>
           <CardBody
             title={card.title}
             content={card.content}
@@ -50,7 +50,7 @@ function RankCardListView({ children, imageSrc, cards, className, css, rank }) {
       )}
     </div>
   );
-  return imageSrc ? (
+  return (
     <ListItem className={`${className} list-group-item`} css={cssObject}>
       <div className="row p-0 w-100">
         <Rank
@@ -68,16 +68,6 @@ function RankCardListView({ children, imageSrc, cards, className, css, rank }) {
         <div className="col">{content}</div>
       </div>
     </ListItem>
-  ) : (
-    // <RankListItem
-    //   src={imageSrc}
-    //   className={className}
-    //   css={cssObject}
-    //   rank={rank}
-    // >
-    //   {content}
-    // </RankListItem>
-    <div />
   );
 }
 
