@@ -12,25 +12,42 @@ import theme from '../../styles/theme';
 function SocialLogin({ css }) {
   const containerCss = emotionCss(
     {
-        display: 'flex',
-        justifyContent: 'space-between',
-        paddingTop: '5rem',
+      display: 'flex',
+      justifyContent: 'space-between',
+      paddingTop: '5rem',
     },
     css,
   );
-  
-  const btnCss = emotionCss(
-    {
-        marginRight: '5rem',
-    }
-  )
 
+  const btnCss = emotionCss({
+    marginRight: '5rem',
+  });
 
   return (
-    <div css= {containerCss}>
-      <Button variant={theme.buttonVariant.IMG} img={kakaoImage} alt="kakao" css={btnCss} width="70" height="70"/>
-      <Button variant={theme.buttonVariant.IMG} img={naverImage} alt="naver" css={btnCss} width="70" height="70"/>
-      <Button variant={theme.buttonVariant.IMG} img={googleImage} alt="google" width="70" height="70"/>
+    <div css={containerCss}>
+      <Button
+        variant={theme.buttonVariant.IMG}
+        imageSrc={kakaoImage}
+        alt="kakao"
+        css={btnCss}
+        width="70"
+        height="70"
+      />
+      <Button
+        variant={theme.buttonVariant.IMG}
+        imageSrc={naverImage}
+        alt="naver"
+        css={btnCss}
+        width="70"
+        height="70"
+      />
+      <Button
+        variant={theme.buttonVariant.IMG}
+        imageSrc={googleImage}
+        alt="google"
+        width="70"
+        height="70"
+      />
     </div>
   );
 }
