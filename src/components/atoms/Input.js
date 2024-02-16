@@ -4,10 +4,7 @@ import { css as emotionCss } from '@emotion/react';
 import theme from '../../styles/theme';
 /** @jsxImportSource @emotion/react */
 
-function Input({ variant }) {
-  const inputColor = emotionCss({
-    backgroundColor: theme.color.MAFIA_LIGHT_GRAY,
-  });
+function Input({ variant, inputType }) {
   switch (variant) {
     case 'long':
       return (
@@ -15,6 +12,7 @@ function Input({ variant }) {
           css={inputColor}
           className="form-control"
           style={{ width: '800px' }}
+          type={inputType}
         />
       );
     case 'short':
@@ -23,17 +21,29 @@ function Input({ variant }) {
           css={inputColor}
           className="form-control"
           style={{ width: '500px' }}
+          type={inputType}
         />
       );
     case 'forMyPage':
       return <input className="form-control" style={{ width: '300px' }} />;
     default:
-      return <input className="form-control" style={{ width: '500px' }} />;
+      return (
+        <input
+          className="form-control bg-dark-subtle"
+          style={{ width: '500px' }}
+          type={inputType}
+        />
+      );
   }
 }
 
+Input.defaultProps = {
+  inputType: 'text',
+};
+
 Input.propTypes = {
   variant: PropTypes.string.isRequired,
+  inputType: PropTypes.string,
 };
 
 export default Input;

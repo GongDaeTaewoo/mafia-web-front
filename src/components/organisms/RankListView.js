@@ -5,14 +5,13 @@ import ListView from '../atoms/ListView';
 import ContentListItem from './ContentListItem';
 import DonutBar from '../atoms/DonutBar';
 import theme from '../../styles/theme';
+import Rank from '../molecules/Rank';
 import Pagination from '../molecules/Pagination';
-import Text from '../atoms/Text';
 import Button from '../atoms/Button';
 
 /** @jsxImportSource @emotion/react */
 
-function DonutListView({
-  title,
+function RankListView({
   currentPage,
   totalPage,
   listItems,
@@ -25,26 +24,42 @@ function DonutListView({
     { backgroundColor: theme.color.MAFIA_CONTAINER },
     css,
   );
+
+  const getRankVariant = (variant) => {
+    switch (variant) {
+      case 1:
+        return theme.rankVariant.FIRST;
+      case 2:
+        return theme.rankVariant.SECOND;
+      case 3:
+        return theme.rankVariant.THIRD;
+      default:
+        return theme.rankVariant.DEFAULT;
+    }
+  };
   return (
-    <ListView className={`list-group ${className}`} css={cssObject}>
-      {title && (
-        <Text
-          variant={theme.fontVariant.H5}
-          color={theme.color.MAFIA_WHITE}
-          className="ps-3 pt-1"
-        >
-          {title}
-        </Text>
-      )}
+    <ListView className={`list-group ${className} p-0`} css={cssObject}>
       {listItems.map((listItem) => (
         <Button
-          key={listItem.id}
           onClick={() => {
             onListItemClick(listItem.id);
           }}
-          css={emotionCss({ textAlign: 'start', width: '100%' })}
+          css={emotionCss({
+            textAlign: 'start',
+            width: '100%',
+            display: 'flex',
+            backgroundColor: theme.color.MAFIA_ITEM,
+          })}
         >
-          <ContentListItem imageSrc={listItem.imageSrc} cards={listItem.cards}>
+          <Rank variant={getRankVariant(listItem.rank)} fontSize="3rem">
+            {listItem.rank}
+          </Rank>
+          <ContentListItem
+            imageSrc={listItem.imageSrc}
+            cards={listItem.cards}
+            key={listItem.id}
+            className="border-0"
+          >
             <DonutBar
               value={listItem.value}
               total={listItem.total}
@@ -66,8 +81,7 @@ function DonutListView({
   );
 }
 
-DonutListView.defaultProps = {
-  title: undefined,
+RankListView.defaultProps = {
   currentPage: 1,
   totalPage: 1,
   onListItemClick: () => {},
@@ -76,25 +90,19 @@ DonutListView.defaultProps = {
   css: emotionCss({}),
 };
 
-DonutListView.propTypes = {
-  title: PropTypes.string,
+RankListView.propTypes = {
   currentPage: PropTypes.number,
   totalPage: PropTypes.number,
   listItems: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      title: PropTypes.string,
+      content: PropTypes.string,
       imageSrc: PropTypes.string,
-      cards: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-          title: PropTypes.string,
-          content: PropTypes.string,
-          imageSrc: PropTypes.string,
-        }),
-      ),
       value: PropTypes.number,
       total: PropTypes.number,
       unit: PropTypes.oneOf(Object.values(theme.donutBarUnit)),
+      rank: PropTypes.number,
     }),
   ).isRequired,
   onListItemClick: PropTypes.func,
@@ -103,4 +111,4 @@ DonutListView.propTypes = {
   css: PropTypes.objectOf(emotionCss),
 };
 
-export default DonutListView;
+export default RankListView;
