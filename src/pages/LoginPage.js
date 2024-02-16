@@ -1,16 +1,12 @@
 import React from 'react';
-import LoginTemplate from '../components/templates/LoginTemplate'
-import HeaderNav from '../components/molecules/HeaderNav';
+import LoginTemplate from '../components/templates/LoginTemplate';
 
 function LoginPage() {
   return (
     <div>
-      <HeaderNav/>
-      <LoginTemplate/>
-
+      <LoginTemplate />
     </div>
-  )
-    
+  );
 }
 
 export default LoginPage;

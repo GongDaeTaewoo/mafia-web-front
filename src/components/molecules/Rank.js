@@ -6,59 +6,82 @@ import Text from '../atoms/Text';
 
 /** @jsxImportSource @emotion/react */
 
-function Rank({ children, variant, className, css }) {
-  const cssObject = emotionCss({
-    position: 'relative',
-    fontSize: '5rem',
-  });
+function Rank({ children, variant, className, css, fontSize }) {
+  const cssObject = emotionCss(
+    {
+      position: 'absolute',
+      fontSize,
+    },
+    css,
+  );
 
   switch (variant) {
     case '1st':
       return (
-        <Text variant={theme.fontVariant.SPAN} css={cssObject}>
+        <Text
+          className="d-flex align-items-center align-self-center"
+          variant={theme.fontVariant.SPAN}
+          css={{ position: 'relative', fontSize }}
+        >
           <i
             className={`${className} fa-lg fas fa-star`}
             css={{ color: theme.color.MAFIA_GOLD }}
-          />
-          <Text variant={theme.fontVariant.SMALL} css={css}>
-            {children}
-          </Text>
+          >
+            <Text variant={theme.fontVariant.SMALL} css={cssObject}>
+              {children}
+            </Text>
+          </i>
         </Text>
       );
     case '2nd':
       return (
-        <Text variant={theme.fontVariant.SPAN} css={cssObject}>
-          <Text variant={theme.fontVariant.SMALL} css={css}>
-            {children}
-          </Text>
+        <Text
+          className="d-flex align-items-center align-self-center"
+          variant={theme.fontVariant.SPAN}
+          css={{ position: 'relative', fontSize }}
+        >
           <i
             className={`${className} fa-lg fas fa-star`}
             css={{ color: theme.color.MAFIA_SILVER }}
-          />
+          >
+            <Text variant={theme.fontVariant.SMALL} css={cssObject}>
+              {children}
+            </Text>
+          </i>
         </Text>
       );
     case '3th':
       return (
-        <Text variant={theme.fontVariant.SPAN} css={cssObject}>
-          <Text variant={theme.fontVariant.SMALL} css={css}>
-            {children}
-          </Text>
+        <Text
+          className="d-flex align-items-center align-self-center"
+          variant={theme.fontVariant.SPAN}
+          css={{ position: 'relative', fontSize }}
+        >
           <i
             className={`${className} fa-lg fas fa-star`}
             css={{ color: theme.color.MAFIA_BRONZE }}
-          />
+          >
+            <Text variant={theme.fontVariant.SMALL} css={cssObject}>
+              {children}
+            </Text>
+          </i>
         </Text>
       );
     default:
       return (
-        <Text variant={theme.fontVariant.SPAN} css={cssObject}>
-          <Text variant={theme.fontVariant.SMALL} css={css}>
-            {children}
-          </Text>
+        <Text
+          className="d-flex align-items-center align-self-center"
+          variant={theme.fontVariant.SPAN}
+          css={{ position: 'relative', fontSize }}
+        >
           <i
             className={`${className} fa-lg fas fa-certificate`}
             css={{ color: theme.color.MAFIA_LIGHT_GRAY }}
-          />
+          >
+            <Text variant={theme.fontVariant.SMALL} css={cssObject}>
+              {children}
+            </Text>
+          </i>
         </Text>
       );
   }
@@ -68,7 +91,6 @@ Rank.defaultProps = {
   className: '',
   css: emotionCss({
     color: theme.color.MAFIA_WHITE,
-    fontSize: '2.5rem',
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -76,6 +98,7 @@ Rank.defaultProps = {
     zIndex: '2',
   }),
   variant: theme.rankVariant.DEFAULT,
+  fontSize: '4rem',
 };
 
 Rank.propTypes = {
@@ -83,6 +106,7 @@ Rank.propTypes = {
   variant: PropTypes.oneOf(Object.keys(theme.rankVariant)),
   className: PropTypes.string,
   css: PropTypes.objectOf(emotionCss),
+  fontSize: PropTypes.string,
 };
 
 export default Rank;

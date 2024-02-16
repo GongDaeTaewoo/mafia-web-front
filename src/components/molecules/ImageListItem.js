@@ -16,8 +16,12 @@ function ImageListItem({ children, src, className, css }) {
   );
   return (
     <ListItem className={`${className} list-group-item`} css={cssObject}>
-      <div className="row">
-        <ImageView src={src} className="col-2 me-auto img-fluid ms-2" />
+      <div className="row p-0">
+        <ImageView
+          src={src}
+          className="col-2 p-0 me-auto img-fluid ms-2"
+          css={emotionCss({ maxWidth: '8rem' })}
+        />
         <div className="col">{children}</div>
       </div>
     </ListItem>

@@ -28,7 +28,9 @@ function SignupInput({ css }) {
     const newPassword = e.target.value;
     setPassword(newPassword);
 
-    setPasswordsMatch(newPassword === confirmPassword || confirmPassword === '');
+    setPasswordsMatch(
+      newPassword === confirmPassword || confirmPassword === '',
+    );
 
     const passwordRegex = /^(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,12}$/;
     const isValidPassword = passwordRegex.test(newPassword);
@@ -59,7 +61,7 @@ function SignupInput({ css }) {
       padding: "6rem",
     },
     css,
-  );  
+  );
 
   const inputCss = emotionCss(
     {
@@ -110,17 +112,17 @@ function SignupInput({ css }) {
             <input type="password" className={`form-control ${bootstrapPwClass}`} value={password} onChange={handlePasswordChange} css={inputCss}/>
         </div>
 
-        {!passwordIsValid && (
-            <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
-                올바른 비밀번호 형식이 아닙니다.
-            </Text>
-        )}
+      {!passwordIsValid && (
+        <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
+          올바른 비밀번호 형식이 아닙니다.
+        </Text>
+      )}
 
-        {passwordIsValid && (
-            <Text variant={theme.fontVariant.SMALL}>
-                <br/>
-            </Text>
-        )}
+      {passwordIsValid && (
+        <Text variant={theme.fontVariant.SMALL}>
+          <br />
+        </Text>
+      )}
 
         <div>
             <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_WHITE}>
@@ -129,17 +131,17 @@ function SignupInput({ css }) {
             <input type="password" className={`form-control ${bootstrapPwClass}`} value={confirmPassword} onChange={handleConfirmPasswordChange} css={inputCss}/>
         </div>
 
-        {!passwordsMatch && (
-          <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
-            비밀번호가 일치하지 않습니다.
-          </Text>
-        )}
+      {!passwordsMatch && (
+        <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
+          비밀번호가 일치하지 않습니다.
+        </Text>
+      )}
 
-        {passwordsMatch && (
-            <Text variant={theme.fontVariant.SMALL}>
-                <br/>
-            </Text>
-        )}
+      {passwordsMatch && (
+        <Text variant={theme.fontVariant.SMALL}>
+          <br />
+        </Text>
+      )}
 
     
     <button type="button" className="btn btn-secondary" css={buttonCss}>회원가입</button>

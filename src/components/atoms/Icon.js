@@ -40,9 +40,9 @@ Icon.defaultProps = {
 
 Icon.propTypes = {
   className: PropTypes.string,
-  variant: PropTypes.oneOf(Object.keys(theme.fontSize)),
+  variant: PropTypes.oneOf(Object.values(theme.fontSize)),
   css: PropTypes.objectOf(emotionCss),
-  color: PropTypes.oneOf(Object.keys(theme.color)),
+  color: PropTypes.oneOf(Object.values(theme.color)),
 };
 
 export default Icon;
