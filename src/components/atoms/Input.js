@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { css as emotionCss } from '@emotion/react';
-import theme from '../../styles/theme';
+
 /** @jsxImportSource @emotion/react */
 
 function Input({ variant, inputType }) {
@@ -9,7 +8,6 @@ function Input({ variant, inputType }) {
     case 'long':
       return (
         <input
-          css={inputColor}
           className="form-control"
           style={{ width: '800px' }}
           type={inputType}
@@ -18,7 +16,6 @@ function Input({ variant, inputType }) {
     case 'short':
       return (
         <input
-          css={inputColor}
           className="form-control"
           style={{ width: '500px' }}
           type={inputType}

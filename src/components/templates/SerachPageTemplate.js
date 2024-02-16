@@ -6,10 +6,11 @@ import Search from '../molecules/Search';
 import UserListItem from '../organisms/UserListItem';
 import ListView from '../atoms/ListView';
 import ListItem from '../atoms/ListItem';
+import Pagination from '../molecules/Pagination';
 
 /** @jsxImportSource @emotion/react */
 
-function SearchPageTemplate({ dataList, className }) {
+function SearchPageTemplate({ dataList, className, nowPage }) {
   const SearchPageCSS = css`
     background-color: ${theme.color.MAFIA_BACKGROUND};
     height: 10000px;
@@ -28,6 +29,16 @@ function SearchPageTemplate({ dataList, className }) {
     list-style: none;
   `;
 
+  const onItemClick = (num) => {
+    window.location.href = num;
+  };
+  // 한페이지의 유저갯수
+  const numOfItem = 5;
+  const getTotalPage = () => Math.floor((dataList.length - 1) / numOfItem) + 1;
+  // 한페이지에 보여주는 유저 인덱스
+  const nowPageStart = (nowPage - 1) * numOfItem;
+  const nowPageEnd = (nowPage - 1) * numOfItem + numOfItem;
+
   return (
     <div className={className} css={SearchPageCSS}>
       <Search css={SearchCSS} className={className} variant="long" />
@@ -37,19 +48,27 @@ function SearchPageTemplate({ dataList, className }) {
         <ListItem> </ListItem>
         <ListItem> </ListItem>
       </ListView>
-      {dataList.map((data) => (
+      {dataList.slice(nowPageStart, nowPageEnd).map((data) => (
         <UserListItem data={data} />
       ))}
+      <Pagination
+        current={nowPage}
+        total={getTotalPage()}
+        className="d-flex justify-content-center"
+        paginationItemOnClick={onItemClick}
+      />
     </div>
   );
 }
 
 SearchPageTemplate.defaultProps = {
   className: '',
+  nowPage: 1,
 };
 
 SearchPageTemplate.propTypes = {
   dataList: PropTypes.node.isRequired,
+  nowPage: PropTypes.number,
   className: PropTypes.string,
 };
 
