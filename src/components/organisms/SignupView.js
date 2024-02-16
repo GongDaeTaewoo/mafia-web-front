@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
-import SignupInput from '../molecules/SignupInput';
+import SignupInput from '../molecules/SignupInput'
 import theme from '../../styles/theme';
 import Text from '../atoms/Text';
 /** @jsxImportSource @emotion/react */
