@@ -3,10 +3,8 @@ import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
-import Input from '../atoms/Input';
 import Text from '../atoms/Text';
 import theme from '../../styles/theme';
-import Button from '../atoms/Button';
 import loginState from '../../recoils/loginState';
 
 /** @jsxImportSource @emotion/react */
@@ -24,15 +22,28 @@ function LoginInput({ css }) {
     css,
   );
 
-  const inputCss = emotionCss({
-    marginTop: '1rem',
-  });
+  const inputCss = emotionCss(
+    {
+      width: "30rem",
+      height: " 3rem",
+      fontSize: "15px",
+    }
+  )
 
-  const buttonCss = emotionCss({
-    display: 'flex',
-    marginTop: '1rem',
-    marginLeft: 'auto',
-  });
+  const divCss = emotionCss(
+    {
+      marginTop: "1rem",
+    }
+  )
+
+  const buttonCss = emotionCss(
+    {
+      width: "30rem",
+      height: " 3rem",
+      marginTop: '2rem',
+      fontSize: "1.5rem",
+    });
+    
   return (
     <div css={containerCss}>
       <div>
@@ -40,24 +51,25 @@ function LoginInput({ css }) {
           이메일
         </Text>
 
-        <Input variant="short" />
+        <input className={`form-control `} css={inputCss}/>
       </div>
 
-      <div css={inputCss}>
+      <div css={divCss}>
         <Text variant="h5" color={theme.color.MAFIA_WHITE}>
           비밀번호
         </Text>
-        <Input variant="short" inputType="password" />
+        <input className={`form-control `} css={inputCss}/>
       </div>
 
+
       <div css={buttonCss}>
-        <Button
-          variant="normal"
-          onClick={() => {
-            setLogin(() => ({ id: 1, email: 'aaaaaa@gmail.com' }));
-            navigate('/');
-          }}
-        />
+      <button type="button" className="btn btn-secondary" 
+        onClick={() => {
+          setLogin(() => ({ id: 1, email: 'aaaaaa@gmail.com' }));
+          navigate('/');
+        }}
+        css={buttonCss}><Text fontWeight={theme.fontWeight.BOLD} color={theme.color.MAFIA_WHITE}>
+          로그인 </Text></button>
       </div>
     </div>
   );
