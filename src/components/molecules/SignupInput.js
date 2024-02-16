@@ -4,24 +4,24 @@ import { css as emotionCss } from '@emotion/react';
 // import Input from '../atoms/Input';
 import Text from '../atoms/Text';
 import theme from '../../styles/theme';
-import Button from '../atoms/Button';
 
 /** @jsxImportSource @emotion/react */
 
 function SignupInput({ css }) {
-  const [id, setId] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [idIsValid, setIdIsValid] = useState(false);
+  const [idIsValid, setIdIsValid] = useState(true);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-  const [passwordIsValid, setPasswordIsValid] = useState(false);
+  const [passwordIsValid, setPasswordIsValid] = useState(true);
 
   const handleConfirmIdChange = (e) => {
-    const newId = e.target.value;
-    setId(newId);
+    const newEmail = e.target.value;
+    setEmail(newEmail);
 
-    const isVaildId = newId.length >= 4 && newId.length <= 12;
-    setIdIsValid(isVaildId);
+    const emailRegex = /^[A-Za-z]+@[A-Za-z]+\.[A-Za-z]+$/;
+    const isVaildEmail= emailRegex.test(newEmail);
+    setIdIsValid(isVaildEmail);
   }
 
   const handlePasswordChange = (e) => {
@@ -30,7 +30,8 @@ function SignupInput({ css }) {
 
     setPasswordsMatch(newPassword === confirmPassword || confirmPassword === '');
 
-    const isValidPassword = newPassword.length >= 4 && newPassword.length <= 12;
+    const passwordRegex = /^(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,12}$/;
+    const isValidPassword = passwordRegex.test(newPassword);
     setPasswordIsValid(isValidPassword);
 
     setPasswordsMatch(newPassword === confirmPassword);
@@ -44,48 +45,54 @@ function SignupInput({ css }) {
   };
 
  
-  const bootstrapPwClass = (passwordIsValid && passwordsMatch) ? 'is-valid' : 'is-invalid'
-  const bootstrapIdClass = idIsValid ? 'is-valid' : 'is-invalid'
+  const bootstrapPwClass = (passwordIsValid && passwordsMatch) ? '' : 'is-invalid'
+  const bootstrapIdClass = idIsValid ? '' : 'is-invalid'
 
 
   const containerCss = emotionCss(
     {
-      display: 'flex',
+      display: 'flex',  
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      zIndex: 1,
+      backgroundColor: theme.color.MAFIA_CONTAINER,
+      padding: "6rem",
     },
     css,
   );  
 
-  const partCss = emotionCss(
+  const inputCss = emotionCss(
     {
-        marginTop: "2rem",
+      width: "400px",
+      height: "50px",
+      fontSize: "15px",
     }
   )
 
   const buttonCss = emotionCss(
     {
-      display: "flex",
-      marginTop: "2rem",
-      marginLeft: 'auto',
+      width: "400px",
+      height: "50px",
+      marginTop: "15px",
     }
+  )
 
-  );
   return (
     <div css= {containerCss}>
-        <div css={partCss}>
-            <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_BACKGROUND}>
-                아이디
+        <Text variant={theme.fontVariant.H1} color={theme.color.MAFIA_WHITE}>
+          회원가입
+        </Text>
+        <div>
+            <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_WHITE}>
+                이메일
             </Text>
 
-            <input className={`form-control ${bootstrapIdClass} bg-dark-subtle`} value={id} onChange={handleConfirmIdChange} />
+            <input className={`form-control ${bootstrapIdClass}`} value={email} onChange={handleConfirmIdChange} css={inputCss}/>
         </div>
 
         {!idIsValid && (
           <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
-            올바른 아이디 형식이 아닙니다.
+            올바른 이메일 형식이 아닙니다.
           </Text>
         )}
 
@@ -95,12 +102,12 @@ function SignupInput({ css }) {
           </Text>
         )}
         
-        <div css={partCss}>
-            <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_BACKGROUND}>
+        <div>
+            <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_WHITE}>
                 비밀번호
             </Text>
 
-            <input type="password" className={`form-control ${bootstrapPwClass} bg-dark-subtle`} value={password} onChange={handlePasswordChange} />
+            <input type="password" className={`form-control ${bootstrapPwClass}`} value={password} onChange={handlePasswordChange} css={inputCss}/>
         </div>
 
         {!passwordIsValid && (
@@ -115,11 +122,11 @@ function SignupInput({ css }) {
             </Text>
         )}
 
-        <div css={partCss}>
-            <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_BACKGROUND}>
+        <div>
+            <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_WHITE}>
                 비밀번호 확인
             </Text>
-            <input type="password" className={`form-control ${bootstrapPwClass} bg-dark-subtle`} value={confirmPassword} onChange={handleConfirmPasswordChange} />
+            <input type="password" className={`form-control ${bootstrapPwClass}`} value={confirmPassword} onChange={handleConfirmPasswordChange} css={inputCss}/>
         </div>
 
         {!passwordsMatch && (
@@ -134,9 +141,9 @@ function SignupInput({ css }) {
             </Text>
         )}
 
-      <div css={buttonCss}>
-        <Button variant={theme.buttonVariant.REGIS} />
-      </div>
+    
+    <button type="button" className="btn btn-secondary" css={buttonCss}>회원가입</button>
+      
     </div>
   );
 }

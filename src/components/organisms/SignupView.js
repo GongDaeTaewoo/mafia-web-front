@@ -1,60 +1,64 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
-import ImageView from '../atoms/ImageView';
-import WantedImage from '../../assets/images/wanted.svg';
-import WantedBackgroundImage from '../../assets/images/wanted_background.svg';
 import SignupInput from '../molecules/SignupInput';
 import theme from '../../styles/theme';
 import Text from '../atoms/Text';
-
 /** @jsxImportSource @emotion/react */
 
 function SignupView({ css }) {
+  const welcomeText = '마 피아 세계에 오신 것을 환영합니다.';
+  const [displayedText, setDisplayedText] = useState('');
+
+  useEffect(() => {
+    let currentCharIndex = 0;
+  
+    const typingAnimation = setInterval(() => {
+      if (currentCharIndex < welcomeText.length -1) {
+        setDisplayedText((prevText) => prevText + welcomeText[currentCharIndex]);
+        currentCharIndex += 1;
+      } else {
+        setDisplayedText((prevText) =>
+          prevText.endsWith('.') ? prevText.slice(0, -1) : `${prevText}.`
+        );
+      }
+    }, 200);
+  
+    return () => clearInterval(typingAnimation);
+  }, []);
+
   const containerCss = emotionCss(
     {
       display: 'flex',
-      flexDirection: 'column',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '80%',
+    },
+    css,
+  );
+
+  const containerContentCss = emotionCss(
+    {
+      display: 'flex',
+      flexDirection: 'column ',
       justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: '5rem',
-      zIndex: 1,
+      width: '80%',
     },
     css,
-  ); 
-
-  const wantedCss = emotionCss(
-    {
-        width: '40rem',
-        height: '10rem',
-        zIndex: 1,
-    }
   );
-
-  const imageCss = emotionCss(
-    {
-        position: 'absolute',
-        width: '60rem', 
-        height: '80rem',
-        zIndex: 0,
-    }
-  );
-
-  const textCss = emotionCss(
-    {
-      marginTop: '3rem',
-      zIndex: 1,
-    },
-    css,
-  ); 
 
   return (
     <div css= {containerCss}>
-      <ImageView src={WantedBackgroundImage} css={imageCss} />
-      <ImageView src={WantedImage} alt="wanted" css={wantedCss} />
-      <Text variant={theme.fontVariant.H4} color={theme.color.MAFIA_RED} css={textCss} > 
-            마피아세계에 오신 걸 환영합니다.
-      </Text>
+      <div css={containerContentCss}>
+        <Text variant={theme.fontVariant.H1} fontWeight={theme.fontWeight.BOLD} color={theme.color.MAFIA_RED}  > 
+              {displayedText}
+        </Text>
+        <Text variant={theme.fontVariant.H4} fontWeight={theme.fontWeight.BOLD} color={theme.color.MAFIA_LIGHT_GRAY}  > 
+              MAFIA.GG 계정 생성을 위해 이메일을 등록하세요.
+        </Text>
+
+      </div>
+      
       <SignupInput/>
     </div>
   );
