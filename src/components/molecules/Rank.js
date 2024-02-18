@@ -11,19 +11,24 @@ import ImageView from '../atoms/ImageView';
 
 /** @jsxImportSource @emotion/react */
 
-function Rank({ children, variant, className, css, fontSize }) {
+function Rank({ children, variant, className, css }) {
   const cssObject = emotionCss(
     {
       color: theme.color.MAFIA_WHITE,
-      fontSize: '2rem',
       position: 'absolute',
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
       zIndex: '2',
+      fontWeight: theme.fontWeight.BOLDER,
+      fontSize: '10px',
+      '@media (min-width: 1028px)': {
+        fontSize: '16px',
+      },
     },
     css,
   );
+
   const getImg = (e) => {
     switch (e) {
       case '1st':
@@ -43,21 +48,8 @@ function Rank({ children, variant, className, css, fontSize }) {
         position: 'relative',
       })}
     >
-      <ImageView
-        src={getImg(variant)}
-        alt="no img"
-        css={emotionCss(
-          {
-            height: fontSize,
-            width: fontSize,
-          },
-          cssObject,
-          css,
-        )}
-      />
-      <Text variant={theme.fontVariant.SMALL} css={cssObject}>
-        {children}
-      </Text>
+      <ImageView src={getImg(variant)} alt="no img" css={cssObject} />
+      <Text css={cssObject}>{children}</Text>
     </div>
   );
 }
@@ -66,15 +58,13 @@ Rank.defaultProps = {
   className: '',
   css: emotionCss({}),
   variant: theme.rankVariant.DEFAULT,
-  fontSize: '4rem',
 };
 
 Rank.propTypes = {
   children: PropTypes.node.isRequired,
-  variant: PropTypes.oneOf(Object.keys(theme.rankVariant)),
+  variant: PropTypes.oneOf(Object.values(theme.rankVariant)),
   className: PropTypes.string,
   css: PropTypes.objectOf(emotionCss),
-  fontSize: PropTypes.string,
 };
 
 export default Rank;
