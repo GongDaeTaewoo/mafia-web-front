@@ -14,7 +14,7 @@ function SignupTemplate({ css }) {
       paddingTop:'5rem',
       alignItems: 'center',
       backgroundColor: theme.color.MAFIA_BACKGROUND,
-      minHeight: '135vh',
+      minHeight: '110vh',
       zIndex: 0,
     },
     css,

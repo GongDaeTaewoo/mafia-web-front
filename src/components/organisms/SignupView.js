@@ -33,6 +33,9 @@ function SignupView({ css }) {
       flexDirection: 'row',
       justifyContent: 'space-between',
       width: '80%',
+      '@media (max-width: 768px)': {
+        flexDirection: 'column',
+      }
     },
     css,
   );
@@ -40,20 +43,22 @@ function SignupView({ css }) {
   const containerContentCss = emotionCss(
     {
       display: 'flex',
-      flexDirection: 'column ',
+      flexDirection: 'column',
       justifyContent: 'center',
-      width: '80%',
     },
     css,
   );
 
+  const isMobile = () => window.innerWidth <= 768;
+
+
   return (
     <div css= {containerCss}>
       <div css={containerContentCss}>
-        <Text variant={theme.fontVariant.H1} fontWeight={theme.fontWeight.BOLD} color={theme.color.MAFIA_RED}  > 
+        <Text variant={isMobile() ? theme.fontVariant.H5 : theme.fontVariant.H1} fontWeight={theme.fontWeight.BOLD} color={theme.color.MAFIA_RED}  > 
               {displayedText}
         </Text>
-        <Text variant={theme.fontVariant.H4} fontWeight={theme.fontWeight.BOLD} color={theme.color.MAFIA_LIGHT_GRAY}  > 
+        <Text variant={isMobile() ? theme.fontVariant.H6 : theme.fontVariant.H4} fontWeight={theme.fontWeight.BOLD} color={theme.color.MAFIA_LIGHT_GRAY}  > 
               MAFIA.GG 계정 생성을 위해 이메일을 등록하세요.
         </Text>
 

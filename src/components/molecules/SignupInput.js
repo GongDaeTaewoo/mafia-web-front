@@ -59,6 +59,9 @@ function SignupInput({ css }) {
       alignItems: 'center',
       backgroundColor: theme.color.MAFIA_CONTAINER,
       padding: "6rem",
+      '@media (max-width: 768px)': {
+        padding: '3rem',
+      }
     },
     css,
   );
@@ -68,6 +71,10 @@ function SignupInput({ css }) {
       width: "400px",
       height: "50px",
       fontSize: "15px",
+      '@media (max-width: 768px)': {
+        width: "200px",
+        height:"25px",
+      }
     }
   )
 
@@ -76,6 +83,10 @@ function SignupInput({ css }) {
       width: "400px",
       height: "50px",
       marginTop: "15px",
+      '@media (max-width: 768px)': {
+        width: "200px",
+        height:"25px",
+      }
     }
   )
 
