@@ -58,7 +58,7 @@ function LoginInput({ css }) {
         <Text variant="h5" color={theme.color.MAFIA_WHITE}>
           비밀번호
         </Text>
-        <input className={`form-control `} css={inputCss}/>
+        <input className={`form-control `} type='password' css={inputCss}/>
       </div>
 
 
