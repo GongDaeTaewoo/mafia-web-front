@@ -15,13 +15,21 @@ function SocialLogin({ css }) {
       display: 'flex',
       justifyContent: 'space-between',
       paddingTop: '5rem',
+      '@media (max-width: 768px)': {
+        paddingTop: '3rem',
+      }
+  
     },
     css,
   );
 
   const btnCss = emotionCss({
     marginRight: '5rem',
+    '@media (max-width: 768px)': {
+      marginRight: '3rem',
+    }
   });
+
 
   return (
     <div css={containerCss}>
@@ -30,23 +38,24 @@ function SocialLogin({ css }) {
         imageSrc={kakaoImage}
         alt="kakao"
         css={btnCss}
-        width="70"
-        height="70"
+        width="60"
+        height="60"
+        
       />
       <Button
         variant={theme.buttonVariant.IMG}
         imageSrc={naverImage}
         alt="naver"
         css={btnCss}
-        width="70"
-        height="70"
+        width="60"
+        height="60"
       />
       <Button
         variant={theme.buttonVariant.IMG}
         imageSrc={googleImage}
         alt="google"
-        width="70"
-        height="70"
+        width="60"
+        height="60"
       />
     </div>
   );

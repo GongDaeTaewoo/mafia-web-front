@@ -27,12 +27,16 @@ function LoginInput({ css }) {
       width: "30rem",
       height: " 3rem",
       fontSize: "15px",
+      '@media (max-width: 768px)': {
+        width: "250px",
+        height:"25px",
+      }
     }
   )
 
   const divCss = emotionCss(
     {
-      marginTop: "1rem",
+      marginTop: "2rem",
     }
   )
 
@@ -42,6 +46,11 @@ function LoginInput({ css }) {
       height: " 3rem",
       marginTop: '2rem',
       fontSize: "1.5rem",
+      '@media (max-width: 768px)': {
+        width: "250px",
+        height:"25px",
+        fontSize: "1rem",
+      }
     });
     
   return (

@@ -20,6 +20,9 @@ function LoginView({ css }) {
       marginTop:'1rem',
       backgroundColor: theme.color.MAFIA_CONTAINER,
       padding: '5rem',
+      '@media (max-width: 768px)': {
+        padding: '1rem',
+      },
     },
     css,
   );  
@@ -38,6 +41,9 @@ function LoginView({ css }) {
     justifyContent: 'center',
     color: theme.color.MAFIA_WHITE,
     marginTop: '7rem',
+    '@media (max-width: 768px)': {
+      marginTop: "4rem",
+    }
   });
 
   const separatorLineCss = emotionCss({
@@ -57,14 +63,24 @@ function LoginView({ css }) {
     marginLeft: '0.5rem', 
   });
 
+  const imageCss = emotionCss({
+    width: '35rem',
+    height: '15rem',
+    '@media (max-width: 768px)': {
+      width: '20rem',
+      height: '7rem',
+    },
+  })
+
   function handleSignUpClick() {
     window.location.href = "/signup";
   }
 
+
   return (
     <div css= {containerCss}>
       <div css={partCss}>
-        <ImageView src={logoImage} alt="logo" />
+        <ImageView src={logoImage} alt="logo" css={imageCss} />
       </div>
       <LoginInput/>
       <div css={separatorCss}>
@@ -78,9 +94,17 @@ function LoginView({ css }) {
         <Text color={theme.color.MAFIA_LIGHT_GRAY}>
           아직 MAFIA.GG 회원이 아니신가요?   
         </Text>
-        <text css={signUpLinkCss} onClick={handleSignUpClick}>  
+        <span css={signUpLinkCss} 
+        onClick={handleSignUpClick}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === 'Space') {
+            handleSignUpClick();
+          }
+        }}
+        role="button"
+        tabIndex={0}>  
           회원가입
-        </text>
+        </span>
       </div>
       
     </div>
