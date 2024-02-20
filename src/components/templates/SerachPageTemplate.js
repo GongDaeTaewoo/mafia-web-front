@@ -13,7 +13,7 @@ import Pagination from '../molecules/Pagination';
 function SearchPageTemplate({ dataList, className, nowPage }) {
   const SearchPageCSS = css`
     background-color: ${theme.color.MAFIA_BACKGROUND};
-    height: 10000px;
+    height: 1000px;
   `;
   const SearchCSS = css`
     padding-top: 150px;

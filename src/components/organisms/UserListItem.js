@@ -6,11 +6,12 @@ import ListItem from '../atoms/ListItem';
 import theme from '../../styles/theme';
 import ImageView from '../atoms/ImageView';
 import searchPageImage from '../../assets/images/searchPageImage.svg';
+import Text from '../atoms/Text';
 /** @jsxImportSource @emotion/react */
 
 function UserListItem({ data }) {
   const ListViewCSS = css`
-    background-color: ${theme.color.MAFIA_LIGHT_GRAY};
+    background-color: ${theme.color.MAFIA_ITEM};
     height: 65px;
     width: 1000px;
     display: flex;
@@ -42,10 +43,12 @@ function UserListItem({ data }) {
         <ImageView src={searchPageImage} css={ImageCSS} />
       </ListItem>
       <ListItem className="" css={ListItemNameCSS}>
-        {data.name} (★{data.title})
+        <Text css={{ color: theme.color.MAFIA_WHITE }}>
+          {data.name} (★{data.title})
+        </Text>
       </ListItem>
       <ListItem className="" css={ListItemCSS}>
-        승률:{data.odds}%
+        <Text css={{ color: theme.color.MAFIA_WHITE }}>승률:{data.odds}%</Text>
       </ListItem>
     </ListView>
   );
