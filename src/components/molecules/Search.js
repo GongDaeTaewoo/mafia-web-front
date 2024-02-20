@@ -6,26 +6,35 @@ import Button from '../atoms/Button';
 /** @jsxImportSource @emotion/react */
 
 function Search({ variant, className, css }) {
+  const ButtonCSS = emotionCss(
+    {
+      position: 'relative',
+      right: '40px',
+      margin: '3px',
+    },
+    css,
+  );
+
   switch (variant) {
     case 'long':
       return (
         <div className={className} style={{ display: 'flex' }} css={css}>
           <Input variant="long" />
-          <Button variant="normal" />
+          <Button variant="normal" css={ButtonCSS} />
         </div>
       );
     case 'forMyPage':
       return (
         <div className={className} style={{ display: 'flex' }} css={css}>
           <Input variant="forMyPage" />
-          <Button variant="normal" />
+          <Button variant="normal" css={ButtonCSS} />
         </div>
       );
     default:
       return (
         <div className={className} style={{ display: 'flex' }} css={css}>
           <Input variant="short" />
-          <Button variant="normal" />
+          <Button variant="normal" css={ButtonCSS} />
         </div>
       );
   }
