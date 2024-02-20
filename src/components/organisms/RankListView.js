@@ -8,6 +8,7 @@ import Pagination from '../molecules/Pagination';
 import Button from '../atoms/Button';
 import RankCardListView from './RankCardListView';
 import Text from '../atoms/Text';
+import ListItem from '../atoms/ListItem';
 
 /** @jsxImportSource @emotion/react */
 
@@ -85,34 +86,63 @@ function RankListView({
           </Button>
         ))}
       </div>
-      <div
-        className="row py-3 m-0"
+
+      <ListItem
+        className="d-flex m-0 list-group-item w-100"
         css={emotionCss({
           color: theme.color.MAFIA_WHITE,
           backgroundColor: theme.color.MAFIA_ITEM,
+          border: '0px',
           borderBottom: `1px solid ${theme.color.MAFIA_BACKGROUND}`,
         })}
       >
-        <div className="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mx-3 p-0 d-flex justify-content-center">
-          순위
+        <div className="row p-0 w-100">
+          <Text
+            variant={theme.fontVariant.H6}
+            color={theme.color.MAFIA_WHITE}
+            className="mx-3 my-1 col-1 p-0 d-flex align-items-center justify-content-center"
+          >
+            순위
+          </Text>
+          <Text
+            variant={theme.fontVariant.H6}
+            color={theme.color.MAFIA_WHITE}
+            className="my-1 col-1 p-0 d-flex align-items-center justify-content-center"
+            css={emotionCss({
+              margin: '0 8.5px',
+              '@media (min-width: 480px)': {
+                maxWidth: '6rem',
+                margin: '0 15.5px',
+              },
+              '@media (min-width: 900px)': {
+                maxWidth: '8rem',
+                margin: '0 19.5px',
+              },
+            })}
+          />
+          <Text
+            variant={theme.fontVariant.H6}
+            color={theme.color.MAFIA_WHITE}
+            className="my-1 col p-0 d-flex align-items-center justify-content-center"
+          >
+            이름
+          </Text>
+          <Text
+            variant={theme.fontVariant.H6}
+            color={theme.color.MAFIA_WHITE}
+            className="my-1 col p-0 d-flex align-items-center justify-content-center"
+          >
+            전적
+          </Text>
+          <Text
+            variant={theme.fontVariant.H6}
+            color={theme.color.MAFIA_WHITE}
+            className="my-1 col-2 p-0 d-flex align-items-center justify-content-center"
+          >
+            승률
+          </Text>
         </div>
-        <div className="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1 col-xxl-1 mx-4 p-0 d-flex justify-content-center">
-          프로필
-        </div>
-        <div className="col ">
-          <div className="row">
-            <div className="col-3 col-sm-0 col-md-3 col-lg-4 col-xl-4 col-xxl-4 d-flex justify-content-center p-0">
-              이름
-            </div>
-            <div className="col-3 col-sm-5 col-md-6 col-lg-5 col-xl-6 col-xxl-6 d-flex justify-content-center p-0">
-              전적
-            </div>
-            <div className="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 col-xxl-2 d-flex justify-content-center p-0">
-              승률
-            </div>
-          </div>
-        </div>
-      </div>
+      </ListItem>
       {listItems.map((listItem) => (
         <Button
           onClick={() => {
@@ -136,7 +166,7 @@ function RankListView({
               value={listItem.value}
               total={listItem.total}
               unit={listItem.unit}
-              css={emotionCss({ minHeight: '3rem', minWidth: '3rem' })}
+              css={emotionCss({ maxWidth: '5.5rem', minWidth: '2.6rem' })}
             />
           </RankCardListView>
         </Button>

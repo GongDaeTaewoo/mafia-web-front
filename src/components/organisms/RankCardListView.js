@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
 import theme from '../../styles/theme';
-import CardBody from '../molecules/CardBody';
 import ListItem from '../atoms/ListItem';
 import Rank from '../molecules/Rank';
 import ImageView from '../atoms/ImageView';
+import RankCardBody from '../molecules/RankCardBody';
 
 /** @jsxImportSource @emotion/react */
 
@@ -32,30 +32,6 @@ function RankCardListView({ children, imageSrc, cards, className, css, rank }) {
     }
   };
 
-  const content = (
-    <div className="row h-100 p-0 m-0 d-flex align-items-center">
-      {cards.map((card) => (
-        <div className="col" key={card.id}>
-          <CardBody
-            title={card.title}
-            content={card.content}
-            imageSrc={card.imageSrc}
-            fontCss={emotionCss({
-              fontSize: '12px',
-              '@media (min-width: 768px)': {
-                fontSize: '15px',
-              },
-            })}
-          />
-        </div>
-      ))}
-      {children && (
-        <div className="row col ms-auto" css={emotionCss({ maxWidth: '8rem' })}>
-          {children}
-        </div>
-      )}
-    </div>
-  );
   return (
     <ListItem className={`${className} list-group-item`} css={cssObject}>
       <div className="row p-0 w-100">
@@ -68,19 +44,35 @@ function RankCardListView({ children, imageSrc, cards, className, css, rank }) {
         </Rank>
         <ImageView
           src={imageSrc}
-          className="col-3 p-0 img-fluid mx-4"
+          className="col-1 p-0 img-fluid"
           css={emotionCss({
             maxWidth: '4rem',
             minWidth: '2rem',
+            margin: '0 8.5px',
             '@media (min-width: 480px)': {
               maxWidth: '6rem',
+              margin: '0 15.5px',
             },
             '@media (min-width: 900px)': {
               maxWidth: '8rem',
+              margin: '0 19.5px',
             },
           })}
         />
-        <div className="col">{content}</div>
+        {cards.map((card) => (
+          <RankCardBody
+            key={card.id}
+            title={card.title}
+            content={card.content}
+            fontCss={emotionCss({
+              fontSize: '9px',
+              '@media (min-width: 768px)': {
+                fontSize: '13.5px',
+              },
+            })}
+          />
+        ))}
+        <div className="col-2 d-flex justify-content-center">{children}</div>
       </div>
     </ListItem>
   );
