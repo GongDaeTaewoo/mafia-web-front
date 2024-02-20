@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes, { string } from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
 import ListView from '../atoms/ListView';
@@ -29,13 +29,19 @@ function RankListView({
     },
     css,
   );
-
+  const [activeCategory, setActiveCategory] = useState(null);
+  const handleClick = (e) => {
+    setActiveCategory(e);
+  };
   return (
     <ListView className={`list-group ${className} p-0`} css={cssObject}>
-      <div className="d-flex row m-0">
+      <div className="d-flex row m-0 nav-item">
         {categories.map((category) => (
           <Button
-            className="col-3 col-sm-2"
+            key={category}
+            className={`col-3 col-sm-2 nav-link ${category === activeCategory ? 'active' : ''}`}
+            onClick={() => handleClick(category)}
+            data-toggle="tab"
             css={emotionCss({
               ':hover > *': {
                 color: theme.color.MAFIA_LIGHT_GRAY,
@@ -49,7 +55,14 @@ function RankListView({
           >
             <Text
               variant={theme.fontVariant.H5}
-              color={theme.color.MAFIA_WHITE}
+              color={
+                category === activeCategory
+                  ? theme.color.MAFIA_LIGHT_GRAY
+                  : theme.color.MAFIA_WHITE
+              }
+              fontWeight={
+                category === activeCategory ? theme.fontWeight.BOLDER : ''
+              }
               className="px-4 pt-4 pb-3"
               css={emotionCss({
                 borderRadius: '30px',

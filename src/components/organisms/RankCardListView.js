@@ -69,7 +69,16 @@ function RankCardListView({ children, imageSrc, cards, className, css, rank }) {
         <ImageView
           src={imageSrc}
           className="col-3 p-0 img-fluid mx-4"
-          css={emotionCss({ maxWidth: '8rem' })}
+          css={emotionCss({
+            maxWidth: '4rem',
+            minWidth: '2rem',
+            '@media (min-width: 480px)': {
+              maxWidth: '6rem',
+            },
+            '@media (min-width: 900px)': {
+              maxWidth: '8rem',
+            },
+          })}
         />
         <div className="col">{content}</div>
       </div>
