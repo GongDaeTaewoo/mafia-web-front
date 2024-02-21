@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
+import axios from 'axios';
 import Text from '../atoms/Text';
 import theme from '../../styles/theme';
 import loginState from '../../recoils/loginState';
+import Button from '../atoms/Button';
 
 /** @jsxImportSource @emotion/react */
 
 function LoginInput({ css }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const navigate = useNavigate();
   const setLogin = useRecoilState(loginState)[1];
   const containerCss = emotionCss(
@@ -52,6 +57,26 @@ function LoginInput({ css }) {
         fontSize: "1rem",
       }
     });
+
+    const handleLogin= () => {
+      
+      const apiUrl ='/data/emailAuth.json';
+    
+      axios.get(apiUrl, {
+        email,
+        password
+      })
+        .then(response => {
+          console.log('이메일 전송 API 호출 성공:', response.data);
+        })
+        .catch(error => {
+          console.error('이메일 전송 API 호출 실패:', error);
+        });
+      
+      setLogin(() => ({ id: 1, email: 'aaaaaa@gmail.com' }));
+      navigate('/');
+      
+    };
     
   return (
     <div css={containerCss}>
@@ -60,25 +85,22 @@ function LoginInput({ css }) {
           이메일
         </Text>
 
-        <input className={`form-control `} css={inputCss}/>
+        <input className={`form-control `} css={inputCss} value={email} onChange={(e) => setEmail(e.target.value)}/>
       </div>
 
       <div css={divCss}>
         <Text variant="h5" color={theme.color.MAFIA_WHITE}>
           비밀번호
         </Text>
-        <input className={`form-control `} type='password' css={inputCss}/>
+        <input className={`form-control `} type='password' css={inputCss} value={password} onChange={(e) => setPassword(e.target.value)}/>
       </div>
 
 
       <div css={buttonCss}>
-      <button type="button" className="btn btn-secondary" 
-        onClick={() => {
-          setLogin(() => ({ id: 1, email: 'aaaaaa@gmail.com' }));
-          navigate('/');
-        }}
+      <Button type="button" variant={theme.buttonVariant.REGIS} className="btn btn-secondary" 
+        onClick={handleLogin}
         css={buttonCss}><Text fontWeight={theme.fontWeight.BOLD} color={theme.color.MAFIA_WHITE}>
-          로그인 </Text></button>
+          로그인 </Text></Button>
       </div>
     </div>
   );
