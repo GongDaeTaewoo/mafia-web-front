@@ -6,6 +6,7 @@ import axios from 'axios';
 // import Input from '../atoms/Input';
 import Text from '../atoms/Text';
 import theme from '../../styles/theme';
+import Button from '../atoms/Button';
 
 
 /** @jsxImportSource @emotion/react */
@@ -14,7 +15,7 @@ function SignupInput({ css }) {
   const [email, setEmail] = useState('');
   const [emailIsDisabled, setEmailIsDisabled] = useState(false);
   const [emailBgColor,setEmailBgColor] = useState('');
-  const [emailIsValid, setEmailIsValid] = useState(true);
+  const [emailIsValid, setEmailIsValid] = useState(false);
   const [showEmailButton, setShowEmailButton] = useState(true);
 
   const [showEmailCodeButton,setShowEmailCodeButton] = useState(false);
@@ -24,12 +25,12 @@ function SignupInput({ css }) {
   const [emailCode, setEmailCode] = useState('');
   const [emailCodeIsDisabled, setEmailCodeIsDisabled] = useState(false);
   const [emailCodeBgColor,setEmailCodeBgColor] = useState('');
-  const [emailCodeIsValid, setEmailCodeIsValid] = useState(true);
+  const [emailCodeIsValid, setEmailCodeIsValid] = useState(false);
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordsMatch, setPasswordsMatch] = useState(true);
-  const [passwordIsValid, setPasswordIsValid] = useState(true);
+  const [passwordsMatch, setPasswordsMatch] = useState(false);
+  const [passwordIsValid, setPasswordIsValid] = useState(false);
 
   const navigate = useNavigate();
   
@@ -281,19 +282,19 @@ function SignupInput({ css }) {
       )}
 
     
-    <button type="button" className="btn btn-secondary" css={buttonCss} onClick={handleSignup}>회원가입</button>
+    <Button type="button" variant={theme.buttonVariant.REGIS} className="btn btn-secondary" css={buttonCss} onClick={handleSignup}>회원가입</Button>
     </>)}
 
     {showEmailButton && (
-        <button type="button" className="btn btn-secondary" css={buttonCss} onClick={handleSendEmail}>
+        <Button type="button" variant={theme.buttonVariant.REGIS} className="btn btn-secondary" css={buttonCss} onClick={handleSendEmail}>
           이메일 전송
-        </button>
+        </Button>
       )}
 
     {showEmailCodeButton && (
-        <button type="button" className="btn btn-secondary" css={buttonCss} onClick={handleAdditionalFields}>
+        <Button type="button" variant={theme.buttonVariant.REGIS} className="btn btn-secondary" css={buttonCss} onClick={handleAdditionalFields}>
           인증코드 확인
-        </button>
+        </Button>
       )}
     </div>
   );

@@ -34,6 +34,7 @@ function Button({
     cssObject,
   );
 
+
   const plainButtonCss = emotionCss(
     {
       backgroundColor: 'transparent',
@@ -63,11 +64,10 @@ function Button({
           // eslint-disable-next-line react/button-has-type
           type={buttonType}
           name={name}
-          className={`btn-group ${className}`}
-          css={grayButtonCss}
+          className={className}
           onClick={onClick}
         >
-          <Text color={theme.color.MAFIA_WHITE}>회원가입</Text>
+          <Text color={theme.color.MAFIA_WHITE}>{children}</Text>
         </button>
       );
     case theme.buttonVariant.IMG:
