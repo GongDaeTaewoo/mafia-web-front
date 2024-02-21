@@ -1,36 +1,56 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
+import axios from 'axios';
 // import Input from '../atoms/Input';
 import Text from '../atoms/Text';
 import theme from '../../styles/theme';
+
 
 /** @jsxImportSource @emotion/react */
 
 function SignupInput({ css }) {
   const [email, setEmail] = useState('');
+  const [emailIsDisabled, setEmailIsDisabled] = useState(false);
+  const [emailBgColor,setEmailBgColor] = useState('');
+  const [emailIsValid, setEmailIsValid] = useState(true);
+  const [showEmailButton, setShowEmailButton] = useState(true);
+
+  const [showEmailCodeButton,setShowEmailCodeButton] = useState(false);
+  const [showEmailCodeField,setShowEmailCodeField] = useState(false);
+  const [showAdditionalFields, setShowAdditionalFields] = useState(false);
+
+  const [emailCode, setEmailCode] = useState('');
+  const [emailCodeIsDisabled, setEmailCodeIsDisabled] = useState(false);
+  const [emailCodeBgColor,setEmailCodeBgColor] = useState('');
+  const [emailCodeIsValid, setEmailCodeIsValid] = useState(true);
+
   const [password, setPassword] = useState('');
-  const [idIsValid, setIdIsValid] = useState(true);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [passwordIsValid, setPasswordIsValid] = useState(true);
 
-  const handleConfirmIdChange = (e) => {
+  const navigate = useNavigate();
+  
+  const handleConfirmEmailChange = (e) => {
     const newEmail = e.target.value;
     setEmail(newEmail);
-
-    const emailRegex = /^[A-Za-z]+@[A-Za-z]+\.[A-Za-z]+$/;
+    
+    const emailRegex = /^[A-Za-z0-9]+@[A-Za-z]+\.[A-Za-z]+$/;
     const isVaildEmail= emailRegex.test(newEmail);
-    setIdIsValid(isVaildEmail);
+    setEmailIsValid(isVaildEmail);
+  }
+  
+
+  const handleConfirmEmailCodeChange = (e) => {
+    const newEmailCode = e.target.value;
+    setEmailCode(newEmailCode);
   }
 
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
-
-    setPasswordsMatch(
-      newPassword === confirmPassword || confirmPassword === '',
-    );
 
     const passwordRegex = /^(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,12}$/;
     const isValidPassword = passwordRegex.test(newPassword);
@@ -46,9 +66,81 @@ function SignupInput({ css }) {
     setPasswordsMatch(password === newConfirmPassword);
   };
 
- 
-  const bootstrapPwClass = (passwordIsValid && passwordsMatch) ? '' : 'is-invalid'
-  const bootstrapIdClass = idIsValid ? '' : 'is-invalid'
+
+  const handleSendEmail= () => {
+    if(emailIsValid){
+      const apiUrl ='/data/emailAuth.json';
+  
+    axios.get(apiUrl, {
+      email,
+    })
+      .then(response => {
+        console.log('이메일 전송 API 호출 성공:', response.data);
+        setEmailBgColor('bg-secondary');
+        setShowEmailButton(false);
+        setEmailIsDisabled(true);
+        setShowEmailCodeField(true);
+        setShowEmailCodeButton(true);
+      })
+      .catch(error => {
+        console.error('이메일 전송 API 호출 실패:', error);
+      });
+    }
+  };
+
+  const handleAdditionalFields= () => {
+    const apiUrl ='/data/emailAuth.json';
+
+    axios.get(apiUrl, {
+      emailCode,
+    })
+      .then(response => {
+        console.log('인증코드 API 호출 성공:', response.data);
+
+        // 인증로직 추후변경
+        if(response.data.authCheck === '1'){ 
+          setEmailCodeBgColor('bg-secondary');
+          setEmailCodeIsDisabled(true);
+
+          setEmailCodeIsValid(true);
+          setShowAdditionalFields(true);
+          setShowEmailCodeButton(false);
+        }else{
+          setEmailCodeIsValid(false);
+        }
+      })
+      .catch(error => {
+        console.error('인증코드 API 호출 실패:', error);
+      });
+  };
+
+  const handleSignup = () =>{
+    const apiUrl='/data/emailAuth.json';
+
+    if(passwordIsValid&&passwordsMatch){
+
+      axios.get(apiUrl,{
+        email,
+        emailCode,
+        password
+      })
+      .then(response => {
+        console.log('회원가입 API 호출 성공:', response.data);
+
+        navigate('/login');
+        
+      })
+      .catch(error => {
+        console.error('회원가입 API 호출 실패:', error);
+      });
+    }
+    
+  }
+  
+  const bootstrapEmailClass = (emailIsValid||email==='') ? '' : 'is-invalid'
+  const bootstrapEmailCodeClass = (emailCodeIsValid||emailCode==='') ? '' : 'is-invalid'
+  const bootstrapPwClass = (passwordIsValid||password==='') ? '' : 'is-invalid'
+  const bootstrapPwConfirmClass = (passwordsMatch||confirmPassword==='') ? '' : 'is-invalid'
 
 
   const containerCss = emotionCss(
@@ -59,7 +151,7 @@ function SignupInput({ css }) {
       alignItems: 'center',
       backgroundColor: theme.color.MAFIA_CONTAINER,
       padding: "6rem",
-      '@media (max-width: 768px)': {
+      '@media (max-width: 600px)': {
         padding: '3rem',
       }
     },
@@ -69,11 +161,11 @@ function SignupInput({ css }) {
   const inputCss = emotionCss(
     {
       width: "400px",
-      height: "50px",
+      height: "30px",
       fontSize: "15px",
-      '@media (max-width: 768px)': {
+      '@media (max-width: 600px)': {
         width: "200px",
-        height:"25px",
+        height:"20px",
       }
     }
   )
@@ -81,82 +173,128 @@ function SignupInput({ css }) {
   const buttonCss = emotionCss(
     {
       width: "400px",
-      height: "50px",
-      marginTop: "15px",
-      '@media (max-width: 768px)': {
+      height: "35px",
+      marginTop: "25px",
+      '@media (max-width: 600px)': {
         width: "200px",
         height:"25px",
       }
     }
   )
 
+  const partCss = emotionCss(
+    {
+      marginTop: "1rem",
+    }
+  )
+
   return (
     <div css= {containerCss}>
-        <Text variant={theme.fontVariant.H1} color={theme.color.MAFIA_WHITE}>
+        <Text variant={theme.fontVariant.H5} color={theme.color.MAFIA_WHITE}>
           회원가입
         </Text>
-        <div>
+        <div css={partCss}>
             <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_WHITE}>
                 이메일
             </Text>
 
-            <input className={`form-control ${bootstrapIdClass}`} value={email} onChange={handleConfirmIdChange} css={inputCss}/>
+            <input className={`form-control ${bootstrapEmailClass} ${emailBgColor}`} value={email} onChange={handleConfirmEmailChange} css={inputCss} style={{ borderWidth: '3.5px'}} disabled={emailIsDisabled}/>
         </div>
 
-        {!idIsValid && (
+        {!emailIsValid&&email!=='' &&(
           <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
             올바른 이메일 형식이 아닙니다.
           </Text>
         )}
 
-        {idIsValid && (
+        {(emailIsValid||email==='') && (
           <Text variant={theme.fontVariant.SMALL}>
             <br/>
           </Text>
         )}
+
+
+        {showEmailCodeField &&(
+          <>
+          <div css={partCss}>
+              <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_WHITE}>
+                  이메일 인증코드
+              </Text>
+
+              <input className={`form-control ${bootstrapEmailCodeClass} ${emailCodeBgColor}`} value={emailCode} onChange={handleConfirmEmailCodeChange} css={inputCss} style={{ borderWidth: '3.5px'}} disabled={emailCodeIsDisabled}/>
+            
+          </div>
+          {(!emailCodeIsValid)  && (
+            <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
+              인증번호가 일치하지 않습니다.
+            </Text>
+          )}
+
+          {(emailCodeIsValid)  && (
+            <br/>
+          )}
+    
+          </>
         
-        <div>
+        )}
+
+        {showAdditionalFields &&(
+        <>
+        
+        <div css={partCss}>
             <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_WHITE}>
                 비밀번호
             </Text>
 
-            <input type="password" className={`form-control ${bootstrapPwClass}`} value={password} onChange={handlePasswordChange} css={inputCss}/>
+            <input type="password" className={`form-control ${bootstrapPwClass}`} value={password} onChange={handlePasswordChange} css={inputCss} style={{ borderWidth: '3.5px'}}/>
         </div>
 
-      {!passwordIsValid && (
+      {(!passwordIsValid&&password!=='')   && (
         <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
           올바른 비밀번호 형식이 아닙니다.
         </Text>
       )}
 
-      {passwordIsValid && (
+      {(passwordIsValid||password==='') && (
         <Text variant={theme.fontVariant.SMALL}>
           <br />
         </Text>
       )}
 
-        <div>
+        <div css={partCss}>
             <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_WHITE}>
                 비밀번호 확인
             </Text>
-            <input type="password" className={`form-control ${bootstrapPwClass}`} value={confirmPassword} onChange={handleConfirmPasswordChange} css={inputCss}/>
+            <input type="password" className={`form-control ${bootstrapPwConfirmClass}`} value={confirmPassword} onChange={handleConfirmPasswordChange} css={inputCss} style={{ borderWidth: '3.5px'}}/>
         </div>
 
-      {!passwordsMatch && (
+      {(!passwordsMatch&&confirmPassword!=='') && (
         <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
           비밀번호가 일치하지 않습니다.
         </Text>
       )}
 
-      {passwordsMatch && (
+      {(passwordsMatch||confirmPassword==='') && (
         <Text variant={theme.fontVariant.SMALL}>
           <br />
         </Text>
       )}
 
     
-    <button type="button" className="btn btn-secondary" css={buttonCss}>회원가입</button>
-      
+    <button type="button" className="btn btn-secondary" css={buttonCss} onClick={handleSignup}>회원가입</button>
+    </>)}
+
+    {showEmailButton && (
+        <button type="button" className="btn btn-secondary" css={buttonCss} onClick={handleSendEmail}>
+          이메일 전송
+        </button>
+      )}
+
+    {showEmailCodeButton && (
+        <button type="button" className="btn btn-secondary" css={buttonCss} onClick={handleAdditionalFields}>
+          인증코드 확인
+        </button>
+      )}
     </div>
   );
 }

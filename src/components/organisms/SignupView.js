@@ -7,19 +7,22 @@ import Text from '../atoms/Text';
 /** @jsxImportSource @emotion/react */
 
 function SignupView({ css }) {
-  const welcomeText = '마 피아 세계에 오신 것을 환영합니다.';
+  const welcomeText = '마피아 세계에 오신 것을 환영합니다.';
   const [displayedText, setDisplayedText] = useState('');
 
   useEffect(() => {
-    let currentCharIndex = 0;
+    let currentCharIndex = -1;
   
     const typingAnimation = setInterval(() => {
       if (currentCharIndex < welcomeText.length -1) {
-        setDisplayedText((prevText) => prevText + welcomeText[currentCharIndex]);
         currentCharIndex += 1;
+        setDisplayedText((prevText) => prevText + welcomeText[currentCharIndex]);
+        
       } else {
         setDisplayedText((prevText) =>
-          prevText.endsWith('.') ? prevText.slice(0, -1) : `${prevText}.`
+        prevText.endsWith('.')
+        ? `${prevText.slice(0, -1)} `
+        : `${prevText.slice(0, -1)}.`
         );
       }
     }, 200);
@@ -32,9 +35,13 @@ function SignupView({ css }) {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
+      alignItems:'flex-start',
       width: '80%',
-      '@media (max-width: 768px)': {
+      '@media (max-width: 1300px)': {
         flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems:'center',
+        marginBottom:'2rem',
       }
     },
     css,
@@ -45,24 +52,29 @@ function SignupView({ css }) {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
+      marginTop:'10rem',
+      '@media (max-width: 1300px)': {
+        marginBottom:'2rem',
+      }
     },
     css,
   );
 
-  const isMobile = () => window.innerWidth <= 768;
+  const isMobile = () => window.innerWidth <= 600;
 
 
   return (
     <div css= {containerCss}>
       <div css={containerContentCss}>
-        <Text variant={isMobile() ? theme.fontVariant.H5 : theme.fontVariant.H1} fontWeight={theme.fontWeight.BOLD} color={theme.color.MAFIA_RED}  > 
-              {displayedText}
+        <Text variant={isMobile() ? theme.fontVariant.H4 : theme.fontVariant.H2} fontWeight={theme.fontWeight.BOLD} color={theme.color.MAFIA_RED}  > 
+            {displayedText}
         </Text>
         <Text variant={isMobile() ? theme.fontVariant.H6 : theme.fontVariant.H4} fontWeight={theme.fontWeight.BOLD} color={theme.color.MAFIA_LIGHT_GRAY}  > 
-              MAFIA.GG 계정 생성을 위해 이메일을 등록하세요.
+              MAFIA.GG 계정 생성을 위해 이메일을 등록하고 인증하세요.
         </Text>
-
       </div>
+
+      
       
       <SignupInput/>
     </div>
