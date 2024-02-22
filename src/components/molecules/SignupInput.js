@@ -25,7 +25,7 @@ function SignupInput({ css }) {
   const [emailCode, setEmailCode] = useState('');
   const [emailCodeIsDisabled, setEmailCodeIsDisabled] = useState(false);
   const [emailCodeBgColor,setEmailCodeBgColor] = useState('');
-  const [emailCodeIsValid, setEmailCodeIsValid] = useState(false);
+  const [emailCodeIsValid, setEmailCodeIsValid] = useState(true);
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -225,13 +225,13 @@ function SignupInput({ css }) {
               <input className={`form-control ${bootstrapEmailCodeClass} ${emailCodeBgColor}`} value={emailCode} onChange={handleConfirmEmailCodeChange} css={inputCss} style={{ borderWidth: '3.5px'}} disabled={emailCodeIsDisabled}/>
             
           </div>
-          {(!emailCodeIsValid && emailCode !=='')  && (
+          {(!emailCodeIsValid)  && (
             <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
               인증번호가 일치하지 않습니다.
             </Text>
           )}
 
-          {(emailCodeIsValid || emailCode ==='')  && (
+          {(emailCodeIsValid)  && (
             <br/>
           )}
     
