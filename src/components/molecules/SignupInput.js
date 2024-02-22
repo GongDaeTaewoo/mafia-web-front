@@ -225,13 +225,13 @@ function SignupInput({ css }) {
               <input className={`form-control ${bootstrapEmailCodeClass} ${emailCodeBgColor}`} value={emailCode} onChange={handleConfirmEmailCodeChange} css={inputCss} style={{ borderWidth: '3.5px'}} disabled={emailCodeIsDisabled}/>
             
           </div>
-          {(!emailCodeIsValid)  && (
+          {(!emailCodeIsValid && emailCode !=='')  && (
             <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
               인증번호가 일치하지 않습니다.
             </Text>
           )}
 
-          {(emailCodeIsValid)  && (
+          {(emailCodeIsValid || emailCode ==='')  && (
             <br/>
           )}
     
