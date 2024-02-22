@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import { css as emotionCss } from '@emotion/react';
 import ImageView from '../atoms/ImageView';
 import LoginInput from '../molecules/LoginInput';
@@ -11,6 +12,8 @@ import Text from '../atoms/Text';
 /** @jsxImportSource @emotion/react */
 
 function LoginView({ css }) {
+  const navigate = useNavigate();
+  
   const containerCss = emotionCss(
     {
       display: 'flex',
@@ -73,7 +76,7 @@ function LoginView({ css }) {
   })
 
   function handleSignUpClick() {
-    window.location.href = "/signup";
+    navigate('/signup');
   }
 
 
