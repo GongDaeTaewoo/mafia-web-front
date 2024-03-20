@@ -22,6 +22,8 @@ function SignupInput({ css }) {
   const [showEmailCodeField,setShowEmailCodeField] = useState(false);
   const [showAdditionalFields, setShowAdditionalFields] = useState(false);
 
+  const [emailBtnIsDisabled,setEmailBtnIsDisabled] = useState(false);
+
   const [emailCode, setEmailCode] = useState('');
   const [emailCodeIsDisabled, setEmailCodeIsDisabled] = useState(false);
   const [emailCodeBgColor,setEmailCodeBgColor] = useState('');
@@ -31,6 +33,8 @@ function SignupInput({ css }) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(false);
   const [passwordIsValid, setPasswordIsValid] = useState(false);
+
+  const [nickname, setNickname] = useState('');
 
   const navigate = useNavigate();
   
@@ -53,7 +57,7 @@ function SignupInput({ css }) {
     const newPassword = e.target.value;
     setPassword(newPassword);
 
-    const passwordRegex = /^(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,12}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/;
     const isValidPassword = passwordRegex.test(newPassword);
     setPasswordIsValid(isValidPassword);
 
@@ -67,16 +71,24 @@ function SignupInput({ css }) {
     setPasswordsMatch(password === newConfirmPassword);
   };
 
+  const handleConfirmNicknameChange = (e) => {
+    setNickname(e.target.value);
+  
+  };
+
 
   const handleSendEmail= () => {
+    
     if(emailIsValid){
-      const apiUrl ='/data/emailAuth.json';
+      setEmailBtnIsDisabled(true);
+
+      const apiUrl ='http://localhost:8081/member/sendMail';
   
-    axios.get(apiUrl, {
+    axios.post(apiUrl, {
       email,
     })
       .then(response => {
-        console.log('이메일 전송 API 호출 성공:', response.data);
+        console.log('이메일 전송 API 호출 성공', response.data);
         setEmailBgColor('bg-secondary');
         setShowEmailButton(false);
         setEmailIsDisabled(true);
@@ -85,21 +97,23 @@ function SignupInput({ css }) {
       })
       .catch(error => {
         console.error('이메일 전송 API 호출 실패:', error);
+        setEmailBtnIsDisabled(false);
       });
     }
   };
 
   const handleAdditionalFields= () => {
-    const apiUrl ='/data/emailAuth.json';
+    const apiUrl ='http://localhost:8081/member/confirmMail';
 
-    axios.get(apiUrl, {
+    axios.post(apiUrl, {
+      email,
       emailCode,
     })
       .then(response => {
-        console.log('인증코드 API 호출 성공:', response.data);
+        console.log('인증코드 API 호출 성공', response.data);
 
-        // 인증로직 추후변경
-        if(response.data.authCheck === '1'){ 
+        if(response.data.body === true){ 
+          console.log('인증코드 일치');
           setEmailCodeBgColor('bg-secondary');
           setEmailCodeIsDisabled(true);
 
@@ -107,6 +121,7 @@ function SignupInput({ css }) {
           setShowAdditionalFields(true);
           setShowEmailCodeButton(false);
         }else{
+          console.log('인증코드 불일치');
           setEmailCodeIsValid(false);
         }
       })
@@ -116,14 +131,15 @@ function SignupInput({ css }) {
   };
 
   const handleSignup = () =>{
-    const apiUrl='/data/emailAuth.json';
+    const apiUrl='http://localhost:8081/member/signup';
 
-    if(passwordIsValid&&passwordsMatch){
+    if((passwordIsValid&&passwordsMatch)&&nickname!==''){
 
-      axios.get(apiUrl,{
+      axios.post(apiUrl,{
         email,
         emailCode,
-        password
+        password,
+        nickname
       })
       .then(response => {
         console.log('회원가입 API 호출 성공:', response.data);
@@ -139,7 +155,7 @@ function SignupInput({ css }) {
   }
   
   const bootstrapEmailClass = (emailIsValid||email==='') ? '' : 'is-invalid'
-  const bootstrapEmailCodeClass = (emailCodeIsValid||emailCode==='') ? '' : 'is-invalid'
+  const bootstrapEmailCodeClass = (emailCodeIsValid) ? '' : 'is-invalid'
   const bootstrapPwClass = (passwordIsValid||password==='') ? '' : 'is-invalid'
   const bootstrapPwConfirmClass = (passwordsMatch||confirmPassword==='') ? '' : 'is-invalid'
 
@@ -241,52 +257,60 @@ function SignupInput({ css }) {
 
         {showAdditionalFields &&(
         <>
+
+          <div css={partCss}>
+              <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_WHITE}>
+                  닉네임
+              </Text>
+              <input value={nickname} className={`form-control `} onChange={handleConfirmNicknameChange} css={inputCss} style={{ borderWidth: '3.5px'}}/>
+              <br/>
+          </div>
         
-        <div css={partCss}>
-            <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_WHITE}>
-                비밀번호
+          <div css={partCss}>
+              <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_WHITE}>
+                  비밀번호
+              </Text>
+
+              <input type="password" className={`form-control ${bootstrapPwClass}`} value={password} onChange={handlePasswordChange} css={inputCss} style={{ borderWidth: '3.5px'}}/>
+          </div>
+
+          {(!passwordIsValid&&password!=='')   && (
+            <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
+              올바른 비밀번호 형식이 아닙니다.
             </Text>
+          )}
 
-            <input type="password" className={`form-control ${bootstrapPwClass}`} value={password} onChange={handlePasswordChange} css={inputCss} style={{ borderWidth: '3.5px'}}/>
-        </div>
-
-      {(!passwordIsValid&&password!=='')   && (
-        <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
-          올바른 비밀번호 형식이 아닙니다.
-        </Text>
-      )}
-
-      {(passwordIsValid||password==='') && (
-        <Text variant={theme.fontVariant.SMALL}>
-          <br />
-        </Text>
-      )}
-
-        <div css={partCss}>
-            <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_WHITE}>
-                비밀번호 확인
+          {(passwordIsValid||password==='') && (
+            <Text variant={theme.fontVariant.SMALL}>
+              <br />
             </Text>
-            <input type="password" className={`form-control ${bootstrapPwConfirmClass}`} value={confirmPassword} onChange={handleConfirmPasswordChange} css={inputCss} style={{ borderWidth: '3.5px'}}/>
-        </div>
+          )}
 
-      {(!passwordsMatch&&confirmPassword!=='') && (
-        <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
-          비밀번호가 일치하지 않습니다.
-        </Text>
-      )}
+          <div css={partCss}>
+              <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_WHITE}>
+                  비밀번호 확인
+              </Text>
+              <input type="password" className={`form-control ${bootstrapPwConfirmClass}`} value={confirmPassword} onChange={handleConfirmPasswordChange} css={inputCss} style={{ borderWidth: '3.5px'}}/>
+          </div>
 
-      {(passwordsMatch||confirmPassword==='') && (
-        <Text variant={theme.fontVariant.SMALL}>
-          <br />
-        </Text>
-      )}
+          {(!passwordsMatch&&confirmPassword!=='') && (
+            <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
+              비밀번호가 일치하지 않습니다.
+            </Text>
+          )}
 
-    
-    <Button type="button" variant={theme.buttonVariant.REGIS} className="btn btn-secondary" css={buttonCss} onClick={handleSignup}>회원가입</Button>
-    </>)}
+          {(passwordsMatch||confirmPassword==='') && (
+            <Text variant={theme.fontVariant.SMALL}>
+              <br />
+            </Text>
+          )}
+
+      
+        <Button type="button" variant={theme.buttonVariant.REGIS} className="btn btn-secondary" css={buttonCss} onClick={handleSignup}>회원가입</Button>
+      </>)}
 
     {showEmailButton && (
-        <Button type="button" variant={theme.buttonVariant.REGIS} className="btn btn-secondary" css={buttonCss} onClick={handleSendEmail}>
+        <Button type="button" variant={theme.buttonVariant.REGIS} className="btn btn-secondary" css={buttonCss} onClick={handleSendEmail} disabled={emailBtnIsDisabled}>
           이메일 전송
         </Button>
       )}

@@ -18,6 +18,7 @@ function Button({
   onClick,
   width,
   height,
+  disabled,
 }) {
   const cssObject = emotionCss(
     {
@@ -66,6 +67,7 @@ function Button({
           name={name}
           className={className}
           onClick={onClick}
+          disabled={disabled}
         >
           <Text color={theme.color.MAFIA_WHITE}>{children}</Text>
         </button>
@@ -111,6 +113,7 @@ Button.defaultProps = {
   onClick: () => {},
   width: '100',
   height: '100',
+  disabled: false,
 };
 
 Button.propTypes = {
@@ -125,6 +128,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   width: PropTypes.string,
   height: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 export default Button;
