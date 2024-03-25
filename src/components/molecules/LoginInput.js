@@ -57,7 +57,7 @@ function LoginInput({ css }) {
 
     const handleLogin= () => {
       
-      const apiUrl ='localhost:8081/member/authenticate';
+      const apiUrl ='http://localhost:8081/member/authenticate';
     
       axios.post(apiUrl, {
         email,

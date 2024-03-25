@@ -66,6 +66,7 @@ function Button({
           name={name}
           className={className}
           onClick={onClick}
+        
         >
           <Text color={theme.color.MAFIA_WHITE}>{children}</Text>
         </button>
