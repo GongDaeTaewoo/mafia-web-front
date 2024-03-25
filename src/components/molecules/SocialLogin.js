@@ -30,6 +30,19 @@ function SocialLogin({ css }) {
     }
   });
 
+  const handleKakaoLogin = () => {
+    window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=846957231662-otl2pvhe33nk273pnc5jbi1mo228mdig.apps.googleusercontent.com&redirect_uri=http://localhost:8081/member/oauth-types/google/validate-oauth2-code&response_type=code&scope=email';
+  };
+
+  const handleNaverLogin = () => {
+    window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=846957231662-otl2pvhe33nk273pnc5jbi1mo228mdig.apps.googleusercontent.com&redirect_uri=http://localhost:8081/member/oauth-types/google/validate-oauth2-code&response_type=code&scope=email';
+  };
+
+  const handleGoogleLogin = () => {
+    window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=846957231662-otl2pvhe33nk273pnc5jbi1mo228mdig.apps.googleusercontent.com&redirect_uri=http://localhost:8081/member/oauth-types/google/validate-oauth2-code&response_type=code&scope=email';
+  };
+  
+
 
   return (
     <div css={containerCss}>
@@ -40,6 +53,7 @@ function SocialLogin({ css }) {
         css={btnCss}
         width="60"
         height="60"
+        onClick={handleKakaoLogin}
         
       />
       <Button
@@ -49,6 +63,7 @@ function SocialLogin({ css }) {
         css={btnCss}
         width="60"
         height="60"
+        onClick={handleNaverLogin}
       />
       <Button
         variant={theme.buttonVariant.IMG}
@@ -56,6 +71,7 @@ function SocialLogin({ css }) {
         alt="google"
         width="60"
         height="60"
+        onClick={handleGoogleLogin}
       />
     </div>
   );

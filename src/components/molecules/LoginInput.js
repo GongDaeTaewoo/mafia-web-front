@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
 import axios from 'axios';
 import Text from '../atoms/Text';
 import theme from '../../styles/theme';
-import loginState from '../../recoils/loginState';
 import Button from '../atoms/Button';
 
 /** @jsxImportSource @emotion/react */
@@ -16,7 +14,6 @@ function LoginInput({ css }) {
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
-  const setLogin = useRecoilState(loginState)[1];
   const containerCss = emotionCss(
     {
       display: 'flex',
@@ -60,21 +57,19 @@ function LoginInput({ css }) {
 
     const handleLogin= () => {
       
-      const apiUrl ='/data/emailAuth.json';
+      const apiUrl ='localhost:8081/member/authenticate';
     
-      axios.get(apiUrl, {
+      axios.post(apiUrl, {
         email,
         password
       })
         .then(response => {
-          console.log('이메일 전송 API 호출 성공:', response.data);
+          console.log('로그인 성공:', response.data);
+          navigate('/'); 
         })
         .catch(error => {
-          console.error('이메일 전송 API 호출 실패:', error);
+          console.error('로그인 실패:', error);
         });
-      
-      setLogin(() => ({ id: 1, email: 'aaaaaa@gmail.com' }));
-      navigate('/');
       
     };
     
