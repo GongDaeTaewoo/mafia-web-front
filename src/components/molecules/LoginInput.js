@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
 import axios from 'axios';
+import { useSetRecoilState } from 'recoil';
 import Text from '../atoms/Text';
 import theme from '../../styles/theme';
 import Button from '../atoms/Button';
+import jwtState from '../../recoils/jwtState';
+
 
 /** @jsxImportSource @emotion/react */
 
@@ -13,6 +16,7 @@ function LoginInput({ css }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginResult, setLoginResult] = useState('true');
+  const setJwt = useSetRecoilState(jwtState);
 
   const navigate = useNavigate();
   const containerCss = emotionCss(
@@ -66,6 +70,7 @@ function LoginInput({ css }) {
       })
         .then(response => {
           console.log('로그인 성공:', response.data);
+          setJwt(response.data.body);
           navigate('/'); 
         })
         .catch(error => {
