@@ -12,6 +12,7 @@ import Button from '../atoms/Button';
 function LoginInput({ css }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loginResult, setLoginResult] = useState('true');
 
   const navigate = useNavigate();
   const containerCss = emotionCss(
@@ -69,6 +70,7 @@ function LoginInput({ css }) {
         })
         .catch(error => {
           console.error('로그인 실패:', error);
+          setLoginResult(false);
         });
       
     };
@@ -88,8 +90,17 @@ function LoginInput({ css }) {
           비밀번호
         </Text>
         <input className={`form-control `} type='password' css={inputCss} value={password} onChange={(e) => setPassword(e.target.value)}/>
+
       </div>
 
+
+      <div>
+        {!loginResult&&(
+          <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
+            잘못된 아이디 혹은 비밀번호입니다. 다시 입력해주시길바랍니다.
+          </Text>
+        )}
+      </div>
 
       <div css={buttonCss}>
       <Button type="button" variant={theme.buttonVariant.REGIS} className="btn btn-secondary" 
@@ -97,6 +108,8 @@ function LoginInput({ css }) {
         css={buttonCss}><Text fontWeight={theme.fontWeight.BOLD} color={theme.color.MAFIA_WHITE}>
           로그인 </Text></Button>
       </div>
+
+      
     </div>
   );
 }
