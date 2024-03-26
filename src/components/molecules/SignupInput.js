@@ -82,7 +82,7 @@ function SignupInput({ css }) {
     if(emailIsValid){
       setEmailBtnIsDisabled(true);
 
-      const apiUrl ='http://localhost:8081/member/sendMail';
+      const apiUrl ='http://localhost:8081/member/send-mail';
   
     axios.post(apiUrl, {
       email,
@@ -103,7 +103,7 @@ function SignupInput({ css }) {
   };
 
   const handleAdditionalFields= () => {
-    const apiUrl ='http://localhost:8081/member/confirmMail';
+    const apiUrl ='http://localhost:8081/member/confirm-mail';
 
     axios.post(apiUrl, {
       email,
@@ -131,7 +131,7 @@ function SignupInput({ css }) {
   };
 
   const handleSignup = () =>{
-    const apiUrl='http://localhost:8081/member/signup';
+    const apiUrl='http://localhost:8081/member/sign-up';
 
     if((passwordIsValid&&passwordsMatch)&&nickname!==''){
 
