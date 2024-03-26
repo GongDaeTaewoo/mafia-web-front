@@ -17,6 +17,7 @@ function SignupInput({ css }) {
   const [emailBgColor,setEmailBgColor] = useState('');
   const [emailIsValid, setEmailIsValid] = useState(false);
   const [showEmailButton, setShowEmailButton] = useState(true);
+  const [emailExist,setEmailExist] = useState(false);
 
   const [showEmailCodeButton,setShowEmailCodeButton] = useState(false);
   const [showEmailCodeField,setShowEmailCodeField] = useState(false);
@@ -41,6 +42,7 @@ function SignupInput({ css }) {
   const handleConfirmEmailChange = (e) => {
     const newEmail = e.target.value;
     setEmail(newEmail);
+    setEmailExist(false);
     
     const emailRegex = /^[A-Za-z0-9]+@[A-Za-z]+\.[A-Za-z]+$/;
     const isVaildEmail= emailRegex.test(newEmail);
@@ -97,7 +99,12 @@ function SignupInput({ css }) {
       })
       .catch(error => {
         console.error('이메일 전송 API 호출 실패:', error);
+        console.log(error);
         setEmailBtnIsDisabled(false);
+        if(error.code==='ERR_BAD_REQUEST'){
+          setEmailExist(true);
+        }
+        
       });
     }
   };
@@ -218,13 +225,19 @@ function SignupInput({ css }) {
             <input className={`form-control ${bootstrapEmailClass} ${emailBgColor}`} value={email} onChange={handleConfirmEmailChange} css={inputCss} style={{ borderWidth: '3.5px'}} disabled={emailIsDisabled}/>
         </div>
 
-        {!emailIsValid&&email!=='' &&(
+        {!emailIsValid&&email!=='' &&!emailExist&&(
           <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
             올바른 이메일 형식이 아닙니다.
           </Text>
         )}
 
-        {(emailIsValid||email==='') && (
+        {emailExist&&(
+          <Text variant={theme.fontVariant.SMALL} color={theme.color.MAFIA_RED}>
+            이미 회원가입된 이메일입니다..
+          </Text>
+        )}
+
+        {(emailIsValid||email==='') && !emailExist && (
           <Text variant={theme.fontVariant.SMALL}>
             <br/>
           </Text>
