@@ -11,19 +11,23 @@ function SignupTemplate({ css }) {
     {
       display: 'flex',
       flexDirection: 'column',
-      paddingTop:'10rem',
+      paddingTop:'5rem',
       alignItems: 'center',
       backgroundColor: theme.color.MAFIA_BACKGROUND,
-      minHeight: '135vh',
-      zIndex: 0,
+      minHeight: '110vh',
+      '@media (max-width: 768px)': {
+        paddingTop:'0rem',
+        paddingLeft: '1rem',
+      }
     },
     css,
   ); 
 
-  return (
+  return (  
     <div css= {containerCss}>
       <SignupView/>
     </div>
+
   );
 }
 

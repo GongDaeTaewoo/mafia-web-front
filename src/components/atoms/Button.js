@@ -18,6 +18,7 @@ function Button({
   onClick,
   width,
   height,
+  disabled,
 }) {
   const cssObject = emotionCss(
     {
@@ -33,6 +34,7 @@ function Button({
     },
     cssObject,
   );
+
 
   const plainButtonCss = emotionCss(
     {
@@ -63,11 +65,11 @@ function Button({
           // eslint-disable-next-line react/button-has-type
           type={buttonType}
           name={name}
-          className={`btn-group ${className}`}
-          css={grayButtonCss}
+          className={className}
           onClick={onClick}
+          disabled={disabled}
         >
-          <Text color={theme.color.MAFIA_WHITE}>회원가입</Text>
+          <Text color={theme.color.MAFIA_WHITE}>{children}</Text>
         </button>
       );
     case theme.buttonVariant.IMG:
@@ -111,6 +113,7 @@ Button.defaultProps = {
   onClick: () => {},
   width: '100',
   height: '100',
+  disabled: false,
 };
 
 Button.propTypes = {
@@ -125,6 +128,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   width: PropTypes.string,
   height: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 export default Button;
