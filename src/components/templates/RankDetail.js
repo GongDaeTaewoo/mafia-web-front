@@ -137,8 +137,6 @@ function RankDetail({ className, css }) {
     <RankListView
       categories={['마피아', '시민', '경찰', '의사']}
       // divisions={['순위', '프로필', '이름', '전적', '승률']}
-      categories={['마피아', '시민', '경찰', '의사']}
-      // divisions={['순위', '프로필', '이름', '전적', '승률']}
       currentPage={2}
       totalPage={13}
       listItems={data}
