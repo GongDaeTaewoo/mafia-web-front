@@ -35,7 +35,7 @@ function SocialLogin({ css }) {
   };
 
   const handleNaverLogin = () => {
-    window.location.href = 'https://nid.naver.com/oauth2.0/authorize?client_id=VLYasI8bjHq20vmOhBqs&response_type=code&redirect_uri=http://localhost:8081/member/oauth-types/naver/validate-oauth2-code&state=state';
+    window.location.href = 'https://nid.naver.com/oauth2.0/authorize?client_id=VLYasI8bjHq20vmOhBqs&response_type=code&redirect_uri=http://localhost:8081/member/oauth-types/naver/validate-oauth2-code';
   };
 
   const handleGoogleLogin = () => {
