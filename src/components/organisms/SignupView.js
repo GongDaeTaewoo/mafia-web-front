@@ -1,60 +1,81 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css as emotionCss } from '@emotion/react';
-import ImageView from '../atoms/ImageView';
-import WantedImage from '../../assets/images/wanted.svg';
-import WantedBackgroundImage from '../../assets/images/wanted_background.svg';
-import SignupInput from '../molecules/SignupInput';
+import SignupInput from '../molecules/SignupInput'
 import theme from '../../styles/theme';
 import Text from '../atoms/Text';
-
 /** @jsxImportSource @emotion/react */
 
 function SignupView({ css }) {
+  const welcomeText = '마피아 세계에 오신 것을 환영합니다.';
+  const [displayedText, setDisplayedText] = useState('');
+
+  useEffect(() => {
+    let currentCharIndex = -1;
+  
+    const typingAnimation = setInterval(() => {
+      if (currentCharIndex < welcomeText.length -1) {
+        currentCharIndex += 1;
+        setDisplayedText((prevText) => prevText + welcomeText[currentCharIndex]);
+        
+      } else {
+        setDisplayedText((prevText) =>
+        prevText.endsWith('.')
+        ? `${prevText.slice(0, -1)} `
+        : `${prevText.slice(0, -1)}.`
+        );
+      }
+    }, 200);
+  
+    return () => clearInterval(typingAnimation);
+  }, []);
+
   const containerCss = emotionCss(
+    {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems:'flex-start',
+      width: '80%',
+      '@media (max-width: 1300px)': {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems:'center',
+        marginBottom:'2rem',
+      }
+    },
+    css,
+  );
+
+  const containerContentCss = emotionCss(
     {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: '5rem',
-      zIndex: 1,
+      marginTop:'10rem',
+      '@media (max-width: 1300px)': {
+        marginBottom:'2rem',
+      }
     },
     css,
-  ); 
-
-  const wantedCss = emotionCss(
-    {
-        width: '40rem',
-        height: '10rem',
-        zIndex: 1,
-    }
   );
 
-  const imageCss = emotionCss(
-    {
-        position: 'absolute',
-        width: '60rem', 
-        height: '80rem',
-        zIndex: 0,
-    }
-  );
+  const isMobile = () => window.innerWidth <= 600;
 
-  const textCss = emotionCss(
-    {
-      marginTop: '3rem',
-      zIndex: 1,
-    },
-    css,
-  ); 
 
   return (
     <div css= {containerCss}>
-      <ImageView src={WantedBackgroundImage} css={imageCss} />
-      <ImageView src={WantedImage} alt="wanted" css={wantedCss} />
-      <Text variant={theme.fontVariant.H4} color={theme.color.MAFIA_RED} css={textCss} > 
-            마피아세계에 오신 걸 환영합니다.
-      </Text>
+      <div css={containerContentCss}>
+        <Text variant={isMobile() ? theme.fontVariant.H4 : theme.fontVariant.H2} fontWeight={theme.fontWeight.BOLD} color={theme.color.MAFIA_RED}  > 
+            {displayedText}
+        </Text>
+        <Text variant={isMobile() ? theme.fontVariant.H6 : theme.fontVariant.H4} fontWeight={theme.fontWeight.BOLD} color={theme.color.MAFIA_LIGHT_GRAY}  > 
+              MAFIA.GG 계정 생성을 위해 이메일을 등록하고 인증하세요.
+        </Text>
+      </div>
+
+      
+      
       <SignupInput/>
     </div>
   );

@@ -14,6 +14,7 @@ import ListItem from '../atoms/ListItem';
 
 function RankListView({
   categories,
+  categories,
   currentPage,
   totalPage,
   listItems,
@@ -23,6 +24,11 @@ function RankListView({
   css,
 }) {
   const cssObject = emotionCss(
+    {
+      backgroundColor: theme.color.MAFIA_CONTAINER,
+      borderTopLeftRadius: '25px',
+      borderTopRightRadius: '25px',
+    },
     {
       backgroundColor: theme.color.MAFIA_CONTAINER,
       borderTopLeftRadius: '25px',
@@ -185,6 +191,7 @@ function RankListView({
 
 RankListView.defaultProps = {
   categories: undefined,
+  categories: undefined,
   currentPage: 1,
   totalPage: 1,
   onListItemClick: () => {},
@@ -194,6 +201,7 @@ RankListView.defaultProps = {
 };
 
 RankListView.propTypes = {
+  categories: PropTypes.arrayOf(string),
   categories: PropTypes.arrayOf(string),
   currentPage: PropTypes.number,
   totalPage: PropTypes.number,

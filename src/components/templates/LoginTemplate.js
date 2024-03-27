@@ -13,9 +13,13 @@ function Login({ css }) {
     display: "flex",
     justifyContent: "center",
     alignItems: 'flex-start',
-    minHeight: '150vh',
+    minHeight: '100vh',
     paddingTop: '5rem',
+    marginBottom: '2rem',
     backgroundColor : theme.color.MAFIA_BACKGROUND,
+    '@media (max-width: 768px)': {
+      alignItems: 'flex-start',
+    },
     },
     css,
   );

@@ -15,13 +15,34 @@ function SocialLogin({ css }) {
       display: 'flex',
       justifyContent: 'space-between',
       paddingTop: '5rem',
+      '@media (max-width: 768px)': {
+        paddingTop: '3rem',
+      }
+  
     },
     css,
   );
 
   const btnCss = emotionCss({
     marginRight: '5rem',
+    '@media (max-width: 768px)': {
+      marginRight: '3rem',
+    }
   });
+
+  const handleKakaoLogin = () => {
+    window.location.href = 'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a63d6709e4a9de18683c0dddd9289479&redirect_uri=http://localhost:8081/member/oauth-types/kakao/validate-oauth2-code';
+  };
+
+  const handleNaverLogin = () => {
+    window.location.href = 'https://nid.naver.com/oauth2.0/authorize?client_id=VLYasI8bjHq20vmOhBqs&response_type=code&redirect_uri=http://localhost:8081/member/oauth-types/naver/validate-oauth2-code';
+  };
+
+  const handleGoogleLogin = () => {
+    window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=846957231662-otl2pvhe33nk273pnc5jbi1mo228mdig.apps.googleusercontent.com&redirect_uri=http://localhost:8081/member/oauth-types/google/validate-oauth2-code&response_type=code&scope=email';
+  };
+  
+
 
   return (
     <div css={containerCss}>
@@ -30,23 +51,27 @@ function SocialLogin({ css }) {
         imageSrc={kakaoImage}
         alt="kakao"
         css={btnCss}
-        width="70"
-        height="70"
+        width="60"
+        height="60"
+        onClick={handleKakaoLogin}
+        
       />
       <Button
         variant={theme.buttonVariant.IMG}
         imageSrc={naverImage}
         alt="naver"
         css={btnCss}
-        width="70"
-        height="70"
+        width="60"
+        height="60"
+        onClick={handleNaverLogin}
       />
       <Button
         variant={theme.buttonVariant.IMG}
         imageSrc={googleImage}
         alt="google"
-        width="70"
-        height="70"
+        width="60"
+        height="60"
+        onClick={handleGoogleLogin}
       />
     </div>
   );
