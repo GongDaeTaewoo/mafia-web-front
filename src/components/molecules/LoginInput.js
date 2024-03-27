@@ -69,12 +69,10 @@ function LoginInput({ css }) {
         password
       })
         .then(response => {
-          console.log('로그인 성공:', response.data);
           setJwt(response.data.body);
           navigate('/'); 
         })
-        .catch(error => {
-          console.error('로그인 실패:', error);
+        .catch(() => {
           setLoginResult(false);
         });
       

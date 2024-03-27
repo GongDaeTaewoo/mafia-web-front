@@ -89,8 +89,7 @@ function SignupInput({ css }) {
     axios.post(apiUrl, {
       email,
     })
-      .then(response => {
-        console.log('이메일 전송 API 호출 성공', response.data);
+      .then(()=> {
         setEmailBgColor('bg-secondary');
         setShowEmailButton(false);
         setEmailIsDisabled(true);
@@ -98,8 +97,6 @@ function SignupInput({ css }) {
         setShowEmailCodeButton(true);
       })
       .catch(error => {
-        console.error('이메일 전송 API 호출 실패:', error);
-        console.log(error);
         setEmailBtnIsDisabled(false);
         if(error.code==='ERR_BAD_REQUEST'){
           setEmailExist(true);
@@ -117,10 +114,7 @@ function SignupInput({ css }) {
       emailCode,
     })
       .then(response => {
-        console.log('인증코드 API 호출 성공', response.data);
-
         if(response.data.body === true){ 
-          console.log('인증코드 일치');
           setEmailCodeBgColor('bg-secondary');
           setEmailCodeIsDisabled(true);
 
@@ -128,13 +122,9 @@ function SignupInput({ css }) {
           setShowAdditionalFields(true);
           setShowEmailCodeButton(false);
         }else{
-          console.log('인증코드 불일치');
           setEmailCodeIsValid(false);
         }
       })
-      .catch(error => {
-        console.error('인증코드 API 호출 실패:', error);
-      });
   };
 
   const handleSignup = () =>{
@@ -148,15 +138,12 @@ function SignupInput({ css }) {
         password,
         nickname
       })
-      .then(response => {
-        console.log('회원가입 API 호출 성공:', response.data);
+      .then(()=> {
 
         navigate('/login');
         
       })
-      .catch(error => {
-        console.error('회원가입 API 호출 실패:', error);
-      });
+      
     }
     
   }
