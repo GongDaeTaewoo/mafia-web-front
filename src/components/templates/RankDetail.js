@@ -4,6 +4,7 @@ import { css as emotionCss } from '@emotion/react';
 import image from '../../assets/images/mafia_icon.svg';
 import theme from '../../styles/theme';
 import RankListView from '../organisms/RankListView';
+// import shape from '../../assets/images/certificate.svg';
 // import RankListView from '../organisms/RankListView';
 
 /** @jsxImportSource @emotion/react */
@@ -55,7 +56,7 @@ function RankDetail({ className, css }) {
       rank: 6,
       cards: [{ id: 6, title: 'title', content: 'content' }],
       total: 100,
-      value: 50,
+      value: 80,
       unit: theme.donutBarUnit.PERCENTAGE,
     },
     {
@@ -63,7 +64,7 @@ function RankDetail({ className, css }) {
       rank: 7,
       cards: [{ id: 7, title: 'title', content: 'content' }],
       total: 100,
-      value: 50,
+      value: 60,
       unit: theme.donutBarUnit.PERCENTAGE,
     },
     {
@@ -71,7 +72,7 @@ function RankDetail({ className, css }) {
       rank: 8,
       cards: [{ id: 8, title: 'title', content: 'content' }],
       total: 100,
-      value: 50,
+      value: 60,
       unit: theme.donutBarUnit.PERCENTAGE,
     },
     {
@@ -79,7 +80,7 @@ function RankDetail({ className, css }) {
       rank: 9,
       cards: [{ id: 9, title: 'title', content: 'content' }],
       total: 100,
-      value: 50,
+      value: 30,
       unit: theme.donutBarUnit.PERCENTAGE,
     },
     {
