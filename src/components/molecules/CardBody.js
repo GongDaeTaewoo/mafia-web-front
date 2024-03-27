@@ -15,6 +15,7 @@ function CardBody({
   imageWeight,
   className,
   css,
+  fontCss,
 }) {
   const cssObject = emotionCss({}, css);
 
@@ -32,12 +33,17 @@ function CardBody({
             variant={theme.fontVariant.H5}
             color={theme.color.MAFIA_WHITE}
             className="card-title"
+            css={fontCss}
           >
             {title}
           </Text>
         )}
         {content && (
-          <Text color={theme.color.MAFIA_WHITE} className="card-text">
+          <Text
+            color={theme.color.MAFIA_WHITE}
+            className="card-text"
+            css={fontCss}
+          >
             {content}
           </Text>
         )}
@@ -55,6 +61,7 @@ CardBody.defaultProps = {
   content: undefined,
   className: '',
   css: emotionCss({}),
+  fontCss: emotionCss({}),
 };
 
 CardBody.propTypes = {
@@ -65,6 +72,7 @@ CardBody.propTypes = {
   content: PropTypes.string,
   className: PropTypes.string,
   css: PropTypes.objectOf(emotionCss),
+  fontCss: PropTypes.objectOf(emotionCss),
 };
 
 export default CardBody;

@@ -33,13 +33,19 @@ function RankCardListView({ children, imageSrc, cards, className, css, rank }) {
   };
 
   const content = (
-    <div className="row h-100 p-0 m-0">
+    <div className="row h-100 p-0 m-0 d-flex align-items-center">
       {cards.map((card) => (
         <div className="col" key={card.id}>
           <CardBody
             title={card.title}
             content={card.content}
             imageSrc={card.imageSrc}
+            fontCss={emotionCss({
+              fontSize: '12px',
+              '@media (min-width: 768px)': {
+                fontSize: '15px',
+              },
+            })}
           />
         </div>
       ))}
@@ -50,34 +56,24 @@ function RankCardListView({ children, imageSrc, cards, className, css, rank }) {
       )}
     </div>
   );
-  return imageSrc ? (
+  return (
     <ListItem className={`${className} list-group-item`} css={cssObject}>
       <div className="row p-0 w-100">
         <Rank
           variant={getRankVariant(rank)}
           fontSize="4rem"
-          className="col-2 p-0 me-auto img-fluid ms-2 me-2"
+          className="col-1 p-0 img-fluid mx-3"
         >
           {rank}
         </Rank>
         <ImageView
           src={imageSrc}
-          className="col-2 p-0 me-auto img-fluid ms-2"
+          className="col-3 p-0 img-fluid mx-4"
           css={emotionCss({ maxWidth: '8rem' })}
         />
         <div className="col">{content}</div>
       </div>
     </ListItem>
-  ) : (
-    // <RankListItem
-    //   src={imageSrc}
-    //   className={className}
-    //   css={cssObject}
-    //   rank={rank}
-    // >
-    //   {content}
-    // </RankListItem>
-    <div />
   );
 }
 
