@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/** @jsxImportSource @emotion/react */
+
 function Input({ variant, inputType }) {
   switch (variant) {
     case 'long':
       return (
         <input
-          className="form-control bg-dark-subtle"
+          className="form-control"
           style={{ width: '800px' }}
           type={inputType}
         />
@@ -14,7 +16,7 @@ function Input({ variant, inputType }) {
     case 'short':
       return (
         <input
-          className="form-control bg-dark-subtle"
+          className="form-control"
           style={{ width: '500px' }}
           type={inputType}
         />

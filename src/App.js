@@ -8,6 +8,7 @@ import OAuthSignupPage from './pages/signup/OAuthSignupPage';
 import RankDetailPage from './pages/RankDetailPage';
 import LoginPage from './pages/LoginPage';
 import MyPage from './pages/MyPage';
+import SearchPage from './pages/SearchPage';
 import HeaderNav from './components/molecules/HeaderNav';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
     <RecoilRoot>
       <HeaderNav />
       <Routes>
+        <Route path="/searchPage/:page" element={<SearchPage />} />
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<Outlet />}>
