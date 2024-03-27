@@ -39,7 +39,6 @@ function RankCardListView({ children, imageSrc, cards, className, css, rank }) {
           variant={getRankVariant(rank)}
           fontSize="4rem"
           className="col-1 p-0 img-fluid mx-3"
-          className="col-1 p-0 img-fluid mx-3"
         >
           {rank}
         </Rank>
