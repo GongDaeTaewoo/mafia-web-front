@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< Updated upstream
 import Text from '../components/atoms/Text';
 import Pagination from '../components/organisms/Pagination';
 
@@ -21,6 +22,13 @@ function MainPage() {
       <br />
     </div>
   );
+=======
+import MainTemplate from '../components/templates/MainTemplate';
+
+function MainPage() {
+  return <MainTemplate className="mainContainer"/>
+>>>>>>> Stashed changes
 }
 
 export default MainPage;
+
