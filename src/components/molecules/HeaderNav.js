@@ -1,14 +1,14 @@
 import React from 'react';
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import Icon from '../atoms/Icon';
 import Button from '../atoms/Button';
-import loginState from '../../recoils/loginState';
+import userinfoState from '../../recoils/userinfoState';
 
 function HeaderNav() {
   const navigate = useNavigate();
-  const resetLogin = useResetRecoilState(loginState);
-  const login = useRecoilState(loginState);
+  const resetUserinfo = useResetRecoilState(userinfoState);
+  const userinfo = useRecoilValue(userinfoState);
   const loginDropdown = (
     <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark bg-dark">
       <li>
@@ -17,7 +17,7 @@ function HeaderNav() {
           href="/"
           onClick={(e) => {
             e.preventDefault();
-            navigate(`/mypage/pages/${login[0].id}`);
+            navigate(`/mypage/pages/${userinfo.id}`);
           }}
         >
           마이페이지
@@ -32,7 +32,7 @@ function HeaderNav() {
           href="/"
           onClick={(e) => {
             e.preventDefault();
-            resetLogin();
+            resetUserinfo();
           }}
         >
           로그아웃
@@ -125,7 +125,7 @@ function HeaderNav() {
             <Button className="nav-link dropdown-toggle">
               <Icon variant="2rem" />
             </Button>
-            {login[0].id === undefined ? anonymousDropdown : loginDropdown}
+            {userinfo.id === undefined ? anonymousDropdown : loginDropdown}
           </div>
         </div>
       </div>
