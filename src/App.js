@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage';
 import MyPage from './pages/MyPage';
 import SearchPage from './pages/SearchPage';
 import HeaderNav from './components/molecules/HeaderNav';
+import TokenRedirectPage from './pages/TokenRedirectPage';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/mypage" element={<Outlet />}>
           <Route path="pages/:id" element={<MyPage />} />
         </Route>
+        <Route path="/token-redirect" element={<TokenRedirectPage />} />
       </Routes>
     </RecoilRoot>
   );
