@@ -11,6 +11,7 @@ import heart from '../assets/images/toggle/heart.svg';
 import unheart from '../assets/images/toggle/unheart.svg';
 import { getGameHistories } from '../axios/apis/game';
 import { isNullOrUndefined, jobEnum, reformatDateTime } from '../utils';
+import { getProfileByUserId, patchProfile } from '../axios/apis/profile';
 
 const getGameResultMessage = (job, mafiaWon) => {
   if (isNullOrUndefined(job)) {
@@ -58,6 +59,80 @@ const loadGameHistories = (userId, setGameHistories, page = 0, size = 5) => {
   });
 };
 
+const loadProfileByUserId = (userId, setProfile, setWinningRates) => {
+  getProfileByUserId(userId).then((response) => {
+    const profile = response.data.body;
+    profile.citizenWinningRate =
+      Math.round(profile.citizenWinningRate * 100) / 100;
+    profile.mafiaWinningRate = Math.round(profile.mafiaWinningRate * 100) / 100;
+    profile.doctorWinningRate =
+      Math.round(profile.doctorWinningRate * 100) / 100;
+    profile.policeWinningRate =
+      Math.round(profile.policeWinningRate * 100) / 100;
+    profile.averageWinningRate =
+      Math.round(profile.averageWinningRate * 100) / 100;
+    setProfile(profile);
+    setWinningRates([
+      {
+        id: 1,
+        imageSrc: mafiaIcon,
+        cards: [
+          {
+            id: 1,
+            title: '시민',
+            content: `시민 플레이 승률 ${profile.citizenWinningRate}`,
+          },
+        ],
+        value: profile.citizenWinningRate,
+        total: 1,
+        unit: theme.donutBarUnit.PERCENTAGE,
+      },
+      {
+        id: 2,
+        imageSrc: mafiaIcon,
+        cards: [
+          {
+            id: 1,
+            title: '마피아',
+            content: `마피아 플레이 승률 ${profile.mafiaWinningRate}`,
+          },
+        ],
+        value: profile.mafiaWinningRate,
+        total: 1,
+        unit: theme.donutBarUnit.PERCENTAGE,
+      },
+      {
+        id: 3,
+        imageSrc: mafiaIcon,
+        cards: [
+          {
+            id: 1,
+            title: '의사',
+            content: `의사 플레이 승률 ${profile.doctorWinningRate}`,
+          },
+        ],
+        value: profile.doctorWinningRate,
+        total: 1,
+        unit: theme.donutBarUnit.PERCENTAGE,
+      },
+      {
+        id: 4,
+        imageSrc: mafiaIcon,
+        cards: [
+          {
+            id: 1,
+            title: '경찰',
+            content: `경찰 플레이 승률 ${profile.policeWinningRate}`,
+          },
+        ],
+        value: profile.policeWinningRate,
+        total: 1,
+        unit: theme.donutBarUnit.PERCENTAGE,
+      },
+    ]);
+  });
+};
+
 function MyPage() {
   const params = useParams();
   const userId = params.id;
@@ -67,71 +142,56 @@ function MyPage() {
     pageSize: 10,
     totalPage: 1,
   });
+  const [profile, setProfile] = useState({
+    imageUrl: undefined,
+    userName: '닉네임',
+    description: '안녕하세요',
+    rating: 0,
+    mafiaWinningRate: 0,
+    citizenWinningRate: 0,
+    policeWinningRate: 0,
+    doctorWinningRate: 0,
+    averageWinningRate: 0,
+  });
+  const [winningRates, setWinningRates] = useState([]);
 
   const onGameHistoryPaginationItemClick = (i) => {
     const page = i - 1;
     loadGameHistories(userId, setGameHistories, page);
   };
+  const onProfileSubmit = (e) => {
+    const data = {
+      userName: e.target.playerName.value,
+      description: e.target.message.value,
+      //   imageUrl: e.target.imageFile.value,
+    };
+    patchProfile(userId, data).then(() =>
+      loadProfileByUserId(userId, setProfile, setWinningRates),
+    );
+  };
 
   useEffect(() => {
     loadGameHistories(userId, setGameHistories);
+    loadProfileByUserId(userId, setProfile, setWinningRates);
   }, []);
   return (
     <div className="container">
       <div className="row">
         <div className="col m-3">
           <ProfileCard
-            playerName="홍길동"
+            playerName={profile.userName}
             playerTitle="포커페이스"
-            imageSrc={mafiaIcon}
-            message="안녕하세요"
+            imageSrc={profile.imageUrl || mafiaIcon}
+            message={profile.description}
             editable
+            onSubmit={onProfileSubmit}
           />
         </div>
         <Break />
         <DonutListView
           className="col m-3"
           title="직업 승률"
-          listItems={[
-            {
-              id: 1,
-              imageSrc: mafiaIcon,
-              cards: [{ id: 1, title: '시민', content: '마피아 적중률 60%' }],
-              value: 8,
-              total: 12,
-              unit: theme.donutBarUnit.FRACTION,
-            },
-            {
-              id: 2,
-              imageSrc: mafiaIcon,
-              cards: [{ id: 1, title: '마피아', content: '살해 성공률 60%' }],
-              value: 10,
-              total: 20,
-              unit: theme.donutBarUnit.FRACTION,
-            },
-            {
-              id: 3,
-              imageSrc: mafiaIcon,
-              cards: [
-                {
-                  id: 1,
-                  title: '의사',
-                  content: '마피아 적중률 60%\n치료 성공률 60%',
-                },
-              ],
-              value: 22,
-              total: 25,
-              unit: theme.donutBarUnit.FRACTION,
-            },
-            {
-              id: 4,
-              imageSrc: mafiaIcon,
-              cards: [{ id: 1, title: '경찰', content: '마피아 적중률 60%' }],
-              value: 2,
-              total: 8,
-              unit: theme.donutBarUnit.FRACTION,
-            },
-          ]}
+          listItems={winningRates}
         />
         <Break />
         <ImageCardListView

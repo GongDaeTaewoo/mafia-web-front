@@ -22,40 +22,61 @@ function ProfileCard({
 }) {
   const cssObject = emotionCss({}, css);
   const [editMode, setEditMode] = useState(false);
-  const [messageContent, setMessageContent] = useState(message);
   const readonlyContent = (
-    <div
-      className="p-3"
-      css={emotionCss({
-        backgroundColor: theme.color.MAFIA_ITEM,
-        borderRadius: 5,
-      })}
-    >
-      <Text color={theme.color.MAFIA_WHITE}>{messageContent}</Text>
-      {editable && (
-        <Button
-          className="ms-1"
-          onClick={() => {
-            setEditMode(true);
-          }}
-        >
-          <Icon variant={theme.fontSize.XS} className="fas fa-pen" />
-        </Button>
-      )}
-    </div>
+    <>
+      <Text color={theme.color.MAFIA_WHITE} variant={theme.fontVariant.H5}>
+        {playerName}
+      </Text>
+      <div
+        className="p-3"
+        css={emotionCss({
+          backgroundColor: theme.color.MAFIA_ITEM,
+          borderRadius: 5,
+        })}
+      >
+        <Text color={theme.color.MAFIA_WHITE}>{message}</Text>
+        {editable && (
+          <Button
+            className="ms-1"
+            onClick={() => {
+              setEditMode(true);
+            }}
+          >
+            <Icon variant={theme.fontSize.XS} className="fas fa-pen" />
+          </Button>
+        )}
+      </div>
+    </>
   );
   const editableContent = (
     <form
+      className="row"
       onSubmit={(e) => {
         e.preventDefault();
         onSubmit(e);
         setEditMode(false);
-        setMessageContent(e.target.message.value);
       }}
     >
+      <input
+        name="playerName"
+        type="text"
+        defaultValue={playerName}
+        css={emotionCss({
+          backgroundColor: theme.color.MAFIA_ITEM,
+          borderColor: theme.color.MAFIA_BACKGROUND,
+          borderStyle: 'solid',
+          borderWidth: 1,
+          borderRadius: 5,
+        })}
+      />
+      <input
+        name="imageFile"
+        type="file"
+        className="form-control bg-dark text-white"
+      />
       <textarea
         name="message"
-        defaultValue={messageContent}
+        defaultValue={message}
         css={emotionCss({
           backgroundColor: theme.color.MAFIA_ITEM,
           borderColor: theme.color.MAFIA_BACKGROUND,
@@ -72,9 +93,6 @@ function ProfileCard({
     <CardContainer css={cssObject} className={className}>
       <CardBody imageSrc={imageSrc} imageWeight={4}>
         <Text color={theme.color.MAFIA_RED}>{`[${playerTitle}]`}</Text>
-        <Text color={theme.color.MAFIA_WHITE} variant={theme.fontVariant.H5}>
-          {playerName}
-        </Text>
         {editMode ? editableContent : readonlyContent}
       </CardBody>
     </CardContainer>
