@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import ProfileCard from '../components/organisms/ProfileCard';
 import mafiaIcon from '../assets/images/mafia_icon.svg';
 import ImageCardListView from '../components/organisms/ImageCardListView';
@@ -8,8 +9,73 @@ import Break from '../components/atoms/Break';
 import ToggleListView from '../components/organisms/ToggleListView';
 import heart from '../assets/images/toggle/heart.svg';
 import unheart from '../assets/images/toggle/unheart.svg';
+import { getGameHistories } from '../axios/apis/game';
+import { isNullOrUndefined, jobEnum, reformatDateTime } from '../utils';
+
+const getGameResultMessage = (job, mafiaWon) => {
+  if (isNullOrUndefined(job)) {
+    return '미정';
+  }
+  if (job === jobEnum.MAFIA && mafiaWon) {
+    return '승리';
+  }
+  if (job !== jobEnum.MAFIA && !mafiaWon) {
+    return '승리';
+  }
+  return '패배';
+};
+
+const loadGameHistories = (userId, setGameHistories, page = 0, size = 5) => {
+  getGameHistories(userId, page, size).then((response) => {
+    let items = response.data.body.content;
+    const pageNo = response.data.body.number;
+    const totalPage = response.data.body.totalPages;
+    const pageSize = response.data.body.size;
+
+    items = items.map((item) => ({
+      id: item.id,
+      imageSrc: item.imageUrl || mafiaIcon,
+      cards: [
+        {
+          id: 1,
+          title: reformatDateTime(item.createdAt),
+          content: `플레이 직업: ${jobEnum.toMessage(item.job)}`,
+        },
+        {
+          id: 2,
+          title: '결과',
+          content: getGameResultMessage(item.job, item.mafiaWon),
+        },
+        { id: 3, title: '전체 라운드', content: item.totalRound },
+        {
+          id: 4,
+          title: '최종 생존',
+          content: item.survival ? '생존' : '사망',
+        },
+      ],
+    }));
+    setGameHistories({ items, pageNo, totalPage, pageSize });
+  });
+};
 
 function MyPage() {
+  const params = useParams();
+  const userId = params.id;
+  const [gameHistories, setGameHistories] = useState({
+    items: [],
+    pageNo: 0,
+    pageSize: 10,
+    totalPage: 1,
+  });
+
+  const onGameHistoryPaginationItemClick = (i) => {
+    const page = i - 1;
+    loadGameHistories(userId, setGameHistories, page);
+  };
+
+  useEffect(() => {
+    loadGameHistories(userId, setGameHistories);
+  }, []);
   return (
     <div className="container">
       <div className="row">
@@ -186,60 +252,10 @@ function MyPage() {
           <ImageCardListView
             className="col"
             title="게임 이력"
-            currentPage={10}
-            totalPage={14}
-            listItems={[
-              {
-                id: 1,
-                imageSrc: mafiaIcon,
-                cards: [
-                  { id: 1, title: '직업', content: '마피아' },
-                  { id: 2, title: '결과', content: '승리' },
-                  { id: 3, title: '전체 라운드', content: '12 round' },
-                  { id: 4, title: '생존 라운드', content: '12 round' },
-                ],
-              },
-              {
-                id: 2,
-                imageSrc: mafiaIcon,
-                cards: [
-                  { id: 1, title: '직업', content: '마피아' },
-                  { id: 2, title: '결과', content: '승리' },
-                  { id: 3, title: '전체 라운드', content: '12 round' },
-                  { id: 4, title: '생존 라운드', content: '12 round' },
-                ],
-              },
-              {
-                id: 3,
-                imageSrc: mafiaIcon,
-                cards: [
-                  { id: 1, title: '직업', content: '마피아' },
-                  { id: 2, title: '결과', content: '승리' },
-                  { id: 3, title: '전체 라운드', content: '12 round' },
-                  { id: 4, title: '생존 라운드', content: '12 round' },
-                ],
-              },
-              {
-                id: 4,
-                imageSrc: mafiaIcon,
-                cards: [
-                  { id: 1, title: '직업', content: '마피아' },
-                  { id: 2, title: '결과', content: '승리' },
-                  { id: 3, title: '전체 라운드', content: '12 round' },
-                  { id: 4, title: '생존 라운드', content: '12 round' },
-                ],
-              },
-              {
-                id: 5,
-                imageSrc: mafiaIcon,
-                cards: [
-                  { id: 1, title: '직업', content: '마피아' },
-                  { id: 2, title: '결과', content: '승리' },
-                  { id: 3, title: '전체 라운드', content: '12 round' },
-                  { id: 4, title: '생존 라운드', content: '12 round' },
-                ],
-              },
-            ]}
+            currentPage={gameHistories.pageNo + 1}
+            totalPage={gameHistories.totalPage}
+            listItems={gameHistories.items}
+            onPaginationItemClick={onGameHistoryPaginationItemClick}
           />
         </div>
       </div>
